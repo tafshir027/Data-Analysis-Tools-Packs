@@ -1,0 +1,205 @@
+Sub DataVisualization()
+    Dim ws As Worksheet
+    Dim selectedRange As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim resultInsertRange As Range
+    Dim chart As ChartObject
+    Dim pivotTableRange As Range
+    Dim pivotTable As PivotTable
+    Dim pivotSheet As Worksheet
+
+    Set ws = ActiveSheet
+    On Error Resume Next
+    ' Get the selected range for analysis
+    Set selectedRange = Application.InputBox("Select the range of cells to apply visualization:", Type:=8)
+    On Error GoTo 0
+
+    ' Check if the user canceled the selection
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Ask user where they want to insert the result
+    Set resultInsertRange = Application.InputBox("Select the cell where you want to insert the result:", Type:=8)
+
+    ' Check if the user canceled the selection
+    If resultInsertRange Is Nothing Then
+        MsgBox "No result cell selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Create Column Chart" & vbCrLf & _
+                      "2. Create Bar Chart" & vbCrLf & _
+                      "3. Create Pie Chart" & vbCrLf & _
+                      "4. Create Pivot Table" & vbCrLf & _
+                      "5. Create Conditional Formatting" & vbCrLf & _
+                      "6. Create Histogram" & vbCrLf & _
+                      "7. Create Radar Chart" & vbCrLf & _
+                      "8. Create Doughnut Chart" & vbCrLf & _
+                      "9. Create Waterfall Chart" & vbCrLf & _
+                      "10. Create Box Plot" & vbCrLf & _
+                      "11. Execute All Commands" & vbCrLf & _
+                      "12. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ' Create Column Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlColumnClustered
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Column Chart for Selected Data"
+                resultInsertRange.Value = "Column Chart created successfully."
+
+            Case "2"
+                ' Create Bar Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlBarClustered
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Bar Chart for Selected Data"
+                resultInsertRange.Value = "Bar Chart created successfully."
+
+            Case "3"
+                ' Create Pie Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlPie
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Pie Chart for Selected Data"
+                resultInsertRange.Value = "Pie Chart created successfully."
+
+            Case "4"
+                ' Create Pivot Table
+                On Error Resume Next
+                Set pivotTableRange = Application.InputBox("Select the range for the Pivot Table source:", Type:=8)
+                On Error GoTo 0
+                If Not pivotTableRange Is Nothing Then
+                    ' Create Pivot Table
+                    Set pivotSheet = Worksheets.Add
+                    Set pivotTable = pivotSheet.PivotTableWizard(SourceType:=xlDatabase, SourceData:=pivotTableRange)
+                    resultInsertRange.Value = "Pivot Table created successfully."
+                Else
+                    resultInsertRange.Value = "No range selected for Pivot Table."
+                End If
+
+            Case "5"
+                ' Create Conditional Formatting
+                selectedRange.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, Formula1:="=100"
+                selectedRange.FormatConditions(selectedRange.FormatConditions.Count).SetFirstPriority
+                With selectedRange.FormatConditions(1).Font
+                    .Bold = True
+                    .Color = -16776961 ' Blue
+                End With
+                selectedRange.FormatConditions(1).Interior.Color = 5296274 ' Light Yellow
+                resultInsertRange.Value = "Conditional Formatting applied."
+
+            Case "6"
+                ' Create Histogram
+                ws.Shapes.AddChart2(251, xlColumnClustered, 100, 100, 500, 300).Chart.SetSourceData Source:=selectedRange
+                ws.Shapes(ws.Shapes.Count).Chart.ChartType = xlColumnClustered
+                resultInsertRange.Value = "Histogram created successfully."
+
+            Case "7"
+                ' Create Radar Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlRadar
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Radar Chart for Selected Data"
+                resultInsertRange.Value = "Radar Chart created successfully."
+
+            Case "8"
+                ' Create Doughnut Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlDoughnut
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Doughnut Chart for Selected Data"
+                resultInsertRange.Value = "Doughnut Chart created successfully."
+
+            Case "9"
+                ' Create Waterfall Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlWaterfall
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Waterfall Chart for Selected Data"
+                resultInsertRange.Value = "Waterfall Chart created successfully."
+
+            Case "10"
+                ' Create Box Plot
+                ws.Shapes.AddChart2(251, xlBoxwhisker, 100, 100, 500, 300).Chart.SetSourceData Source:=selectedRange
+                resultInsertRange.Value = "Box Plot created successfully."
+
+            Case "11"
+                ' Execute all commands (same as selecting all options)
+                ' Column Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlColumnClustered
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Column Chart for Selected Data"
+
+                ' Bar Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlBarClustered
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Bar Chart for Selected Data"
+
+                ' Pie Chart
+                Set chart = ws.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+                chart.Chart.SetSourceData Source:=selectedRange
+                chart.Chart.ChartType = xlPie
+                chart.Chart.HasTitle = True
+                chart.Chart.ChartTitle.Text = "Pie Chart for Selected Data"
+
+                ' Pivot Table
+                On Error Resume Next
+                Set pivotTableRange = Application.InputBox("Select the range for the Pivot Table source:", Type:=8)
+                On Error GoTo 0
+                If Not pivotTableRange Is Nothing Then
+                    ' Create Pivot Table
+                    Set pivotSheet = Worksheets.Add
+                    Set pivotTable = pivotSheet.PivotTableWizard(SourceType:=xlDatabase, SourceData:=pivotTableRange)
+                    resultInsertRange.Offset(3, 0).Value = "Pivot Table created successfully."
+                Else
+                    resultInsertRange.Offset(3, 0).Value = "No range selected for Pivot Table."
+                End If
+
+                ' Conditional Formatting
+                selectedRange.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, Formula1:="=100"
+                selectedRange.FormatConditions(selectedRange.FormatConditions.Count).SetFirstPriority
+                With selectedRange.FormatConditions(1).Font
+                    .Bold = True
+                    .Color = -16776961 ' Blue
+                End With
+                selectedRange.FormatConditions(1).Interior.Color = 5296274 ' Light Yellow
+                resultInsertRange.Offset(4, 0).Value = "Conditional Formatting applied."
+
+            Case "12"
+                ' Exit
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                ' Invalid action
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Cleaning Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Data Cleaning Tool</h1>
+
+        <!-- File Upload Section -->
+        <form id="fileForm">
+            <label for="fileInput">Upload your Excel (.xlsx) or CSV file:</label>
+            <input type="file" id="fileInput" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+
+            <button type="button" onclick="processFile()">Clean Data</button>
+        </form>
+
+        <!-- Feature Selection Section -->
+        <div id="featureSection" class="hidden">
+            <h2>Select Features to Apply</h2>
+            <div class="feature-options">
+                <label><input type="checkbox" value="autofitRowHeight"> Autofit Row Height</label>
+                <label><input type="checkbox" value="autofitColumnWidth"> Autofit Column Width</label>
+                <label><input type="checkbox" value="clearFormat"> Clear Format</label>
+                <label><input type="checkbox" value="removeWhitespace"> Remove Whitespace</label>
+                <label><input type="checkbox" value="removeLeadingSpace"> Remove Leading Space</label>
+                <label><input type="checkbox" value="removeNonPrintableChars"> Remove Non-Printable Characters</label>
+                <label><input type="checkbox" value="deleteBlankRows"> Delete All Blank Rows</label>
+                <label><input type="checkbox" value="removeTrailingSpace"> Remove Trailing Space</label>
+                <label><input type="checkbox" value="capitalizeFirstLetter"> Capitalize First Letter</label>
+                <label><input type="checkbox" value="convertToUpperCase"> Convert to UPPERCASE</label>
+                <label><input type="checkbox" value="convertToLowerCase"> Convert to lowercase</label>
+                <label><input type="checkbox" value="replaceNullWithEmpty"> Replace NULL with Empty</label>
+                <label><input type="checkbox" value="trimAllCells"> Trim All Cells</label>
+                <label><input type="checkbox" value="removeDuplicates"> Remove Duplicate Rows</label>
+                <label><input type="checkbox" value="mergeDuplicateRows"> Merge Duplicate Rows</label>
+                <label><input type="checkbox" value="sortAscending"> Sort Ascending</label>
+                <label><input type="checkbox" value="sortDescending"> Sort Descending</label>
+                <label><input type="checkbox" value="addSerialNumber"> Add Serial Number</label>
+                <label><input type="checkbox" value="splitTextByDelimiter"> Split Text by Delimiter</label>
+                <label><input type="checkbox" value="combineColumns"> Combine Columns</label>
+                <label><input type="checkbox" value="filterByKeyword"> Filter by Keyword</label>
+                <label><input type="checkbox" value="highlightDuplicates"> Highlight Duplicates</label>
+                <label><input type="checkbox" value="formatNumbers"> Format Numbers</label>
+                <label><input type="checkbox" value="formatDates"> Format Dates</label>
+                <label><input type="checkbox" value="executeAll"> Execute All</label>
+            </div>
+
+            <button onclick="applyFeatures()">Apply Selected Features</button>
+        </div>
+
+        <!-- Output Section -->
+        <div id="outputSection" class="hidden">
+            <h2>Cleaned Data</h2>
+            <p><strong>Original Data:</strong></p>
+            <pre id="originalData"></pre>
+            <p><strong>Cleaned Data:</strong></p>
+            <pre id="cleanedData"></pre>
+
+            <!-- Download Options -->
+            <label for="downloadFormat">Select download format:</label>
+            <select id="downloadFormat">
+                <option value="csv">CSV</option>
+                <option value="xlsx">Excel (.xlsx)</option>
+            </select>
+
+            <button onclick="downloadCleanedData()">Download Cleaned Data</button>
+        </div>
+    </div>
+
+    <!-- SheetJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+Sub RefreshAllConnections()
+    Dim conn As WorkbookConnection
+    Dim ws As Worksheet
+    Dim pt As PivotTable
+    
+    ' Refresh all connections (for queries, external data sources, etc.)
+    For Each conn In ThisWorkbook.Connections
+        conn.Refresh
+    Next conn
+
+    ' Refresh all pivot tables in the workbook
+    For Each ws In ThisWorkbook.Sheets
+        For Each pt In ws.PivotTables
+            pt.RefreshTable
+        Next pt
+    Next ws
+
+    ' Optionally, refresh all charts (if they are linked to external data)
+    ThisWorkbook.RefreshAll
+
+    MsgBox "All connections and pivot tables have been refreshed.", vbInformation
+End Sub

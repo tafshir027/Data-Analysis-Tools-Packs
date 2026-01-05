@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBA Code Snippets Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: #3d3d3d;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #2d2d2d;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .code-box {
+            background: #1e1e1e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            background: #27ae60;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .social-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #3498db;
+        }
+
+        .success-msg {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            display: none;
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .social-bar {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>VBA Code For Data analytics</h1>
+        <p>Tutorials Point Bangladesh</p>
+    </header>
+
+    <div class="container">
+        <div class="card" onclick="showCode(0)">Data Cleaning</div>
+        <div class="card" onclick="showCode(1)">Data Transformation</div>
+        <div class="card" onclick="showCode(2)">Data Visualizer</div>
+        <div class="card" onclick="showCode(3)">Digital Clock</div>
+        <div class="card" onclick="showCode(4)">Data Analysis</div>
+        <div class="card" onclick="showCode(5)">Refresh Button</div>
+        <div class="card" onclick="showCode(6)">Create Pivot Table</div>
+        <div class="card" onclick="showCode(7)">Selected Range Export</div>
+        <div class="card" onclick="showCode(8)">Send Email</div>
+        <div class="card" onclick="showCode(9)">Generate Names</div>
+        <div class="card" onclick="showCode(10)">Generate Designations</div>
+        <div class="card" onclick="showCode(11)">Generate Countries</div>
+        <div class="card" onclick="showCode(12)">Password Protected Worksheet</div>
+        <div class="card" onclick="showCode(13)">Dynamic Calendar</div>
+        <div class="card" onclick="showCode(14)">Create Chart</div>
+        <div class="card" onclick="showCode(15)">AutoFit Columns</div>
+        <div class="card" onclick="showCode(16)">Insert Timestamp</div>
+        <div class="card" onclick="showCode(17)">Generate Random Numbers</div>
+        <div class="card" onclick="showCode(18)">Copy Data to Another Sheet</div>
+        <div class="card" onclick="showCode(19)">Save Workbook As</div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="code-box" id="codeContent"></div>
+            <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+        </div>
+    </div>
+
+    <div class="success-msg" id="successMsg">Copied successfully!</div>
+
+    <div class="social-bar">
+        <a href="https://www.facebook.com/mdtafsirkabir" class="social-link"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/tafsirkabir/" class="social-link"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/@PyPlatoonsbd" class="social-link"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <script>
+        const snippets = [
+            `Sub ComprehensiveDataCleaning()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim findText As String
+    Dim replaceText As String
+    Dim r As Long
+
+    Set ws = ActiveSheet
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Autofit Row Heights" & vbCrLf & _
+                      "2. Autofit Column Widths" & vbCrLf & _
+                      "3. Clear Format" & vbCrLf & _
+                      "4. Remove Whitespace for All Text" & vbCrLf & _
+                      "5. Remove Leading Spaces" & vbCrLf & _
+                      "6. Remove Extra Spaces Between Words" & vbCrLf & _
+                      "7. Remove Non-Printable Characters" & vbCrLf & _
+                      "8. Find All Blank Rows and Delete Them" & vbCrLf & _
+                      "9. Find and Replace Specific Text" & vbCrLf & _
+                      "10. Execute All Commands" & vbCrLf & _
+                      "11. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ws.Rows.AutoFit
+            Case "2"
+                ws.Columns.AutoFit
+            Case "3"
+                ws.Cells.ClearFormats
+            Case "4"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, " ", "")
+                    End If
+                Next cell
+            Case "5"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = LTrim(cell.Value)
+                    End If
+                Next cell
+            Case "6"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Trim(cell.Value)
+                    End If
+                Next cell
+            Case "7"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Clean(cell.Value)
+                    End If
+                Next cell
+            Case "8"
+                For r = ws.UsedRange.Rows.Count To 1 Step -1
+                    If Application.WorksheetFunction.CountA(ws.Rows(r)) = 0 Then
+                        ws.Rows(r).Delete
+                    End If
+                Next r
+            Case "9"
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "10"
+                ' Execute all commands (same as selecting all options)
+                ws.Rows.AutoFit
+                ws.Columns.AutoFit
+                ws.Cells.ClearFormats
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, " ", "")
+                        cell.Value = LTrim(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Trim(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Clean(cell.Value)
+                    End If
+                Next cell
+                For r = ws.UsedRange.Rows.Count To 1 Step -1
+                    If Application.WorksheetFunction.CountA(ws.Rows(r)) = 0 Then
+                        ws.Rows(r).Delete
+                    End If
+                Next r
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "11"
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+   
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub`,
+
+
+            `Sub ComprehensiveDataTransformation()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim selectedRange As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim findText As String
+    Dim replaceText As String
+    Dim r As Long
+
+    Set ws = ActiveSheet
+    On Error Resume Next
+    ' Get the selected range
+    Set selectedRange = Application.InputBox("Select the range of cells to apply transformations:", Type:=8)
+    On Error GoTo 0
+
+    ' Check if the user canceled the selection
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Convert Text to Uppercase" & vbCrLf & _
+                      "2. Convert Text to Lowercase" & vbCrLf & _
+                      "3. Capitalize First Letter of Each Word" & vbCrLf & _
+                      "4. Standardize Date Format" & vbCrLf & _
+                      "5. Change Numbers to Currency Format" & vbCrLf & _
+                      "6. Round Numbers to Nearest Integer" & vbCrLf & _
+                      "7. Remove Leading Zeros from Numbers" & vbCrLf & _
+                      "8. Add Suffix to Numeric Values" & vbCrLf & _
+                      "9. Replace Specific Text" & vbCrLf & _
+                      "10. Execute All Commands" & vbCrLf & _
+                      "11. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ' Convert Text to Uppercase
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = UCase(cell.Value)
+                    End If
+                Next cell
+            Case "2"
+                ' Convert Text to Lowercase
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = LCase(cell.Value)
+                    End If
+                Next cell
+            Case "3"
+                ' Capitalize First Letter of Each Word
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Proper(cell.Value)
+                    End If
+                Next cell
+            Case "4"
+                ' Standardize Date Format (mm/dd/yyyy)
+                For Each cell In selectedRange
+                    If IsDate(cell.Value) Then
+                        cell.Value = Format(cell.Value, "mm/dd/yyyy")
+                    End If
+                Next cell
+            Case "5"
+                ' Change Numbers to Currency Format
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Application.WorksheetFunction.Currency(cell.Value)
+                    End If
+                Next cell
+            Case "6"
+                ' Round Numbers to Nearest Integer
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Round(cell.Value, 0)
+                    End If
+                Next cell
+            Case "7"
+                ' Remove Leading Zeros from Numbers
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Val(cell.Value)
+                    End If
+                Next cell
+            Case "8"
+                ' Add Suffix to Numeric Values
+                Dim suffix As String
+                suffix = InputBox("Enter the suffix to add to numbers:")
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = cell.Value & suffix
+                    End If
+                Next cell
+            Case "9"
+                ' Replace Specific Text
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "10"
+                ' Execute all commands (same as selecting all options)
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = UCase(cell.Value)
+                        cell.Value = LCase(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Proper(cell.Value)
+                    End If
+                Next cell
+                For Each cell In selectedRange
+                    If IsDate(cell.Value) Then
+                        cell.Value = Format(cell.Value, "mm/dd/yyyy")
+                    End If
+                Next cell
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Application.WorksheetFunction.Currency(cell.Value)
+                        cell.Value = Round(cell.Value, 0)
+                        cell.Value = Val(cell.Value)
+                        cell.Value = cell.Value & suffix
+                    End If
+                Next cell
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "11"
+                ' Exit
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                ' Invalid action
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub
+`,
+
+
+
+
+            `Sub CreateChartWithSelection()
+    Dim chartType As Integer
+    Dim chart As ChartObject
+    Dim selectedRange As Range
+    Dim chartOptions As String
+    Dim userChoice As String
+    Dim title As String
+    Dim chartRange As Range
+    
+    ' Dynamic column selection using InputBox (Range selection)
+    On Error Resume Next ' Handle error if no range is selected
+    Set selectedRange = Application.InputBox("Select the data range (multiple columns allowed)", Type:=8)
+    On Error GoTo 0 ' Reset error handling
+    
+    ' If no range is selected or the selection is invalid, exit the sub
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting!", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Check if the selected range has multiple columns and rows
+    If selectedRange.Columns.Count < 1 Or selectedRange.Rows.Count < 2 Then
+        MsgBox "Please select multiple columns with at least one row of data.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Display chart type options to the user
+    chartOptions = "Choose a chart type by entering the corresponding number:" & vbCrLf & _
+                  "1 - Column Chart" & vbCrLf & _
+                  "2 - Bar Chart" & vbCrLf & _
+                  "3 - Line Chart" & vbCrLf & _
+                  "4 - Area Chart" & vbCrLf & _
+                  "5 - Pie Chart" & vbCrLf & _
+                  "6 - Doughnut Chart" & vbCrLf & _
+                  "7 - Scatter Chart" & vbCrLf & _
+                  "8 - Bubble Chart" & vbCrLf & _
+                  "9 - Stock Chart" & vbCrLf & _
+                  "10 - Statistical Chart" & vbCrLf & _
+                  "11 - Hierarchy Chart" & vbCrLf & _
+                  "12 - Geographical Map" & vbCrLf & _
+                  "13 - Combination Chart"
+    
+    ' Prompt the user for input
+    userChoice = InputBox(chartOptions, "Select Chart Type", "1")
+    
+    ' Validate the user input (check if it's a number and within range)
+    If Not IsNumeric(userChoice) Or userChoice < 1 Or userChoice > 13 Then
+        MsgBox "Invalid choice! Please select a number between 1 and 13.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Get the chart title from the user
+    title = InputBox("Enter the chart title:", "Chart Title", "Generated Chart")
+    
+    ' Create the chart based on the user's choice
+    Set chartRange = selectedRange
+    
+    ' Create a new chart object
+    On Error Resume Next ' Handle error if chart creation fails
+    Set chart = ActiveSheet.ChartObjects.Add(Left:=100, Width:=375, Top:=75, Height:=225)
+    On Error GoTo 0 ' Reset error handling
+    
+    If chart Is Nothing Then
+        MsgBox "Failed to create a chart. Please ensure your sheet is not protected.", vbCritical
+        Exit Sub
+    End If
+    
+    ' Set chart data and chart type
+    With chart.Chart
+        .SetSourceData chartRange
+        
+        Select Case CInt(userChoice)
+            Case 1 ' Column Chart
+                .ChartType = xlColumnClustered
+            
+            Case 2 ' Bar Chart
+                .ChartType = xlBarClustered
+            
+            Case 3 ' Line Chart
+                .ChartType = xlLine
+            
+            Case 4 ' Area Chart
+                .ChartType = xlArea
+            
+            Case 5 ' Pie Chart
+                .ChartType = xlPie
+            
+            Case 6 ' Doughnut Chart
+                .ChartType = xlDoughnut
+            
+            Case 7 ' Scatter Chart
+                .ChartType = xlXYScatter
+            
+            Case 8 ' Bubble Chart
+                .ChartType = xlBubble
+            
+            Case 9 ' Stock Chart
+                .ChartType = xlStock
+            
+            Case 10 ' Statistical Chart
+                .ChartType = xlXYScatterLines
+            
+            Case 11 ' Hierarchy Chart
+                .ChartType = xlTreemap
+            
+            Case 12 ' Geographical Map
+                .ChartType = xlMap
+            
+            Case 13 ' Combination Chart
+                .ChartType = xlColumnClustered
+                .SeriesCollection.NewSeries
+                .SeriesCollection(1).ChartType = xlLine
+                
+            Case Else
+                MsgBox "Invalid choice, please select a valid chart type number!", vbCritical
+                Exit Sub
+        End Select
+        
+        ' Set the chart title
+        .HasTitle = True
+        .ChartTitle.Text = title
+    End With
+    
+    ' Show success message after chart is created
+    MsgBox "Chart successfully created!", vbInformation
+End Sub
+`,
+
+
+            `Dim clockCell As Range
+
+Sub DigitalClock()
+    ' Prompt user to select a cell for the digital clock
+    On Error Resume Next ' In case user cancels selection
+    Set clockCell = Application.InputBox("Select the cell where the digital clock will appear", Type:=8)
+    On Error GoTo 0 ' Reset error handling
+    
+    ' Check if the user made a selection
+    If clockCell Is Nothing Then
+        MsgBox "No cell selected. Exiting..."
+        Exit Sub
+    End If
+    
+    ' Start the digital clock
+    UpdateClock
+End Sub
+
+Sub UpdateClock()
+    ' Display the current time in the selected cell
+    clockCell.Value = Format(Now, "hh:mm:ss AM/PM")
+    
+    ' Update the time every second
+    Application.OnTime Now + TimeValue("00:00:01"), "UpdateClock"
+End Sub`,
+
+
+            `Sub DataAnalysis()
+    Dim ws As Worksheet
+    Dim selectedRange As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim resultRange As Range
+    Dim resultInsertRange As Range
+    Dim findText As String
+    Dim replaceText As String
+    Dim r As Long
+    Dim summaryRange As Range
+
+    Set ws = ActiveSheet
+    On Error Resume Next
+    ' Get the selected range for analysis
+    Set selectedRange = Application.InputBox("Select the range of cells to apply analysis:", Type:=8)
+    On Error GoTo 0
+
+    ' Check if the user canceled the selection
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Ask user where they want to insert the result
+    Set resultInsertRange = Application.InputBox("Select the cell where you want to insert the result:", Type:=8)
+    
+    ' Check if the user canceled the selection
+    If resultInsertRange Is Nothing Then
+        MsgBox "No result cell selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Calculate Mean (Average)" & vbCrLf & _
+                      "2. Calculate Median" & vbCrLf & _
+                      "3. Calculate Mode" & vbCrLf & _
+                      "4. Calculate Standard Deviation" & vbCrLf & _
+                      "5. Create Pivot Table" & vbCrLf & _
+                      "6. Create Summary Statistics" & vbCrLf & _
+                      "7. Filter Data" & vbCrLf & _
+                      "8. Sort Data" & vbCrLf & _
+                      "9. Execute All Commands" & vbCrLf & _
+                      "10. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ' Calculate Mean (Average)
+                If WorksheetFunction.Count(selectedRange) > 0 Then
+                    resultInsertRange.Value = "The Mean (Average) is: " & WorksheetFunction.Average(selectedRange)
+                Else
+                    resultInsertRange.Value = "No numeric data found in selected range."
+                End If
+            Case "2"
+                ' Calculate Median
+                If WorksheetFunction.Count(selectedRange) > 0 Then
+                    resultInsertRange.Value = "The Median is: " & WorksheetFunction.Median(selectedRange)
+                Else
+                    resultInsertRange.Value = "No numeric data found in selected range."
+                End If
+            Case "3"
+                ' Calculate Mode
+                If WorksheetFunction.Count(selectedRange) > 0 Then
+                    resultInsertRange.Value = "The Mode is: " & WorksheetFunction.Mode(selectedRange)
+                Else
+                    resultInsertRange.Value = "No numeric data found in selected range."
+                End If
+            Case "4"
+                ' Calculate Standard Deviation
+                If WorksheetFunction.Count(selectedRange) > 0 Then
+                    resultInsertRange.Value = "The Standard Deviation is: " & WorksheetFunction.StDev(selectedRange)
+                Else
+                    resultInsertRange.Value = "No numeric data found in selected range."
+                End If
+            Case "5"
+                ' Create Pivot Table
+                On Error Resume Next
+                Set resultRange = Application.InputBox("Select the range for the Pivot Table source:", Type:=8)
+                On Error GoTo 0
+                If Not resultRange Is Nothing Then
+                    resultRange.PivotTableWizard
+                    resultInsertRange.Value = "Pivot Table created."
+                Else
+                    resultInsertRange.Value = "No range selected for Pivot Table."
+                End If
+            Case "6"
+                ' Create Summary Statistics (using Analysis ToolPak)
+                Set summaryRange = Application.InputBox("Select the range to generate summary statistics:", Type:=8)
+                If Not summaryRange Is Nothing Then
+                    Application.Run "ATPVBAEN.XLAM!SummarizeData", summaryRange.Address
+                    resultInsertRange.Value = "Summary statistics generated."
+                Else
+                    resultInsertRange.Value = "No range selected for summary statistics."
+                End If
+            Case "7"
+                ' Filter Data
+                resultInsertRange.Value = "Use Excel's AutoFilter feature to filter data manually."
+            Case "8"
+                ' Sort Data
+                resultInsertRange.Value = "Use Excel's Sort feature to sort data manually."
+            Case "9"
+                ' Execute all commands (same as selecting all options)
+                If WorksheetFunction.Count(selectedRange) > 0 Then
+                    resultInsertRange.Value = "The Mean (Average) is: " & WorksheetFunction.Average(selectedRange)
+                    resultInsertRange.Offset(1, 0).Value = "The Median is: " & WorksheetFunction.Median(selectedRange)
+                    resultInsertRange.Offset(2, 0).Value = "The Mode is: " & WorksheetFunction.Mode(selectedRange)
+                    resultInsertRange.Offset(3, 0).Value = "The Standard Deviation is: " & WorksheetFunction.StDev(selectedRange)
+                Else
+                    resultInsertRange.Value = "No numeric data found in selected range."
+                End If
+                
+                On Error Resume Next
+                Set resultRange = Application.InputBox("Select the range for the Pivot Table source:", Type:=8)
+                On Error GoTo 0
+                If Not resultRange Is Nothing Then
+                    resultRange.PivotTableWizard
+                    resultInsertRange.Offset(4, 0).Value = "Pivot Table created."
+                Else
+                    resultInsertRange.Offset(4, 0).Value = "No range selected for Pivot Table."
+                End If
+                
+                Set summaryRange = Application.InputBox("Select the range to generate summary statistics:", Type:=8)
+                If Not summaryRange Is Nothing Then
+                    Application.Run "ATPVBAEN.XLAM!SummarizeData", summaryRange.Address
+                    resultInsertRange.Offset(5, 0).Value = "Summary statistics generated."
+                Else
+                    resultInsertRange.Offset(5, 0).Value = "No range selected for summary statistics."
+                End If
+
+            Case "10"
+                ' Exit
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                ' Invalid action
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub
+`,
+
+
+            `Sub RefreshAllConnections()
+    Dim conn As WorkbookConnection
+    Dim ws As Worksheet
+    Dim pt As PivotTable
+    
+    ' Refresh all connections (for queries, external data sources, etc.)
+    For Each conn In ThisWorkbook.Connections
+        conn.Refresh
+    Next conn
+
+    ' Refresh all pivot tables in the workbook
+    For Each ws In ThisWorkbook.Sheets
+        For Each pt In ws.PivotTables
+            pt.RefreshTable
+        Next pt
+    Next ws
+
+    ' Optionally, refresh all charts (if they are linked to external data)
+    ThisWorkbook.RefreshAll
+
+    MsgBox "All connections and pivot tables have been refreshed.", vbInformation
+End Sub`,
+
+`Sub CreatePivotTable()
+    Dim pivotCache As PivotCache
+    Dim pivotTable As PivotTable
+    Dim selectedRange As Range
+    Dim tableDestination As Range
+    Dim newSheet As Worksheet
+
+    ' Allow the user to select a range of columns dynamically
+    On Error Resume Next ' Handle errors if no range is selected
+    Set selectedRange = Application.InputBox("Select the data range for the Pivot Table", Type:=8)
+    On Error GoTo 0 ' Reset error handling
+    
+    ' If no range is selected or selection is invalid, exit the sub
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting!", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Ensure the selection has at least one row and multiple columns
+    If selectedRange.Rows.Count < 2 Or selectedRange.Columns.Count < 1 Then
+        MsgBox "Please select a range with at least one row of data and multiple columns.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Create a new worksheet for the pivot table
+    Set newSheet = ThisWorkbook.Worksheets.Add
+    newSheet.Name = "PivotTableSheet" ' Optionally, you can change the sheet name
+    
+    ' Set the pivot table destination range in the new sheet
+    Set tableDestination = newSheet.Range("A1")
+    
+    ' Create the pivot cache
+    Set pivotCache = ThisWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:=selectedRange)
+    
+    ' Create the pivot table on the new sheet
+    On Error Resume Next
+    Set pivotTable = pivotCache.CreatePivotTable(TableDestination:=tableDestination, TableName:="PivotTable1")
+    On Error GoTo 0
+
+    ' Check if pivotTable was successfully created
+    If pivotTable Is Nothing Then
+        MsgBox "Failed to create PivotTable. Please ensure the destination cell is available.", vbCritical
+        Exit Sub
+    End If
+    
+    ' Optional: Add fields to the Pivot Table (replace with your actual column names)
+    On Error Resume Next ' Ignore errors if a field is missing
+    pivotTable.PivotFields("Column1").Orientation = xlRowField
+    pivotTable.PivotFields("Column2").Orientation = xlColumnField
+    pivotTable.PivotFields("Column3").Orientation = xlDataField
+    pivotTable.PivotFields("Column4").Orientation = xlPageField
+    On Error GoTo 0
+    
+    ' Confirmation Message
+    MsgBox "Pivot Table created successfully on a new sheet!", vbInformation
+End Sub
+`,
+
+ `Sub ExportRangeToPDF()
+    Dim pdfPath As String
+    Dim exportRange As Range
+    Dim fileDialog As FileDialog
+    
+    ' Allow the user to select the range dynamically using a popup box
+    On Error Resume Next ' In case the user cancels the selection
+    Set exportRange = Application.InputBox("Select the range to export to PDF", Type:=8)
+    On Error GoTo 0 ' Reset error handling
+    
+    ' If no range is selected, exit the sub
+    If exportRange Is Nothing Then
+        MsgBox "No range selected. Exiting!", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Create a file dialog to prompt the user for a save location
+    Set fileDialog = Application.FileDialog(msoFileDialogSaveAs)
+    
+    ' Set the initial file name and file type for the save as dialog
+    fileDialog.InitialFileName = "ExportedFile.pdf" ' Default file name
+    fileDialog.FilterIndex = 2 ' PDF file format
+    
+    ' Show the Save As dialog and get the user's choice
+    If fileDialog.Show = -1 Then ' If the user clicked "Save"
+        pdfPath = fileDialog.SelectedItems(1) ' Get the selected path and file name
+        ' Check if the user provided the ".pdf" extension, if not, add it
+        If InStr(1, pdfPath, ".pdf", vbTextCompare) = 0 Then
+            pdfPath = pdfPath & ".pdf"
+        End If
+        
+        ' Export the selected range to PDF
+        exportRange.ExportAsFixedFormat Type:=xlTypePDF, Filename:=pdfPath, Quality:=xlQualityStandard
+        
+        ' Display a message when the PDF is saved successfully
+        MsgBox "The selected range has been exported to PDF!", vbInformation
+    Else
+        ' If the user canceled the Save As dialog
+        MsgBox "Export canceled. No file was saved.", vbExclamation
+    End If
+End Sub
+`,
+
+
+
+
+            `Sub SendEmail()\n    Dim outlookApp As Object\n    Set outlookApp = CreateObject("Outlook.Application")\n    Dim outlookMail As Object\n    Set outlookMail = outlookApp.CreateItem(0)\n    With outlookMail\n        .To = "recipient@example.com"\n        .Subject = "Test Email"\n        .Body = "This is a test email."\n        .Send\n    End With\nEnd Sub`,
+
+
+
+            `Sub AddBangladeshiNames()
+    Dim rng As Range
+    Dim itemCount As Integer
+    Dim nameList As Variant
+    Dim i As Integer, rowNum As Integer
+    Dim randomIndex As Integer
+    Dim selectedRange As Range
+    
+    ' Array of Bangladeshi Names
+    nameList = Array("Abdul", "Rahman", "Ahmed", "Hossain", "Rahim", "Khan", _
+                     "Hasan", "Miah", "Ali", "Islam", "Chowdhury", "Sarkar", _
+                     "Jahangir", "Shah", "Mollik", "Siddique", "Munna", "Shuvo", _
+                     "Tasmin", "Rashid", "Kamal", "Babu", "Zaman", "Bashar", _
+                     "Sami", "Sultana", "Mithu", "Rupom", "Farhan", "Roni", _
+                     "Sumon", "Tariq", "Anwar", "Tanvir", "Mansur", "Saif", _
+                     "Aziz", "Fahad", "Mahmud", "Rafiq", "Jamil")
+    
+    ' Ask user to select the starting range (first cell to add names)
+    Set rng = Application.InputBox("Select the starting cell for names column", Type:=8)
+    
+    ' Ask user how many items to add to the list
+    itemCount = InputBox("Enter the number of items you want to add:", "Add Items", 40)
+    
+    ' Exit if user cancels or enters invalid number
+    If itemCount <= 0 Then
+        MsgBox "Invalid number of items! Exiting..."
+        Exit Sub
+    End If
+    
+    ' Clear any existing content in the selected range
+    rng.Cells.Clear
+    
+    ' Start inserting names into the selected range
+    rowNum = rng.Row ' Starting from the selected row
+    
+    ' Loop through and add names until the specified item count is reached
+    For i = 1 To itemCount
+        ' Generate a random index to pick a name from the list
+        randomIndex = Int((UBound(nameList) - LBound(nameList) + 1) * Rnd + LBound(nameList))
+        
+        ' Add name to the cell in the same column but different rows
+        Cells(rowNum, rng.Column).Value = nameList(randomIndex)
+        
+        ' Move to the next row
+        rowNum = rowNum + 1
+    Next i
+    
+    ' Notify user about the completion of the task
+    MsgBox "Names have been successfully added to the selected column.", vbInformation
+End Sub
+`,
+
+
+            `Sub AddDesignations()
+    Dim rng As Range
+    Dim itemCount As Integer
+    Dim designationList As Variant
+    Dim i As Integer, rowNum As Integer
+    Dim randomIndex As Integer
+    Dim selectedRange As Range
+    
+    ' Array of Sample Designations
+    designationList = Array("Manager", "Developer", "Analyst", "Director", "Consultant", _
+                            "Team Lead", "Architect", "Tester", "Project Manager", "Coordinator", _
+                            "HR Specialist", "Marketing Head", "Sales Manager", "Product Owner", _
+                            "Business Analyst", "Quality Assurance", "Data Scientist", "Software Engineer", _
+                            "System Administrator", "Support Engineer", "Accountant", "Researcher", "Designer", _
+                            "UI/UX Specialist", "Full Stack Developer", "Database Administrator", "Web Developer", _
+                            "Mobile Developer", "SEO Expert", "Content Strategist", "Creative Director", "Data Analyst", _
+                            "Network Engineer", "IT Manager", "Operations Manager", "Chief Executive Officer", "Chief Technology Officer")
+    
+    ' Ask user to select the starting range (first cell to add designations)
+    Set rng = Application.InputBox("Select the starting cell for designations column", Type:=8)
+    
+    ' Ask user how many items to add to the list
+    itemCount = InputBox("Enter the number of designations you want to add:", "Add Designations", 40)
+    
+    ' Exit if user cancels or enters invalid number
+    If itemCount <= 0 Then
+        MsgBox "Invalid number of items! Exiting..."
+        Exit Sub
+    End If
+    
+    ' Clear any existing content in the selected range
+    rng.Cells.Clear
+    
+    ' Start inserting designations into the selected range
+    rowNum = rng.Row ' Starting from the selected row
+    
+    ' Loop through and add designations until the specified item count is reached
+    For i = 1 To itemCount
+        ' Generate a random index to pick a designation from the list
+        randomIndex = Int((UBound(designationList) - LBound(designationList) + 1) * Rnd + LBound(designationList))
+        
+        ' Add designation to the cell in the same column but different rows
+        Cells(rowNum, rng.Column).Value = designationList(randomIndex)
+        
+        ' Move to the next row
+        rowNum = rowNum + 1
+    Next i
+    
+    ' Notify user about the completion of the task
+    MsgBox "Designations have been successfully added to the selected column.", vbInformation
+End Sub
+`,
+            `Sub AddCountries()
+    Dim rng As Range
+    Dim itemCount As Integer
+    Dim countryList As Variant
+    Dim i As Integer, rowNum As Integer
+    Dim randomIndex As Integer
+    Dim selectedRange As Range
+    
+    ' Array of 100 Popular Countries
+    countryList = Array("United States", "Canada", "United Kingdom", "Germany", "France", "Italy", _
+                        "Spain", "Australia", "Brazil", "Japan", "South Korea", "India", "China", "Russia", _
+                        "Mexico", "Saudi Arabia", "South Africa", "Egypt", "Turkey", "Argentina", "Nigeria", _
+                        "Pakistan", "Indonesia", "Thailand", "Vietnam", "Colombia", "Malaysia", "Philippines", _
+                        "Bangladesh", "Ukraine", "Poland", "Sweden", "Switzerland", "Belgium", "Netherlands", _
+                        "Greece", "Austria", "Norway", "Denmark", "Finland", "Ireland", "Czech Republic", _
+                        "Israel", "Chile", "New Zealand", "Singapore", "Romania", "Portugal", "Peru", "Hungary", _
+                        "Vietnam", "Bulgaria", "Kuwait", "Oman", "Qatar", "UAE", "Israel", "Pakistan", "Egypt", _
+                        "Algeria", "Morocco", "Kenya", "Zimbabwe", "Angola", "Mozambique", "Ghana", "Tanzania", _
+                        "Congo", "Ethiopia", "Sri Lanka", "Myanmar", "Nepal", "Iraq", "Afghanistan", "Belarus", _
+                        "Kazakhstan", "Uzbekistan", "Azerbaijan", "Turkmenistan", "Georgia", "Mongolia", "Armenia", _
+                        "Uzbekistan", "Palestine", "Barbados", "Bahamas", "Dominican Republic", "Honduras", _
+                        "Costa Rica", "Jamaica", "Trinidad and Tobago", "Panama", "El Salvador", "Nicaragua", _
+                        "Guatemala", "Haiti", "Cuba", "Ecuador", "Paraguay", "Bolivia", "Suriname", "Guyana", _
+                        "Belize", "St. Lucia", "St. Kitts and Nevis", "St. Vincent and the Grenadines", "Grenada", _
+                        "Mauritius", "Seychelles", "Malta", "Fiji", "Bahrain", "Bhutan", "Maldives", "Laos", _
+                        "Myanmar", "Togo", "Gabon", "Zambia", "Mali", "Cambodia", "Tajikistan", "Cyprus")
+    
+    ' Ask user to select the starting range (first cell to add countries)
+    Set rng = Application.InputBox("Select the starting cell for countries column", Type:=8)
+    
+    ' Ask user how many items to add to the list
+    itemCount = InputBox("Enter the number of countries you want to add:", "Add Countries", 40)
+    
+    ' Exit if user cancels or enters invalid number
+    If itemCount <= 0 Then
+        MsgBox "Invalid number of items! Exiting..."
+        Exit Sub
+    End If
+    
+    ' Clear any existing content in the selected range
+    rng.Cells.Clear
+    
+    ' Start inserting countries into the selected range
+    rowNum = rng.Row ' Starting from the selected row
+    
+    ' Loop through and add countries until the specified item count is reached
+    For i = 1 To itemCount
+        ' Generate a random index to pick a country from the list
+        randomIndex = Int((UBound(countryList) - LBound(countryList) + 1) * Rnd + LBound(countryList))
+        
+        ' Add country to the cell in the same column but different rows
+        Cells(rowNum, rng.Column).Value = countryList(randomIndex)
+        
+        ' Move to the next row
+        rowNum = rowNum + 1
+    Next i
+    
+    ' Notify user about the completion of the task
+    MsgBox "Countries have been successfully added to the selected column.", vbInformation
+End Sub
+`,
+
+
+            `Sub LockFile()
+    Dim password As String
+    Dim filePath As String
+    
+    ' Ask user to enter a password to lock the file
+    password = InputBox("Enter a password to lock the file:", "Lock File")
+    
+    ' Exit if no password is provided
+    If password = "" Then
+        MsgBox "Password cannot be empty. File will not be locked.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Get the current file path
+    filePath = ThisWorkbook.FullName
+    
+    ' Save the workbook with the password
+    ThisWorkbook.SaveAs filePath, Password:=password
+    
+    ' Notify the user
+    MsgBox "File has been locked with the entered password.", vbInformation
+End Sub
+
+Private Sub Workbook_Open()
+    Dim inputPassword As String
+    Dim correctPassword As String
+    Dim filePath As String
+    
+    ' Retrieve the password entered during locking (this can also be stored securely somewhere else)
+    ' For the sake of simplicity, we'll use a hardcoded password here
+    ' It's important to note that this should be securely handled
+    correctPassword = "yourpassword" ' Set this to the password used to lock the file
+
+    ' Prompt the user to enter the password
+    inputPassword = InputBox("Enter the password to unlock the file:", "Unlock File")
+    
+    ' Check if the password entered is correct
+    If inputPassword = correctPassword Then
+        MsgBox "File unlocked successfully!", vbInformation
+    Else
+        MsgBox "Incorrect password! The file will now close.", vbCritical
+        ThisWorkbook.Close False ' Close the workbook without saving
+    End If
+End Sub
+`,
+
+
+            `Sub CalendarMaker()
+
+    ' Unprotect sheet if had previous calendar to prevent error.
+    ActiveSheet.Protect DrawingObjects:=False, Contents:=False, _
+        Scenarios:=False
+    
+    ' Prevent screen flashing while drawing calendar.
+    Application.ScreenUpdating = False
+
+    ' Set up error trapping.
+    On Error GoTo MyErrorTrap
+    
+    ' Allow user to choose the location for the calendar (using an input box to get the range).
+    Dim CalendarRange As Range
+    On Error Resume Next
+    Set CalendarRange = Application.InputBox("Select the top-left cell for the calendar:", Type:=8)
+    On Error GoTo MyErrorTrap
+
+    If CalendarRange Is Nothing Then
+        MsgBox "You must select a valid range to insert the calendar."
+        Exit Sub
+    End If
+
+    ' Clear any previous calendar data in the selected range.
+    CalendarRange.Resize(8, 7).Clear
+
+    ' Set current date as default if no input is provided.
+    Dim CurrentDate As Date
+    CurrentDate = Date ' Default to today's date if no input
+    
+    ' Prepare for the month and year selection.
+    Dim MyInput As String
+    MyInput = InputBox("Type in Month and Year for Calendar (e.g., January 2025), or leave empty to use current month and year:")
+
+    ' If input is empty, use current date.
+    If MyInput = "" Then
+        MyInput = Application.Text(CurrentDate, "mmmm yyyy")
+    End If
+
+    ' Get the date value of the beginning of inputted month.
+    Dim StartDay As Date
+    StartDay = DateValue(MyInput)
+    
+    ' Check if valid date but not the first of the month -- if so, reset StartDay to the first day of the month.
+    If Day(StartDay) <> 1 Then
+        StartDay = DateValue(Month(StartDay) & "/1/" & Year(StartDay))
+    End If
+
+    ' Set up design for calendar header (Month & Year).
+    CalendarRange.Resize(1, 7).Merge
+    With CalendarRange.Resize(1, 7)
+        .Value = Application.Text(StartDay, "mmmm yyyy")
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .Font.Size = 14
+        .Font.Bold = True
+        .RowHeight = 30
+        .Interior.Color = RGB(255, 204, 102) ' Light yellow
+        .Locked = False ' Make it editable
+    End With
+
+    ' Set up days of the week (header).
+    CalendarRange.Offset(1, 0).Resize(1, 7).Merge
+    CalendarRange.Offset(1, 0).Resize(1, 7).Value = Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+    With CalendarRange.Offset(1, 0).Resize(1, 7)
+        .Font.Size = 10
+        .Font.Bold = True
+        .RowHeight = 25
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .Interior.Color = RGB(204, 255, 204) ' Light green
+        .Locked = False ' Make it editable
+    End With
+
+    ' Set the variables for day of week and the current month.
+    Dim DayofWeek As Integer
+    DayofWeek = Weekday(StartDay)
+    
+    Dim CurYear As Integer
+    Dim CurMonth As Integer
+    CurYear = Year(StartDay)
+    CurMonth = Month(StartDay)
+
+    ' Calculate the first day of the next month.
+    Dim FinalDay As Date
+    FinalDay = DateSerial(CurYear, CurMonth + 1, 1)
+
+    ' Start filling in the days of the calendar.
+    Dim currentDay As Integer
+    currentDay = 1
+
+    ' Loop through calendar cells (starting at row 3 for the actual days).
+    Dim rowOffset As Integer
+    rowOffset = 2
+
+    For Each cell In CalendarRange.Offset(rowOffset, 0).Resize(6, 7)
+        If currentDay <= Day(FinalDay - 1) Then
+            If Weekday(DateSerial(CurYear, CurMonth, currentDay)) = cell.Column - CalendarRange.Column + 1 Then
+                cell.Value = currentDay
+                cell.HorizontalAlignment = xlCenter
+                cell.VerticalAlignment = xlCenter
+                cell.RowHeight = 40
+                cell.Font.Size = 12
+                cell.Font.Bold = False
+                cell.Borders(xlEdgeBottom).LineStyle = xlContinuous
+                cell.Borders(xlEdgeBottom).Color = RGB(200, 200, 200)
+                If currentDay Mod 2 = 0 Then
+                    cell.Interior.Color = RGB(255, 255, 204) ' Light yellow for even days
+                Else
+                    cell.Interior.Color = RGB(204, 255, 255) ' Light blue for odd days
+                End If
+                cell.Locked = False ' Make it editable
+                currentDay = currentDay + 1
+            End If
+        End If
+    Next cell
+
+    ' Insert empty rows for text entry (editable).
+    For x = 0 To 5
+        CalendarRange.Offset(x * 2 + 3, 0).EntireRow.Insert
+        With CalendarRange.Offset(x * 2 + 3, 0).Resize(1, 7)
+            .RowHeight = 40
+            .HorizontalAlignment = xlCenter
+            .VerticalAlignment = xlTop
+            .WrapText = True
+            .Font.Size = 10
+            .Font.Bold = False
+            .Locked = False ' Make it editable
+        End With
+    Next x
+
+    ' Turn off gridlines.
+    ActiveWindow.DisplayGridlines = False
+
+    ' Protect the sheet but allow users to edit all cells (no locking).
+    ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True
+    ActiveSheet.Unprotect
+    ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True
+    ActiveSheet.EnableSelection = xlNoRestrictions
+
+    ' Allow screen to redraw with calendar showing.
+    Application.ScreenUpdating = True
+
+    ' Resize window to show all of calendar.
+    ActiveWindow.WindowState = xlMaximized
+    ActiveWindow.ScrollRow = 1
+
+    Exit Sub
+
+MyErrorTrap:
+    MsgBox "You may not have entered your Month and Year correctly." & Chr(13) & "Spell the Month correctly" & Chr(13) & "and 4 digits for the Year."
+    MyInput = InputBox("Type in Month and year for Calendar")
+    If MyInput = "" Then Exit Sub
+    Resume
+End Sub
+`,
+            `Sub CreateChart()\n    Dim chart As Chart\n    Set chart = Charts.Add\n    chart.SetSourceData Source:=Range("A1:B10")\nEnd Sub`,
+            `Sub AutoFitColumns()\n    Columns("A:D").AutoFit\nEnd Sub`,
+            `Sub InsertTimestamp()\n    ActiveCell.Value = Now\nEnd Sub`,
+            `Sub GenerateRandomNumbers()\n    Dim i As Integer\n    For i = 1 To 10\n        Cells(i, 1).Value = Rnd() * 100\n    Next i\nEnd Sub`,
+            `Sub CopyDataToAnotherSheet()\n    Sheets("Sheet1").Range("A1:A10").Copy Destination:=Sheets("Sheet2").Range("A1")\nEnd Sub`,
+            `Sub SaveWorkbookAs()\n    ThisWorkbook.SaveAs Filename:="C:\\NewWorkbook.xlsx"\nEnd Sub`
+        ];
+
+        let currentCode = '';
+
+        function showCode(index) {
+            currentCode = snippets[index];
+            document.getElementById('codeContent').textContent = currentCode;
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        function copyCode() {
+            navigator.clipboard.writeText(currentCode)
+                .then(() => {
+                    const msg = document.getElementById('successMsg');
+                    msg.style.display = 'block';
+                    setTimeout(() => msg.style.display = 'none', 2500);
+                })
+                .catch(err => console.error('Copy failed:', err));
+        }
+
+        // Close modal on ESC key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

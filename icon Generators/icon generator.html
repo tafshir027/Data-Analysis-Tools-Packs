@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful PNG & JPG icon Generatorr</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- html2canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+      text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Glassmorphic Container */
+    .glassmorphic {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: #ffffff;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #searchInput:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 40%;
+      width: 20%;
+      max-height: 150px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.5);
+	background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      transition: background 0.3s ease;
+    }
+
+    .suggestion-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Icon Container */
+    .icon-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .icon {
+      font-size: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+      color: #ffffff;
+      text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .icon:hover {
+      transform: scale(1.2);
+      color: #ff7f50; /* Coral Glow */
+    }
+
+    /* Selected Icon Display */
+    #selectedIconContainer {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    #selectedIcon {
+      font-size: 100px;
+      color: #ff7f50; /* Coral Color */
+      text-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Color Picker */
+    .color-picker {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .color-picker label {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    .color-picker input[type="color"] {
+      width: 50px;
+      height: 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .color-picker input[type="text"] {
+      width: 100px;
+      padding: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      outline: none;
+    }
+
+    /* Size Picker */
+    .size-picker {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .size-picker label {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    .size-picker input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      outline: none;
+    }
+
+    /* Download Buttons */
+    .download-btn {
+      margin-top: 20px;
+    }
+
+    .download-btn button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      margin: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff7f50, #ff4500);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .download-btn button:hover {
+      background: linear-gradient(135deg, #ff4500, #ff7f50);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 15px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      color: #ffffff;
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ff7f50;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Main Content -->
+  <div class="glassmorphic">
+    <h1>Icon Generator By tutorials Point Bangladesh</h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for an icon..." oninput="handleSearch()">
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <!-- Icon List -->
+    <div class="icon-container" id="iconContainer">
+      <!-- Icons will be dynamically generated here -->
+    </div>
+
+    <!-- Selected Icon Display -->
+    <div id="selectedIconContainer">
+      <i class="fa-solid fa-heart icon" id="selectedIcon"></i>
+    </div>
+
+    <!-- Color Picker -->
+    <div class="color-picker">
+      <label for="colorInput">Choose a color:</label>
+      <input type="color" id="colorInput" value="#ff0000">
+      <input type="text" id="hexColorInput" placeholder="#ff0000">
+    </div>
+
+    <!-- Size Picker -->
+    <div class="size-picker">
+      <label for="sizeInput">Icon Size (px):</label>
+      <input type="number" id="sizeInput" min="20" max="500" value="100">
+    </div>
+
+    <!-- Download Buttons -->
+    <div class="download-btn">
+      <button id="downloadPngBtn">Download as PNG</button>
+      <button id="downloadJpgBtn">Download as JPG</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons">
+    <a href="https://www.facebook.com/mdtafsirkabir" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/tafsirkabir/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@PyPlatoonsbd" target="_blank"><i class="fab fa-youtube"></i></a>
+
+<a href="https://www.tutorialspointbd.com" target="_blank"><i class="fa-sharp fa-solid fa-globe"></i></a>
+
+    </div>
+  </footer>
+
+  <script>
+    // List of 100 Font Awesome icons
+  const allIcons = [
+  "fa-heart", "fa-star", "fa-circle", "fa-square", "fa-check", "fa-times",
+  "fa-arrow-up", "fa-arrow-down", "fa-arrow-left", "fa-arrow-right",
+  "fa-home", "fa-user", "fa-cog", "fa-search", "fa-envelope", "fa-bell",
+  "fa-camera", "fa-music", "fa-video", "fa-image", "fa-file", "fa-folder",
+  "fa-lock", "fa-unlock", "fa-book", "fa-calendar", "fa-clock", "fa-comment",
+  "fa-thumbs-up", "fa-thumbs-down", "fa-share", "fa-download", "fa-upload",
+  "fa-trash", "fa-edit", "fa-plus", "fa-minus", "fa-bars", "fa-list",
+  "fa-globe", "fa-map-marker", "fa-phone", "fa-print", "fa-save", "fa-sync",
+  "fa-cloud", "fa-sun", "fa-moon", "fa-tree", "fa-car", "fa-bicycle",
+  "fa-plane", "fa-ship", "fa-train", "fa-bus", "fa-taxi", "fa-truck",
+  "fa-wifi", "fa-battery-full", "fa-battery-empty", "fa-plug", "fa-lightbulb",
+  "fa-fire", "fa-snowflake", "fa-umbrella", "fa-shield", "fa-anchor",
+  "fa-flag", "fa-trophy", "fa-gift", "fa-coffee", "fa-beer",
+  "fa-cutlery", "fa-lemon", "fa-hamburger", "fa-ice-cream",
+  "fa-fish", "fa-dog", "fa-cat", "fa-paw", "fa-bug", "fa-bone",
+  "fa-address-book", "fa-address-card", "fa-adjust", "fa-align-center", "fa-align-justify",
+  "fa-align-left", "fa-align-right", "fa-allergies", "fa-ambulance", "fa-american-sign-language-interpreting",
+  "fa-anchor-circle-check", "fa-anchor-circle-exclamation", "fa-anchor-circle-xmark", "fa-anchor-lock", "fa-angle-double-down",
+  "fa-angle-double-left", "fa-angle-double-right", "fa-angle-double-up", "fa-angle-down", "fa-angle-left",
+  "fa-angle-right", "fa-angle-up", "fa-angles-down", "fa-angles-left", "fa-angles-right",
+  "fa-angles-up", "fa-ankh", "fa-apple-alt", "fa-apple-whole", "fa-archive",
+  "fa-arrow-alt-circle-down", "fa-arrow-alt-circle-left", "fa-arrow-alt-circle-right", "fa-arrow-alt-circle-up", "fa-arrow-circle-down",
+  "fa-arrow-circle-left", "fa-arrow-circle-right", "fa-arrow-circle-up", "fa-arrow-down-1-9", "fa-arrow-down-9-1",
+  "fa-arrow-down-a-z", "fa-arrow-down-long", "fa-arrow-down-short-wide", "fa-arrow-down-wide-short", "fa-arrow-down-z-a",
+  "fa-arrow-left-long", "fa-arrow-pointer", "fa-arrow-right-arrow-left", "fa-arrow-right-from-bracket", "fa-arrow-right-long",
+  "fa-arrow-right-to-bracket", "fa-arrow-rotate-left", "fa-arrow-rotate-right", "fa-arrow-turn-down", "fa-arrow-turn-up",
+  "fa-arrow-up-1-9", "fa-arrow-up-9-1", "fa-arrow-up-a-z", "fa-arrow-up-from-bracket", "fa-arrow-up-long",
+  "fa-arrow-up-right-from-square", "fa-arrow-up-short-wide", "fa-arrow-up-wide-short", "fa-arrow-up-z-a", "fa-arrows-alt",
+  "fa-arrows-alt-h", "fa-arrows-alt-v", "fa-arrows-down-to-line", "fa-arrows-down-to-people", "fa-arrows-left-right",
+  "fa-arrows-left-right-to-line", "fa-arrows-rotate", "fa-arrows-spin", "fa-arrows-split-up-and-left", "fa-arrows-to-circle",
+  "fa-arrows-to-dot", "fa-arrows-to-eye", "fa-arrows-turn-right", "fa-arrows-turn-to-dots", "fa-arrows-up-down",
+  "fa-arrows-up-down-left-right", "fa-arrows-up-to-line", "fa-assistive-listening-systems", "fa-asterisk", "fa-at",
+  "fa-atom", "fa-audio-description", "fa-award", "fa-baby", "fa-baby-carriage",
+  "fa-backward", "fa-backward-fast", "fa-backward-step", "fa-bacon", "fa-bacteria",
+  "fa-bacterium", "fa-bahai", "fa-balance-scale", "fa-balance-scale-left", "fa-balance-scale-right",
+  "fa-ban", "fa-band-aid", "fa-barcode", "fa-bars-progress", "fa-bars-staggered",
+  "fa-baseball-ball", "fa-basketball-ball", "fa-bath", "fa-battery-half", "fa-battery-quarter",
+  "fa-battery-three-quarters", "fa-bed", "fa-beer-mug-empty", "fa-bell-concierge", "fa-bell-slash",
+  "fa-bicycle-alt", "fa-binoculars", "fa-biohazard", "fa-birthday-cake", "fa-blender",
+  "fa-blender-phone", "fa-blind", "fa-blog", "fa-bold", "fa-bolt",
+  "fa-bomb", "fa-bone-break", "fa-bong", "fa-book-alt", "fa-book-dead",
+  "fa-book-medical", "fa-book-open", "fa-book-reader", "fa-book-skull", "fa-bookmark",
+  "fa-border-all", "fa-border-none", "fa-border-style", "fa-bowling-ball", "fa-box",
+  "fa-box-archive", "fa-box-open", "fa-box-tissue", "fa-boxes", "fa-boxes-alt",
+  "fa-boxes-stacked", "fa-braille", "fa-brain", "fa-bread-slice", "fa-briefcase",
+  "fa-briefcase-medical", "fa-broadcast-tower", "fa-broom", "fa-browser", "fa-brush",
+  "fa-bug-slash", "fa-building", "fa-building-columns", "fa-bullhorn", "fa-bullseye",
+  "fa-burger", "fa-burn", "fa-bus-alt", "fa-business-time", "fa-cabinet-filing",
+  "fa-calculator", "fa-calendar-alt", "fa-calendar-check", "fa-calendar-day", "fa-calendar-minus",
+  "fa-calendar-plus", "fa-calendar-times", "fa-calendar-week", "fa-camera-alt", "fa-camera-retro",
+  "fa-campground", "fa-candy-cane", "fa-cannabis", "fa-capsules", "fa-car-alt",
+  "fa-car-battery", "fa-car-crash", "fa-car-side", "fa-caravan", "fa-caret-down",
+  "fa-caret-left", "fa-caret-right", "fa-caret-square-down", "fa-caret-square-left", "fa-caret-square-right",
+  "fa-caret-square-up", "fa-caret-up", "fa-carrot", "fa-cart-arrow-down", "fa-cart-plus",
+  "fa-cash-register", "fa-cat-space", "fa-certificate", "fa-chair", "fa-chalkboard",
+  "fa-chalkboard-teacher", "fa-charging-station", "fa-chart-area", "fa-chart-bar", "fa-chart-line",
+  "fa-chart-pie", "fa-check-circle", "fa-check-double", "fa-check-square", "fa-cheese",
+  "fa-chess", "fa-chess-bishop", "fa-chess-board", "fa-chess-king", "fa-chess-knight",
+  "fa-chess-pawn", "fa-chess-queen", "fa-chess-rook", "fa-chevron-circle-down", "fa-chevron-circle-left",
+  "fa-chevron-circle-right", "fa-chevron-circle-up", "fa-chevron-down", "fa-chevron-left", "fa-chevron-right",
+  "fa-chevron-up", "fa-child", "fa-church", "fa-circle-arrow-down", "fa-circle-arrow-left",
+  "fa-circle-arrow-right", "fa-circle-arrow-up", "fa-circle-check", "fa-circle-chevron-down", "fa-circle-chevron-left",
+  "fa-circle-chevron-right", "fa-circle-chevron-up", "fa-circle-dollar-to-slot", "fa-circle-dot", "fa-circle-down",
+  "fa-circle-exclamation", "fa-circle-h", "fa-circle-half-stroke", "fa-circle-info", "fa-circle-left",
+  "fa-circle-notch", "fa-circle-pause", "fa-circle-play", "fa-circle-plus", "fa-circle-question",
+  "fa-circle-radiation", "fa-circle-right", "fa-circle-stop", "fa-circle-up", "fa-circle-user",
+  "fa-circle-xmark", "fa-city", "fa-clinic-medical", "fa-clipboard", "fa-clipboard-check",
+  "fa-clipboard-list", "fa-clock-rotate-left", "fa-clone", "fa-closed-captioning", "fa-cloud-arrow-down",
+  "fa-cloud-arrow-up", "fa-cloud-download-alt", "fa-cloud-meatball", "fa-cloud-moon", "fa-cloud-moon-rain",
+  "fa-cloud-rain", "fa-cloud-showers-heavy", "fa-cloud-sun", "fa-cloud-sun-rain", "fa-cloud-upload-alt",
+  "fa-cocktail", "fa-code", "fa-code-branch", "fa-code-commit", "fa-code-merge",
+  "fa-coffee-alt", "fa-cog-alt", "fa-coins", "fa-columns", "fa-comment-alt",
+  "fa-comment-dollar", "fa-comment-dots", "fa-comment-medical", "fa-comment-slash", "fa-comments",
+  "fa-comments-dollar", "fa-compact-disc", "fa-compass", "fa-compress", "fa-compress-alt",
+  "fa-compress-arrows-alt", "fa-concierge-bell", "fa-cookie", "fa-cookie-bite", "fa-copy",
+  "fa-copyright", "fa-couch", "fa-credit-card", "fa-crop", "fa-crop-alt",
+  "fa-cross", "fa-crosshairs", "fa-crow", "fa-crown", "fa-crutch",
+  "fa-cube", "fa-cubes", "fa-curling", "fa-cut", "fa-database",
+  "fa-deaf", "fa-democrat", "fa-desktop", "fa-dharmachakra", "fa-diagnoses",
+  "fa-diamond", "fa-dice", "fa-dice-d20", "fa-dice-d6", "fa-dice-five",
+  "fa-dice-four", "fa-dice-one", "fa-dice-six", "fa-dice-three", "fa-dice-two",
+  "fa-digital-tachograph", "fa-directions", "fa-divide", "fa-dizzy", "fa-dna",
+  "fa-dog-leashed", "fa-dollar-sign", "fa-dolly", "fa-dolly-flatbed", "fa-donate",
+  "fa-door-closed", "fa-door-open", "fa-dot-circle", "fa-dove", "fa-download",
+  "fa-drafting-compass", "fa-dragon", "fa-draw-polygon", "fa-drum", "fa-drum-steelpan",
+  "fa-drumstick-bite", "fa-dumbbell", "fa-dumpster", "fa-dumpster-fire", "fa-dungeon",
+  "fa-edit-alt", "fa-eject", "fa-ellipsis-h", "fa-ellipsis-v", "fa-envelope-open",
+  "fa-envelope-open-text", "fa-envelope-square", "fa-equals", "fa-eraser", "fa-euro-sign",
+  "fa-exchange-alt", "fa-exclamation", "fa-exclamation-circle", "fa-exclamation-triangle", "fa-expand",
+  "fa-expand-alt", "fa-expand-arrows-alt", "fa-eye", "fa-eye-dropper", "fa-eye-slash",
+  "fa-fan", "fa-fast-backward", "fa-fast-forward", "fa-fax", "fa-feather",
+  "fa-feather-alt", "fa-female", "fa-fighter-jet", "fa-file-alt", "fa-file-archive",
+  "fa-file-audio", "fa-file-code", "fa-file-contract", "fa-file-csv", "fa-file-download",
+  "fa-file-excel", "fa-file-export", "fa-file-image", "fa-file-import", "fa-file-invoice",
+  "fa-file-invoice-dollar", "fa-file-medical", "fa-file-medical-alt", "fa-file-pdf", "fa-file-powerpoint",
+  "fa-file-prescription", "fa-file-signature", "fa-file-upload", "fa-file-video", "fa-file-word",
+  "fa-fill", "fa-fill-drip", "fa-film", "fa-filter", "fa-fingerprint",
+  "fa-fire-alt", "fa-fire-extinguisher", "fa-first-aid", "fa-fish-fins", "fa-flag-alt",
+  "fa-flag-checkered", "fa-flag-usa", "fa-flask", "fa-flushed", "fa-folder-minus",
+  "fa-folder-open", "fa-folder-plus", "fa-font", "fa-football-ball", "fa-forward",
+  "fa-forward-fast", "fa-forward-step", "fa-frog", "fa-frown", "fa-frown-open",
+  "fa-function", "fa-funnel-dollar", "fa-gamepad", "fa-gas-pump", "fa-gavel",
+  "fa-gem", "fa-genderless", "fa-ghost", "fa-gift-card", "fa-gifts",
+  "fa-glass-cheers", "fa-glasses", "fa-globe-africa", "fa-globe-americas", "fa-globe-asia",
+  "fa-globe-europe", "fa-golf-ball", "fa-gopuram", "fa-graduation-cap", "fa-greater-than",
+  "fa-greater-than-equal", "fa-grimace", "fa-grin", "fa-grin-alt", "fa-grin-beam",
+  "fa-grin-beam-sweat", "fa-grin-hearts", "fa-grin-squint", "fa-grin-squint-tears", "fa-grin-stars",
+  "fa-grin-tears", "fa-grin-tongue", "fa-grin-tongue-squint", "fa-grin-tongue-wink", "fa-grin-wink",
+  "fa-grip-horizontal", "fa-grip-lines", "fa-grip-lines-vertical", "fa-grip-vertical", "fa-guitar",
+  "fa-h-square", "fa-hamburger", "fa-hammer", "fa-hamsa", "fa-hand-holding",
+  "fa-hand-holding-heart", "fa-hand-holding-usd", "fa-hand-lizard", "fa-hand-paper", "fa-hand-peace",
+  "fa-hand-point-down", "fa-hand-point-left", "fa-hand-point-right", "fa-hand-point-up", "fa-hand-pointer",
+  "fa-hand-rock", "fa-hand-scissors", "fa-hand-spock", "fa-hands", "fa-hands-helping",
+  "fa-handshake", "fa-hashtag", "fa-hat-cowboy", "fa-hat-cowboy-side", "fa-hat-wizard",
+  "fa-hdd", "fa-heading", "fa-headphones", "fa-headphones-alt", "fa-headset",
+  "fa-heart-broken", "fa-heartbeat", "fa-helicopter", "fa-highlighter", "fa-hiking",
+  "fa-hippo", "fa-history", "fa-hockey-puck", "fa-holly-berry", "fa-home-alt",
+  "fa-horse", "fa-horse-head", "fa-hospital", "fa-hospital-alt", "fa-hospital-symbol",
+  "fa-hot-tub", "fa-hotel", "fa-hourglass", "fa-hourglass-end", "fa-hourglass-half",
+  "fa-hourglass-start", "fa-house-damage", "fa-house-user", "fa-hryvnia", "fa-i-cursor",
+  "fa-id-badge", "fa-id-card", "fa-id-card-alt", "fa-image-alt", "fa-images",
+  "fa-inbox", "fa-indent", "fa-industry", "fa-infinity", "fa-info",
+  "fa-info-circle", "fa-italic", "fa-jedi", "fa-joint", "fa-journal-whills",
+  "fa-kaaba", "fa-key", "fa-keyboard", "fa-khanda", "fa-kiss",
+  "fa-kiss-beam", "fa-kiss-wink-heart", "fa-kiwi-bird", "fa-landmark", "fa-language",
+  "fa-laptop", "fa-laptop-code", "fa-laptop-medical", "fa-laugh", "fa-laugh-beam",
+  "fa-laugh-squint", "fa-laugh-wink", "fa-layer-group", "fa-leaf", "fa-lemon-alt",
+  "fa-less-than", "fa-less-than-equal", "fa-level-down-alt", "fa-level-up-alt", "fa-life-ring",
+  "fa-lightbulb-alt", "fa-link", "fa-lira-sign", "fa-list-alt", "fa-list-ol",
+  "fa-list-ul", "fa-location-arrow", "fa-lock-alt", "fa-lock-open-alt", "fa-long-arrow-alt-down",
+  "fa-long-arrow-alt-left", "fa-long-arrow-alt-right", "fa-long-arrow-alt-up", "fa-low-vision", "fa-luggage-cart",
+  "fa-lungs", "fa-lungs-virus", "fa-magic", "fa-magnet", "fa-mail-bulk",
+  "fa-male", "fa-map", "fa-map-marked", "fa-map-marked-alt", "fa-map-pin",
+  "fa-map-signs", "fa-marker", "fa-mars", "fa-mars-double", "fa-mars-stroke",
+  "fa-mars-stroke-h", "fa-mars-stroke-v", "fa-mask", "fa-medal", "fa-medkit",
+  "fa-meh", "fa-meh-blank", "fa-meh-rolling-eyes", "fa-memory", "fa-menorah",
+  "fa-mercury", "fa-meteor", "fa-microchip", "fa-microphone", "fa-microphone-alt",
+  "fa-microphone-alt-slash", "fa-microphone-slash", "fa-microscope", "fa-minus-circle", "fa-minus-square",
+  "fa-mitten", "fa-mobile", "fa-mobile-alt", "fa-money-bill", "fa-money-bill-alt",
+  "fa-money-bill-wave", "fa-money-bill-wave-alt", "fa-money-check", "fa-money-check-alt", "fa-monument",
+  "fa-moon-alt", "fa-mortar-pestle", "fa-mosque", "fa-motorcycle", "fa-mountain",
+  "fa-mouse", "fa-mouse-pointer", "fa-mug-hot", "fa-music-alt", "fa-network-wired",
+  "fa-neuter", "fa-newspaper", "fa-not-equal", "fa-notes-medical", "fa-object-group",
+  "fa-object-ungroup", "fa-oil-can", "fa-om", "fa-otter", "fa-outdent",
+  "fa-pager", "fa-paint-brush", "fa-paint-roller", "fa-palette", "fa-pallet",
+  "fa-paper-plane", "fa-paperclip", "fa-parachute-box", "fa-paragraph", "fa-parking",
+  "fa-passport", "fa-pastafarianism", "fa-paste", "fa-pause", "fa-pause-circle",
+  "fa-paw-alt", "fa-peace", "fa-pen", "fa-pen-alt", "fa-pen-fancy",
+  "fa-pen-nib", "fa-pen-square", "fa-pencil-alt", "fa-people-arrows", "fa-percent",
+  "fa-percentage", "fa-person-booth", "fa-phone-alt", "fa-phone-slash", "fa-phone-square",
+  "fa-phone-volume", "fa-photo-video", "fa-piggy-bank", "fa-pills", "fa-pizza-slice",
+  "fa-place-of-worship", "fa-plane-alt", "fa-plane-arrival", "fa-plane-departure", "fa-play",
+  "fa-play-circle", "fa-plug-alt", "fa-plus-circle", "fa-plus-square", "fa-podcast",
+  "fa-poll", "fa-poll-h", "fa-poo", "fa-poo-storm", "fa-poop",
+  "fa-portrait", "fa-pound-sign", "fa-power-off", "fa-pray", "fa-praying-hands",
+  "fa-prescription", "fa-prescription-bottle", "fa-prescription-bottle-alt", "fa-print-alt", "fa-procedures",
+  "fa-project-diagram", "fa-puzzle-piece", "fa-qrcode", "fa-question", "fa-question-circle",
+  "fa-quidditch", "fa-quote-left", "fa-quote-right", "fa-quran", "fa-radiation",
+  "fa-radiation-alt", "fa-rainbow", "fa-random", "fa-receipt", "fa-record-vinyl",
+  "fa-recycle", "fa-redo", "fa-redo-alt", "fa-registered", "fa-remove-format",
+  "fa-reply", "fa-reply-all", "fa-republican", "fa-restroom", "fa-retweet",
+  "fa-ribbon", "fa-ring", "fa-road", "fa-robot", "fa-rocket",
+  "fa-route", "fa-rss", "fa-rss-square", "fa-ruble-sign", "fa-ruler",
+  "fa-ruler-combined", "fa-ruler-horizontal", "fa-ruler-vertical", "fa-running", "fa-rupee-sign",
+  "fa-sad-cry", "fa-sad-tear", "fa-satellite", "fa-satellite-dish", "fa-save-alt",
+  "fa-school", "fa-screwdriver", "fa-scroll", "fa-sd-card", "fa-search-alt",
+  "fa-search-dollar", "fa-search-location", "fa-search-minus", "fa-search-plus", "fa-seedling",
+  "fa-server", "fa-shapes", "fa-share-alt", "fa-share-alt-square", "fa-shekel-sign",
+  "fa-shield-alt", "fa-shield-virus", "fa-ship-alt", "fa-shipping-fast", "fa-shoe-prints",
+  "fa-shopping-bag", "fa-shopping-basket", "fa-shopping-cart", "fa-shower", "fa-shuttle-van",
+  "fa-sign", "fa-sign-alt", "fa-sign-in-alt", "fa-sign-language", "fa-sign-out-alt",
+  "fa-signal", "fa-signature", "fa-sim-card", "fa-sitemap", "fa-skating",
+  "fa-skiing", "fa-skiing-nordic", "fa-skull", "fa-skull-crossbones", "fa-slash",
+  "fa-sleigh", "fa-sliders-h", "fa-smile", "fa-smile-beam", "fa-smile-wink",
+  "fa-smog", "fa-smoking", "fa-smoking-ban", "fa-sms", "fa-snowboarding",
+  "fa-snowplow", "fa-sort", "fa-sort-alpha-down", "fa-sort-alpha-down-alt", "fa-sort-alpha-up",
+  "fa-sort-alpha-up-alt", "fa-sort-amount-down", "fa-sort-amount-down-alt", "fa-sort-amount-up", "fa-sort-amount-up-alt",
+  "fa-sort-down", "fa-sort-numeric-down", "fa-sort-numeric-down-alt", "fa-sort-numeric-up", "fa-sort-numeric-up-alt",
+  "fa-sort-up", "fa-spa", "fa-space-shuttle", "fa-spell-check", "fa-spider",
+  "fa-spinner", "fa-splotch", "fa-spray-can", "fa-square-alt", "fa-square-full",
+  "fa-square-root-alt", "fa-stamp", "fa-star-alt", "fa-star-and-crescent", "fa-star-half-alt",
+  "fa-star-of-david", "fa-star-of-life", "fa-step-backward", "fa-step-forward", "fa-stethoscope",
+  "fa-sticky-note", "fa-stop", "fa-stop-circle", "fa-stopwatch", "fa-store",
+  "fa-store-alt", "fa-stream", "fa-street-view", "fa-strikethrough", "fa-stroopwafel",
+  "fa-subscript", "fa-subway", "fa-suitcase", "fa-suitcase-rolling", "fa-sun-alt",
+  "fa-superscript", "fa-surprise", "fa-swatchbook", "fa-swimmer", "fa-swimming-pool",
+  "fa-synagogue", "fa-sync-alt", "fa-syringe", "fa-table", "fa-table-tennis",
+  "fa-tablet", "fa-tablet-alt", "fa-tablets", "fa-tachometer-alt", "fa-tag",
+  "fa-tags", "fa-tape", "fa-tasks", "fa-taxi-alt", "fa-teeth",
+  "fa-teeth-open", "fa-temperature-high", "fa-temperature-low", "fa-tenge", "fa-terminal",
+  "fa-text-height", "fa-text-width", "fa-th", "fa-th-large", "fa-th-list",
+  "fa-theater-masks", "fa-thermometer", "fa-thermometer-empty", "fa-thermometer-full", "fa-thermometer-half",
+  "fa-thermometer-quarter", "fa-thermometer-three-quarters", "fa-thumbs-down-alt", "fa-thumbs-up-alt", "fa-thumbtack",
+  "fa-ticket-alt", "fa-times-circle", "fa-tint", "fa-tint-slash", "fa-tired",
+  "fa-toggle-off", "fa-toggle-on", "fa-toilet", "fa-toilet-paper", "fa-toolbox",
+  "fa-tools", "fa-tooth", "fa-torah", "fa-torii-gate", "fa-tractor",
+  "fa-trademark", "fa-traffic-light", "fa-trailer", "fa-train-alt", "fa-tram",
+  "fa-transgender", "fa-transgender-alt", "fa-trash-alt", "fa-trash-restore", "fa-trash-restore-alt",
+  "fa-tree-alt", "fa-trophy-alt", "fa-truck-loading", "fa-truck-monster", "fa-truck-moving",
+  "fa-truck-pickup", "fa-tshirt", "fa-tty", "fa-tv", "fa-tv-alt",
+  "fa-umbrella-alt", "fa-underline", "fa-undo", "fa-undo-alt", "fa-universal-access",
+  "fa-university", "fa-unlink", "fa-unlock-alt", "fa-upload-alt", "fa-user-alt",
+  "fa-user-alt-slash", "fa-user-astronaut", "fa-user-check", "fa-user-circle", "fa-user-clock",
+  "fa-user-cog", "fa-user-edit", "fa-user-friends", "fa-user-graduate", "fa-user-injured",
+  "fa-user-lock", "fa-user-md", "fa-user-minus", "fa-user-ninja", "fa-user-nurse",
+  "fa-user-plus", "fa-user-secret", "fa-user-shield", "fa-user-slash", "fa-user-tag",
+  "fa-user-tie", "fa-user-times", "fa-users", "fa-users-cog", "fa-utensils",
+  "fa-utensil-spoon", "fa-vector-square", "fa-venus", "fa-venus-double", "fa-venus-mars",
+  "fa-vial", "fa-vials", "fa-video-alt", "fa-video-slash", "fa-vihara",
+  "fa-voicemail", "fa-volleyball-ball", "fa-volume-down", "fa-volume-mute", "fa-volume-off",
+  "fa-volume-up", "fa-vote-yea", "fa-vr-cardboard", "fa-walking", "fa-wallet",
+  "fa-warehouse", "fa-water", "fa-wave-square", "fa-weight", "fa-weight-hanging",
+  "fa-wheelchair", "fa-wifi-alt", "fa-wind", "fa-window-close", "fa-window-maximize",
+  "fa-window-minimize", "fa-window-restore", "fa-wine-bottle", "fa-wine-glass", "fa-wine-glass-alt",
+  "fa-won-sign", "fa-wrench", "fa-x-ray", "fa-yen-sign", "fa-yin-yang",
+  "fa-brands fa-facebook", "fa-brands fa-facebook-messenger", "fa-brands fa-facebook-square",
+  "fa-brands fa-twitter", "fa-brands fa-twitter-square","fa-brands fa-squre-x-twitter","fa-brands fa-x-twitter",
+  "fa-brands fa-instagram", "fa-brands fa-instagram-square",
+  "fa-brands fa-linkedin", "fa-brands fa-linkedin-in",
+  "fa-brands fa-youtube", "fa-brands fa-youtube-square",
+  "fa-brands fa-pinterest", "fa-brands fa-pinterest-p", "fa-brands fa-pinterest-square",
+  "fa-brands fa-tiktok",
+  "fa-brands fa-snapchat", "fa-brands fa-snapchat-ghost", "fa-brands fa-snapchat-square",
+  "fa-brands fa-reddit", "fa-brands fa-reddit-alien", "fa-brands fa-reddit-square",
+  "fa-brands fa-whatsapp", "fa-brands fa-whatsapp-square",
+  "fa-brands fa-telegram", "fa-brands fa-telegram-plane",
+  "fa-brands fa-skype",
+  "fa-brands fa-viber",
+  "fa-brands fa-weixin", "fa-brands fa-weibo", "fa-brands fa-wechat",
+  "fa-brands fa-tumblr", "fa-brands fa-tumblr-square",
+  "fa-brands fa-flickr",
+  "fa-brands fa-dribbble", "fa-brands fa-dribbble-square",
+  "fa-brands fa-brands fa-behance", "fa-brands fa-brands fa-behance-square",
+  "fa-brands fa-vimeo", "fa-brands fa-vimeo-square", "fa-brands fa-vimeo-v",
+  "fa-brands fa-slack", "fa-brands fa-slack-hash",
+  "fa-brands fa-discord",
+  "fa-brands fa-github", "fa-brands fa-github-alt", "fa-brands fa-github-square",
+  "fa-brands fa-gitlab",
+  "fa-brands fa-stack-overflow",
+  "fa-brands fa-stack-exchange",
+  "fa-brands fa-hacker-news", "fa-brands fa-hacker-news-square",
+  "fa-brands fa-medium", "fa-brands fa-medium-m",
+  "fa-brands fa-wordpress", "fa-brands fa-wordpress-simple",
+  "fa-brands fa-blogger", "fa-brands fa-blogger-b",
+  "fa-brands fa-twitch",
+  "fa-brands fa-vk",
+  "fa-brands fa-odnoklassniki", "fa-brands fa-odnoklassniki-square",
+  "fa-brands fa-get-pocket",
+  "fa-brands fa-soundcloud",
+  "fa-brands fa-spotify",
+  "fa-brands fa-bandcamp",
+  "fa-brands fa-lastfm", "fa-brands fa-lastfm-square",
+  "fa-brands fa-deezer",
+  "fa-brands fa-apple",
+  "fa-brands fa-android",
+  "fa-brands fa-windows",
+  "fa-brands fa-playstation",
+  "fa-brands fa-xbox",
+  "fa-brands fa-stripe", "fa-brands fa-stripe-s",
+  "fa-brands fa-paypal",
+  "fa-brands fa-cc-visa", "fa-brands fa-cc-mastercard", "fa-brands fa-cc-amex", "fa-brands fa-cc-discover", "fa-brands fa-cc-paypal", "fa-brands fa-cc-apple-pay",
+  "fa-brands fa-bitcoin", "fa-brands fa-btc",
+  "fa-brands fa-ethereum",
+  "fa-brands fa-keybase",
+  "fa-brands fa-rss", "fa-brands fa-rss-square",
+  "fa-brands fa-envelope", "fa-brands fa-envelope-open", "fa-brands fa-envelope-square",
+  "fa-comment", "fa-comment-alt", "fa-comments", "fa-comment-dots",
+  "fa-share", "fa-share-alt", "fa-share-square",
+  "fa-hashtag",
+  "fa-at",
+  "fa-globe", "fa-globe-asia", "fa-globe-americas", "fa-globe-europe", "fa-globe-africa",
+  "fa-map-marker", "fa-map-marker-alt",
+  "fa-video", "fa-video-slash",
+  "fa-camera", "fa-camera-retro",
+  "fa-photo-video",
+  "fa-cloud-upload", "fa-cloud-download",
+  "fa-cloud", "fa-cloud-meatball", "fa-cloud-rain", "fa-cloud-showers-heavy", "fa-cloud-sun", "fa-cloud-sun-rain",
+  "fa-cloud-moon", "fa-cloud-moon-rain",
+  "fa-sun", "fa-moon",
+  "fa-star", "fa-star-half", "fa-star-half-alt",
+  "fa-heart", "fa-heartbeat", "fa-heart-broken",
+  "fa-thumbs-up", "fa-thumbs-down",
+  "fa-user", "fa-user-circle", "fa-user-alt", "fa-user-friends", "fa-user-plus", "fa-user-minus", "fa-user-lock",
+  "fa-users", "fa-user-shield", "fa-user-secret",
+  "fa-handshake", "fa-handshake-alt",
+  "fa-bell", "fa-bell-slash",
+  "fa-flag", "fa-flag-checkered",
+  "fa-bookmark", "fa-bookmark-alt",
+  "fa-calendar", "fa-calendar-alt", "fa-calendar-check", "fa-calendar-minus", "fa-calendar-plus", "fa-calendar-times",
+  "fa-clock", "fa-stopwatch",
+  "fa-search", "fa-search-minus", "fa-search-plus",
+  "fa-filter",
+  "fa-bars", "fa-bars-staggered",
+  "fa-list", "fa-list-alt", "fa-list-ol", "fa-list-ul",
+  "fa-table",
+  "fa-chart-bar", "fa-chart-line", "fa-chart-pie", "fa-chart-area",
+  "fa-file", "fa-file-alt", "fa-file-archive", "fa-file-audio", "fa-file-code", "fa-file-excel", "fa-file-image", "fa-file-pdf", "fa-file-powerpoint", "fa-file-video", "fa-file-word",
+  "fa-folder", "fa-folder-open", "fa-folder-plus", "fa-folder-minus",
+  "fa-trash", "fa-trash-alt", "fa-trash-restore", "fa-trash-restore-alt",
+  "fa-edit", "fa-pencil-alt",
+  "fa-save", "fa-floppy-disk",
+  "fa-print",
+  "fa-download", "fa-upload",
+  "fa-sync", "fa-sync-alt",
+  "fa-redo", "fa-redo-alt",
+  "fa-undo", "fa-undo-alt",
+  "fa-cut", "fa-copy", "fa-paste",
+  "fa-lock", "fa-lock-open", "fa-unlock", "fa-unlock-alt",
+  "fa-eye", "fa-eye-slash",
+  "fa-shield", "fa-shield-alt", "fa-shield-virus",
+  "fa-bolt", "fa-battery-full", "fa-battery-empty", "fa-battery-half", "fa-battery-quarter", "fa-battery-three-quarters",
+  "fa-plug", "fa-lightbulb", "fa-lightbulb-on",
+  "fa-wifi", "fa-signal", "fa-signal-alt", "fa-signal-alt-slash",
+  "fa-mobile", "fa-mobile-alt", "fa-tablet", "fa-tablet-alt", "fa-laptop", "fa-desktop", "fa-tv", "fa-tv-alt",
+  "fa-headphones", "fa-headphones-alt", "fa-volume-up", "fa-volume-down", "fa-volume-off", "fa-volume-mute",
+  "fa-microphone", "fa-microphone-alt", "fa-microphone-slash", "fa-microphone-alt-slash",
+  "fa-video", "fa-video-slash",
+  "fa-camera", "fa-camera-retro", "fa-camera-alt",
+  "fa-image", "fa-images", "fa-portrait", "fa-id-card", "fa-id-card-alt",
+  "fa-map", "fa-map-marked", "fa-map-marked-alt", "fa-map-pin", "fa-route", "fa-compass", "fa-compass-slash",
+  "fa-anchor", "fa-anchor-circle-check", "fa-anchor-circle-exclamation", "fa-anchor-circle",
+
+  "fa-clipboard-list", "fa-clock-rotate-left", "fa-clone", "fa-closed-captioning", "fa-cloud-arrow-down",
+  "fa-cloud-arrow-up", "fa-cloud-download-alt", "fa-cloud-meatball", "fa-cloud-moon", "fa-cloud-moon-rain",
+  "fa-cloud-rain", "fa-cloud-showers-heavy", "fa-cloud-sun", "fa-cloud-sun-rain", "fa-cloud-upload-alt",
+  "fa-cocktail", "fa-code", "fa-code-branch", "fa-code-commit", "fa-code-merge",
+  "fa-coffee-alt", "fa-cog-alt", "fa-coins", "fa-columns", "fa-comment-alt",
+  "fa-comment-dollar", "fa-comment-dots", "fa-comment-medical", "fa-comment-slash", "fa-comments",
+  "fa-comments-dollar", "fa-compact-disc", "fa-compass", "fa-compress", "fa-compress-alt",
+  "fa-compress-arrows-alt", "fa-concierge-bell", "fa-cookie", "fa-cookie-bite", "fa-copy",
+  "fa-copyright", "fa-couch", "fa-credit-card", "fa-crop", "fa-crop-alt",
+  "fa-cross", "fa-crosshairs", "fa-crow", "fa-crown", "fa-crutch",
+  "fa-cube", "fa-cubes", "fa-curling", "fa-cut", "fa-database",
+  "fa-deaf", "fa-democrat", "fa-desktop", "fa-dharmachakra", "fa-diagnoses",
+  "fa-diamond", "fa-dice", "fa-dice-d20", "fa-dice-d6", "fa-dice-five",
+  "fa-dice-four", "fa-dice-one", "fa-dice-six", "fa-dice-three", "fa-dice-two",
+  "fa-digital-tachograph", "fa-directions", "fa-divide", "fa-dizzy", "fa-dna",
+  "fa-dog-leashed", "fa-dollar-sign", "fa-dolly", "fa-dolly-flatbed", "fa-donate",
+  "fa-door-closed", "fa-door-open", "fa-dot-circle", "fa-dove", "fa-download",
+  "fa-drafting-compass", "fa-dragon", "fa-draw-polygon", "fa-drum", "fa-drum-steelpan",
+  "fa-drumstick-bite", "fa-dumbbell", "fa-dumpster", "fa-dumpster-fire", "fa-dungeon",
+  "fa-edit-alt", "fa-eject", "fa-ellipsis-h", "fa-ellipsis-v", "fa-envelope-open",
+  "fa-envelope-open-text", "fa-envelope-square", "fa-equals", "fa-eraser", "fa-euro-sign",
+  "fa-exchange-alt", "fa-exclamation", "fa-exclamation-circle", "fa-exclamation-triangle", "fa-expand",
+  "fa-expand-alt", "fa-expand-arrows-alt", "fa-eye", "fa-eye-dropper", "fa-eye-slash",
+  "fa-fan", "fa-fast-backward", "fa-fast-forward", "fa-fax", "fa-feather",
+  "fa-feather-alt", "fa-female", "fa-fighter-jet", "fa-file-alt", "fa-file-archive",
+  "fa-file-audio", "fa-file-code", "fa-file-contract", "fa-file-csv", "fa-file-download",
+  "fa-file-excel", "fa-file-export", "fa-file-image", "fa-file-import", "fa-file-invoice",
+  "fa-file-invoice-dollar", "fa-file-medical", "fa-file-medical-alt", "fa-file-pdf", "fa-file-powerpoint",
+  "fa-file-prescription", "fa-file-signature", "fa-file-upload", "fa-file-video", "fa-file-word",
+  "fa-fill", "fa-fill-drip", "fa-film", "fa-filter", "fa-fingerprint",
+  "fa-fire-alt", "fa-fire-extinguisher", "fa-first-aid", "fa-fish-fins", "fa-flag-alt",
+  "fa-flag-checkered", "fa-flag-usa", "fa-flask", "fa-flushed", "fa-folder-minus",
+  "fa-folder-open", "fa-folder-plus", "fa-font", "fa-football-ball", "fa-forward",
+  "fa-forward-fast", "fa-forward-step", "fa-frog", "fa-frown", "fa-frown-open",
+  "fa-function", "fa-funnel-dollar", "fa-gamepad", "fa-gas-pump", "fa-gavel",
+  "fa-gem", "fa-genderless", "fa-ghost", "fa-gift-card", "fa-gifts",
+  "fa-glass-cheers", "fa-glasses", "fa-globe-africa", "fa-globe-americas", "fa-globe-asia",
+  "fa-globe-europe", "fa-golf-ball", "fa-gopuram", "fa-graduation-cap", "fa-greater-than",
+  "fa-greater-than-equal", "fa-grimace", "fa-grin", "fa-grin-alt", "fa-grin-beam",
+  "fa-grin-beam-sweat", "fa-grin-hearts", "fa-grin-squint", "fa-grin-squint-tears", "fa-grin-stars",
+  "fa-grin-tears", "fa-grin-tongue", "fa-grin-tongue-squint", "fa-grin-tongue-wink", "fa-grin-wink",
+  "fa-grip-horizontal", "fa-grip-lines", "fa-grip-lines-vertical", "fa-grip-vertical", "fa-guitar",
+  "fa-h-square", "fa-hamburger", "fa-hammer", "fa-hamsa", "fa-hand-holding",
+  "fa-hand-holding-heart", "fa-hand-holding-usd", "fa-hand-lizard", "fa-hand-paper", "fa-hand-peace",
+  "fa-hand-point-down", "fa-hand-point-left", "fa-hand-point-right", "fa-hand-point-up", "fa-hand-pointer",
+  "fa-hand-rock", "fa-hand-scissors", "fa-hand-spock", "fa-hands", "fa-hands-helping",
+  "fa-handshake", "fa-hashtag", "fa-hat-cowboy", "fa-hat-cowboy-side", "fa-hat-wizard",
+  "fa-hdd", "fa-heading", "fa-headphones", "fa-headphones-alt", "fa-headset",
+  "fa-heart-broken", "fa-heartbeat", "fa-helicopter", "fa-highlighter", "fa-hiking",
+  "fa-hippo", "fa-history", "fa-hockey-puck", "fa-holly-berry", "fa-home-alt",
+  "fa-horse", "fa-horse-head", "fa-hospital", "fa-hospital-alt", "fa-hospital-symbol",
+  "fa-hot-tub", "fa-hotel", "fa-hourglass", "fa-hourglass-end", "fa-hourglass-half",
+  "fa-hourglass-start", "fa-house-damage", "fa-house-user", "fa-hryvnia", "fa-i-cursor",
+  "fa-id-badge", "fa-id-card", "fa-id-card-alt", "fa-image-alt", "fa-images",
+  "fa-inbox", "fa-indent", "fa-industry", "fa-infinity", "fa-info",
+  "fa-info-circle", "fa-italic", "fa-jedi", "fa-joint", "fa-journal-whills",
+  "fa-kaaba", "fa-key", "fa-keyboard", "fa-khanda", "fa-kiss",
+  "fa-kiss-beam", "fa-kiss-wink-heart", "fa-kiwi-bird", "fa-landmark", "fa-language",
+  "fa-laptop", "fa-laptop-code", "fa-laptop-medical", "fa-laugh", "fa-laugh-beam",
+  "fa-laugh-squint", "fa-laugh-wink", "fa-layer-group", "fa-leaf", "fa-lemon-alt",
+  "fa-less-than", "fa-less-than-equal", "fa-level-down-alt", "fa-level-up-alt", "fa-life-ring",
+  "fa-lightbulb-alt", "fa-link", "fa-lira-sign", "fa-list-alt", "fa-list-ol",
+  "fa-list-ul", "fa-location-arrow", "fa-lock-alt", "fa-lock-open-alt", "fa-long-arrow-alt-down",
+  "fa-long-arrow-alt-left", "fa-long-arrow-alt-right", "fa-long-arrow-alt-up", "fa-low-vision", "fa-luggage-cart",
+  "fa-lungs", "fa-lungs-virus", "fa-magic", "fa-magnet", "fa-mail-bulk",
+  "fa-male", "fa-map", "fa-map-marked", "fa-map-marked-alt", "fa-map-pin",
+  "fa-map-signs", "fa-marker", "fa-mars", "fa-mars-double", "fa-mars-stroke",
+  "fa-mars-stroke-h", "fa-mars-stroke-v", "fa-mask", "fa-medal", "fa-medkit",
+  "fa-meh", "fa-meh-blank", "fa-meh-rolling-eyes", "fa-memory", "fa-menorah",
+  "fa-mercury", "fa-meteor", "fa-microchip", "fa-microphone", "fa-microphone-alt",
+  "fa-microphone-alt-slash", "fa-microphone-slash", "fa-microscope", "fa-minus-circle", "fa-minus-square",
+  "fa-mitten", "fa-mobile", "fa-mobile-alt", "fa-money-bill", "fa-money-bill-alt",
+  "fa-money-bill-wave", "fa-money-bill-wave-alt", "fa-money-check", "fa-money-check-alt", "fa-monument",
+  "fa-moon-alt", "fa-mortar-pestle", "fa-mosque", "fa-motorcycle", "fa-mountain",
+  "fa-mouse", "fa-mouse-pointer", "fa-mug-hot", "fa-music-alt", "fa-network-wired",
+  "fa-neuter", "fa-newspaper", "fa-not-equal", "fa-notes-medical", "fa-object-group",
+  "fa-object-ungroup", "fa-oil-can", "fa-om", "fa-otter", "fa-outdent",
+  "fa-pager", "fa-paint-brush", "fa-paint-roller", "fa-palette", "fa-pallet",
+  "fa-paper-plane", "fa-paperclip", "fa-parachute-box", "fa-paragraph", "fa-parking",
+  "fa-passport", "fa-pastafarianism", "fa-paste", "fa-pause", "fa-pause-circle",
+  "fa-paw-alt", "fa-peace", "fa-pen", "fa-pen-alt", "fa-pen-fancy",
+  "fa-pen-nib", "fa-pen-square", "fa-pencil-alt", "fa-people-arrows", "fa-percent",
+  "fa-percentage", "fa-person-booth", "fa-phone-alt", "fa-phone-slash", "fa-phone-square",
+  "fa-phone-volume", "fa-photo-video", "fa-piggy-bank", "fa-pills", "fa-pizza-slice",
+  "fa-place-of-worship", "fa-plane-alt", "fa-plane-arrival", "fa-plane-departure", "fa-play",
+  "fa-play-circle", "fa-plug-alt", "fa-plus-circle", "fa-plus-square", "fa-podcast",
+  "fa-poll", "fa-poll-h", "fa-poo", "fa-poo-storm", "fa-poop",
+  "fa-portrait", "fa-pound-sign", "fa-power-off", "fa-pray", "fa-praying-hands",
+  "fa-prescription", "fa-prescription-bottle", "fa-prescription-bottle-alt", "fa-print-alt", "fa-procedures",
+  "fa-project-diagram", "fa-puzzle-piece", "fa-qrcode", "fa-question", "fa-question-circle",
+  "fa-quidditch", "fa-quote-left", "fa-quote-right", "fa-quran", "fa-radiation",
+  "fa-radiation-alt", "fa-rainbow", "fa-random", "fa-receipt", "fa-record-vinyl",
+  "fa-recycle", "fa-redo", "fa-redo-alt", "fa-registered", "fa-remove-format",
+  "fa-reply", "fa-reply-all", "fa-republican", "fa-restroom", "fa-retweet",
+  "fa-ribbon", "fa-ring", "fa-road", "fa-robot", "fa-rocket",
+  "fa-route", "fa-rss", "fa-rss-square", "fa-ruble-sign", "fa-ruler",
+  "fa-ruler-combined", "fa-ruler-horizontal", "fa-ruler-vertical", "fa-running", "fa-rupee-sign",
+  "fa-sad-cry", "fa-sad-tear", "fa-satellite", "fa-satellite-dish", "fa-save-alt",
+  "fa-school", "fa-screwdriver", "fa-scroll", "fa-sd-card", "fa-search-alt",
+  "fa-search-dollar", "fa-search-location", "fa-search-minus", "fa-search-plus", "fa-seedling",
+  "fa-server", "fa-shapes", "fa-share-alt", "fa-share-alt-square", "fa-shekel-sign",
+  "fa-shield-alt", "fa-shield-virus", "fa-ship-alt", "fa-shipping-fast", "fa-shoe-prints",
+  "fa-shopping-bag", "fa-shopping-basket", "fa-shopping-cart", "fa-shower", "fa-shuttle-van",
+  "fa-sign", "fa-sign-alt", "fa-sign-in-alt", "fa-sign-language", "fa-sign-out-alt",
+  "fa-signal", "fa-signature", "fa-sim-card", "fa-sitemap", "fa-skating",
+  "fa-skiing", "fa-skiing-nordic", "fa-skull", "fa-skull-crossbones", "fa-slash",
+  "fa-sleigh", "fa-sliders-h", "fa-smile", "fa-smile-beam", "fa-smile-wink",
+  "fa-smog", "fa-smoking", "fa-smoking-ban", "fa-sms", "fa-snowboarding",
+  "fa-snowplow", "fa-sort", "fa-sort-alpha-down", "fa-sort-alpha-down-alt", "fa-sort-alpha-up",
+  "fa-sort-alpha-up-alt", "fa-sort-amount-down", "fa-sort-amount-down-alt", "fa-sort-amount-up", "fa-sort-amount-up-alt",
+  "fa-sort-down", "fa-sort-numeric-down", "fa-sort-numeric-down-alt", "fa-sort-numeric-up", "fa-sort-numeric-up-alt",
+  "fa-sort-up", "fa-spa", "fa-space-shuttle", "fa-spell-check", "fa-spider",
+  "fa-spinner", "fa-splotch", "fa-spray-can", "fa-square-alt", "fa-square-full",
+  "fa-square-root-alt", "fa-stamp", "fa-star-alt", "fa-star-and-crescent", "fa-star-half-alt",
+  "fa-star-of-david", "fa-star-of-life", "fa-step-backward", "fa-step-forward", "fa-stethoscope",
+  "fa-sticky-note", "fa-stop", "fa-stop-circle", "fa-stopwatch", "fa-store",
+  "fa-store-alt", "fa-stream", "fa-street-view", "fa-strikethrough", "fa-stroopwafel",
+  "fa-subscript", "fa-subway", "fa-suitcase", "fa-suitcase-rolling", "fa-sun-alt",
+  "fa-superscript", "fa-surprise", "fa-swatchbook", "fa-swimmer", "fa-swimming-pool",
+  "fa-synagogue", "fa-sync-alt", "fa-syringe", "fa-table", "fa-table-tennis",
+  "fa-tablet", "fa-tablet-alt", "fa-tablets", "fa-tachometer-alt", "fa-tag",
+  "fa-tags", "fa-tape", "fa-tasks", "fa-taxi-alt", "fa-teeth",
+  "fa-teeth-open", "fa-temperature-high", "fa-temperature-low", "fa-tenge", "fa-terminal",
+  "fa-text-height", "fa-text-width", "fa-th", "fa-th-large", "fa-th-list",
+  "fa-theater-masks", "fa-thermometer", "fa-thermometer-empty", "fa-thermometer-full", "fa-thermometer-half",
+  "fa-thermometer-quarter", "fa-thermometer-three-quarters", "fa-thumbs-down-alt", "fa-thumbs-up-alt", "fa-thumbtack",
+  "fa-ticket-alt", "fa-times-circle", "fa-tint", "fa-tint-slash", "fa-tired",
+  "fa-toggle-off", "fa-toggle-on", "fa-toilet", "fa-toilet-paper", "fa-toolbox",
+  "fa-tools", "fa-tooth", "fa-torah", "fa-torii-gate", "fa-tractor",
+  "fa-trademark", "fa-traffic-light", "fa-trailer", "fa-train-alt", "fa-tram",
+  "fa-transgender"];
+
+    // Generate icons dynamically
+    const iconContainer = document.getElementById('iconContainer');
+    const selectedIcon = document.getElementById('selectedIcon');
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const colorInput = document.getElementById('colorInput');
+    const hexColorInput = document.getElementById('hexColorInput');
+    const sizeInput = document.getElementById('sizeInput');
+
+    function generateIcons() {
+      allIcons.slice(0, 20).forEach(iconClass => { // Show only first 20 icons initially
+        const iconDiv = document.createElement('div');
+        iconDiv.innerHTML = `<i class="fa-solid ${iconClass} icon" onclick="selectIcon(this)"></i>`;
+        iconContainer.appendChild(iconDiv);
+      });
+    }
+
+    // Select an icon
+    function selectIcon(iconElement) {
+      selectedIcon.className = ''; // Clear previous classes
+      selectedIcon.classList.add('fa-solid', ...iconElement.classList);
+      hideSuggestions(); // Hide suggestions after selecting an icon
+    }
+
+    // Filter icons based on search input
+    function filterIcons(query) {
+      return allIcons.filter(iconClass => iconClass.includes(query));
+    }
+
+    // Handle search input and show suggestions
+    function handleSearch() {
+      const query = searchInput.value.toLowerCase();
+      if (!query) {
+        hideSuggestions();
+        return;
+      }
+
+      const filteredIcons = filterIcons(query);
+      showSuggestions(filteredIcons);
+    }
+
+    // Show suggestions dropdown
+    function showSuggestions(filteredIcons) {
+      suggestionsDiv.innerHTML = '';
+      if (filteredIcons.length === 0) {
+        hideSuggestions();
+        return;
+      }
+
+      filteredIcons.forEach(iconClass => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.innerHTML = `
+          <i class="fa-solid ${iconClass} icon"></i>
+          <span>${iconClass.replace('fa-', '')}</span>
+        `;
+        suggestionItem.onclick = () => {
+          selectIcon(suggestionItem.querySelector('.icon'));
+          searchInput.value = iconClass.replace('fa-', '');
+          hideSuggestions();
+        };
+        suggestionsDiv.appendChild(suggestionItem);
+      });
+
+      suggestionsDiv.style.display = 'block';
+    }
+
+    // Hide suggestions dropdown
+    function hideSuggestions() {
+      suggestionsDiv.style.display = 'none';
+    }
+
+    // Initialize
+    generateIcons();
+
+    // Change color using color picker or hex input
+    colorInput.addEventListener('input', () => {
+      selectedIcon.style.color = colorInput.value;
+      hexColorInput.value = colorInput.value;
+    });
+
+    hexColorInput.addEventListener('input', () => {
+      const hexValue = hexColorInput.value;
+      if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
+        selectedIcon.style.color = hexValue;
+        colorInput.value = hexValue;
+      }
+    });
+
+    // Change size using manual input
+    sizeInput.addEventListener('input', () => {
+      const newSize = sizeInput.value + 'px';
+      selectedIcon.style.fontSize = newSize;
+    });
+
+    // Download as PNG or JPG using html2canvas
+    const downloadPngBtn = document.getElementById('downloadPngBtn');
+    const downloadJpgBtn = document.getElementById('downloadJpgBtn');
+    const selectedIconContainer = document.getElementById('selectedIconContainer');
+
+    function downloadIcon(format) {
+      // Create a temporary container for the icon
+      const tempContainer = document.createElement('div');
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.top = '-9999px';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.width = '100px';
+      tempContainer.style.height = '100px';
+      tempContainer.style.display = 'flex';
+      tempContainer.style.alignItems = 'center';
+      tempContainer.style.justifyContent = 'center';
+
+      // Clone the selected icon and append to the temporary container
+      const clonedIcon = selectedIcon.cloneNode(true);
+      clonedIcon.style.fontSize = '100px'; // Set a fixed size for the icon
+      clonedIcon.style.color = selectedIcon.style.color || '#ff7f50'; // Use the selected color
+      tempContainer.appendChild(clonedIcon);
+      document.body.appendChild(tempContainer);
+
+      // Capture the temporary container using html2canvas
+      html2canvas(tempContainer, {
+        backgroundColor: format === 'png' ? null : '#ffffff', // Transparent for PNG, White for JPG
+      }).then(canvas => {
+        const link = document.createElement('a');
+        if (format === 'png') {
+          link.href = canvas.toDataURL('image/png');
+          link.download = 'icon.png';
+        } else if (format === 'jpg') {
+          link.href = canvas.toDataURL('image/jpeg');
+          link.download = 'icon.jpg';
+        }
+        link.click();
+
+        // Remove the temporary container after download
+        document.body.removeChild(tempContainer);
+      });
+    }
+
+    downloadPngBtn.addEventListener('click', () => downloadIcon('png'));
+    downloadJpgBtn.addEventListener('click', () => downloadIcon('jpg'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,1084 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2c2c40);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Fixed Header */
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1e1e2f;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  
+  .header-left {
+    margin-left: 20px;
+  }
+  
+  .home-button {
+    text-decoration: none;
+    color: #bb86fc;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .home-button i {
+    font-size: 20px;
+  }
+  
+  .header-center {
+    text-align: center;
+    flex-grow: 1;
+  }
+  
+  .header-center h1 {
+    font-size: 24px;
+    color: #64b5f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+  }
+  
+  .header-center .subtitle {
+    font-size: 14px;
+    color: #81d4fa;
+    margin-top: 5px;
+  }
+  
+  /* Main Content */
+  .tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 100px 20px 100px 20px; /* Space for header and footer */
+  }
+  
+  .tool-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .tool-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .tool-card i {
+    font-size: 36px;
+    color: #bb86fc;
+  }
+  
+  .tool-card h2 {
+    font-size: 18px;
+    color: #81d4fa;
+    padding: 10px 0; /* Padding added for better spacing */
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .modal-content h2 {
+    font-size: 20px;
+    color: #bb86fc;
+    margin-bottom: 15px;
+  }
+  
+  .modal-content i {
+    margin-right: 10px;
+    color: #81d4fa;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #ff5733;
+  }
+  
+  /* Fixed Footer */
+  .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #1e1e2f;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 15px;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  .social-icon, i{
+    margin: 0 10px;
+    color: #81d4fa;
+    text-decoration: none;
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #bb86fc;
+  }
+
+  /* Color Picker */
+
+  /* Color Picker Container */
+.color-picker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .pick-color-btn {
+    background: #bb86fc;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  .pick-color-btn:hover {
+    background: #9c27b0;
+  }
+  
+  .hidden-input {
+    display: none; /* Hide the default color input */
+  }
+  
+  .color-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Makes the preview circular */
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Color Codes Display */
+  .color-codes {
+    margin-top: 20px;
+  }
+  
+  .code-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .code-label {
+    font-size: 14px;
+    color: #81d4fa;
+  }
+  
+  .code-value {
+    font-size: 14px;
+    color: #bb86fc;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .copy-btn {
+    background: none;
+    border: none;
+    color: #81d4fa;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .copy-btn:hover {
+    color: #ff5733;
+  }
+  
+  /* Success Message */
+  .success-message {
+    color: #4caf50;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .success-message.hidden {
+    display: none;
+  }
+
+/*Gradients Tools*/
+
+/* Tool Card */
+.tool-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .tool-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .tool-card i {
+    font-size: 36px;
+    color: #bb86fc;
+  }
+  
+  .tool-card h2 {
+    font-size: 18px;
+    color: #81d4fa;
+    padding: 10px 0;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .modal-content h2 {
+    font-size: 20px;
+    color: #bb86fc;
+    margin-bottom: 15px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #ff5733;
+  }
+  
+  .gradient-settings {
+    margin-bottom: 15px;
+  }
+  
+  .gradient-settings label {
+    font-size: 14px;
+    color: #81d4fa;
+    margin-right: 10px;
+  }
+  
+  .gradient-settings select,
+  .gradient-settings input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: background 0.3s ease;
+  }
+  
+  .gradient-settings select:hover,
+  .gradient-settings input[type="number"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .color-picker-section {
+    margin-bottom: 20px;
+  }
+  
+  .color-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .color-input-row input[type="color"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+   
+  }
+/* Gradient Color Input */
+.gradient-color {
+    width: 100%;
+    padding: 10px;
+    border: none; /* No Border */
+    background: none; /* Transparent Background */
+    cursor: pointer;
+    appearance: none; /* Remove Default Browser Styling */
+    -webkit-appearance: none; /* For Webkit Browsers */
+    outline: none; /* Remove Focus Outline */
+    transition: transform 0.3s ease; /* Smooth Hover Effect */
+  }
+  
+  .gradient-color:hover {
+    transform: scale(1.05); /* Slight Scale Effect on Hover */
+  }
+  .remove-color-btn {
+    background: none;
+    border: none;
+    color: #ff5733;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .remove-color-btn:hover {
+    color: #bb86fc;
+  }
+  
+  #add-color-btn {
+    background: #bb86fc;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  #add-color-btn:hover {
+    background: #9c27b0;
+  }
+  
+  .gradient-preview {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .css-code {
+    margin-top: 20px;
+  }
+  
+  .css-code p {
+    font-size: 14px;
+    color: #fdfeff;
+    margin-bottom: 10px;
+  }
+  
+  .css-code pre {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    color: #bb86fc;
+    overflow-x: auto;
+  }
+  
+  .copy-btn {
+    background: none;
+    border: none;
+    color: #81d4fa;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .copy-btn:hover {
+    color: #ff5733;
+  }
+
+  /* Add Color Button */
+#add-color-btn {
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphic Background */
+    backdrop-filter: blur(10px);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px; /* Rounded Corners */
+    cursor: pointer;
+    font-size: 14px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle Shadow */
+  }
+  
+  #add-color-btn:hover {
+    background: rgba(255, 255, 255, 0.2); /* Slightly Brighter on Hover */
+    transform: scale(1.05); /* Slight Scale Effect */
+  }
+  
+  #add-color-btn i {
+    font-size: 16px;
+    color: #ffffff; /* Icon Color */
+  }
+
+  /* Tool Card */
+.tool-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.tool-card:hover {
+  transform: scale(1.05);
+}
+
+.tool-card i {
+  font-size: 36px;
+  color: #bb86fc;
+}
+
+.tool-card h2 {
+  font-size: 18px;
+  color: #81d4fa;
+  padding: 10px 0;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 20px;
+  color: #bb86fc;
+  margin-bottom: 15px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff5733;
+}
+
+/* Image Upload Section */
+.image-upload-section {
+  margin-bottom: 20px;
+}
+
+.upload-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.upload-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.upload-btn i {
+  font-size: 16px;
+  color: #bb86fc;
+}
+
+#image-upload {
+  display: none; /* Hide the default file input */
+}
+
+#file-name {
+  font-size: 14px;
+  color: #81d4fa;
+  margin-top: 10px;
+}
+
+/* Image Preview */
+.image-preview-container {
+  margin-bottom: 20px;
+}
+
+#uploaded-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: none; /* Initially hidden */
+}
+
+/* Histogram Canvas */
+.histogram-container {
+  margin-top: 20px;
+}
+
+#histogram-canvas {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Image Preview */
+.image-preview-container {
+  margin-bottom: 20px;
+}
+
+#uploaded-image {
+  max-width: 300px; /* Reduced Width */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: none; /* Initially hidden */
+}
+
+/* Tool Card */
+.tool-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.tool-card:hover {
+  transform: scale(1.05);
+}
+
+.tool-card i {
+  font-size: 36px;
+  color: #bb86fc;
+}
+
+.tool-card h2 {
+  font-size: 18px;
+  color: #81d4fa;
+  padding: 10px 0;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 20px;
+  color: #bb86fc;
+  margin-bottom: 15px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff5733;
+}
+
+/* Color Picker Section */
+.color-picker-section {
+  margin-bottom: 20px;
+}
+
+#base-color {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+#base-color:hover {
+  transform: scale(1.05);
+}
+
+#generate-palette-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+}
+
+#generate-palette-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+#generate-palette-btn i {
+  font-size: 16px;
+  color: #bb86fc;
+}
+
+/* Palette Container */
+.palette-container {
+  margin-top: 20px;
+}
+
+.palette-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.palette-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  flex: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.palette-item:hover {
+  transform: scale(1.05);
+}
+
+.color-box {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.color-code {
+  font-size: 14px;
+  color: #81d4fa;
+  margin-bottom: 5px;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #81d4fa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.copy-btn:hover {
+  color: #ff5733;
+}
+
+/* Tool Card */
+.tool-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.tool-card:hover {
+  transform: scale(1.05);
+}
+
+.tool-card i {
+  font-size: 36px;
+  color: #bb86fc;
+}
+
+.tool-card h2 {
+  font-size: 18px;
+  color: #81d4fa;
+  padding: 10px 0;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content h2 {
+  font-size: 20px;
+  color: #bb86fc;
+  margin-bottom: 15px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff5733;
+}
+
+/* Image Upload Section */
+.image-upload-section {
+  margin-bottom: 20px;
+}
+
+.upload-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.upload-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.upload-btn i {
+  font-size: 16px;
+  color: #bb86fc;
+}
+
+#image-upload {
+  display: none; /* Hide the default file input */
+}
+
+#file-name {
+  font-size: 14px;
+  color: #81d4fa;
+  margin-top: 10px;
+}
+
+/* Image Preview */
+.image-preview-container {
+  margin-bottom: 20px;
+}
+
+#uploaded-image {
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: none; /* Initially hidden */
+}
+
+/* Simulation Options */
+.simulation-options {
+  margin-bottom: 20px;
+}
+
+#blindness-type {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#blindness-type:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Simulated Image */
+.simulated-image-container {
+  margin-top: 20px;
+}
+
+#simulated-canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Download Button */
+.download-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 10px;
+}
+
+.download-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.download-btn i {
+  font-size: 16px;
+  color: #bb86fc;
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.input-group input[type="color"] {
+  width: 80px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.input-group input[type="color"]:hover {
+  transform: scale(1.05);
+}
+
+.input-group input[type="text"] {
+  width: 120px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.input-group input[type="text"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Tools App</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header class="fixed-header">
+    <div class="header-left">
+      <a href="../index.html" class="home-button"><i class="fas fa-home"></i> Home</a>
+    </div>
+    <div class="header-center">
+      <h1><i class="fas fa-palette"></i> Color Tools</h1>
+      <p class="subtitle">Tutorials Point BD</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="tools-container">
+    <div class="tool-card" data-modal="color-picker-modal">
+      <i class="fas fa-eyedropper"></i>
+      <h2>Color Picker</h2>
+    </div>
+
+    <div class="tool-card" data-modal="gradient-generator-modal">
+        <i class="fas fa-fill-drip"></i>
+        <h2>Gradient Color Generator</h2>
+      </div>
+      
+      <!-- Modal for Gradient Generator -->
+      <div id="gradient-generator-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2><i class="fas fa-fill-drip"></i> Gradient Color Generator</h2>
+      
+          <!-- Gradient Type Selection -->
+          <div class="gradient-settings">
+            <label for="gradient-type">Gradient Type:</label>
+            <select id="gradient-type">
+              <option value="linear">Linear Gradient</option>
+              <option value="radial">Radial Gradient</option>
+            </select>
+          </div>
+      
+          <!-- Angle and Position Settings -->
+          <div class="gradient-settings">
+            <label for="angle">Angle (deg):</label>
+            <input type="number" id="angle" value="90" min="0" max="360" />
+          </div>
+      
+          <!-- Color Picker Section -->
+          <div class="color-picker-section">
+            <h3>Add Colors</h3>
+            <div id="color-inputs">
+              <div class="color-input-row">
+                <input type="color" class="gradient-color" value="#ff5733" />
+                <button class="remove-color-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              <div class="color-input-row">
+                <input type="color" class="gradient-color" value="#33ff57" />
+                <button class="remove-color-btn"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+            <button id="add-color-btn">
+                <i class="fas fa-plus"></i> Add Color
+              </button>
+          </div>
+      
+          <!-- Gradient Preview -->
+          <div class="gradient-preview" id="gradient-preview"></div>
+      
+          <!-- CSS Code Display -->
+          <div class="css-code">
+            <p>Generated CSS:</p>
+            <pre id="generated-css">background: linear-gradient(90deg, #ff5733, #33ff57);</pre>
+            <button class="copy-btn" data-clipboard-target="#generated-css"><i class="fas fa-copy"></i> Copy CSS</button>
+          </div>
+        </div>
+      </div>
+      <div class="tool-card" data-modal="color-histogram-modal">
+        <i class="fas fa-chart-bar"></i>
+        <h2>Color Histogram</h2>
+      </div>
+      
+      <!-- Modal for Color Histogram -->
+      <div id="color-histogram-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2><i class="fas fa-chart-bar"></i> Color Histogram</h2>
+      
+          <!-- Image Upload Section -->
+          <div class="image-upload-section">
+            <label for="image-upload" class="upload-btn">
+              <i class="fas fa-upload"></i> Upload Image
+            </label>
+            <input type="file" id="image-upload" accept="image/*" />
+            <p id="file-name">No file selected</p>
+          </div>
+      
+          <!-- Image Preview -->
+          <div class="image-preview-container">
+            <img id="uploaded-image" src="#" alt="Uploaded Image" />
+          </div>
+      
+          <!-- Histogram Canvas -->
+          <div class="histogram-container">
+            <canvas id="histogram-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-card" data-modal="color-palette-modal">
+        <i class="fas fa-palette"></i>
+        <h2>Color Palette Generator</h2>
+      </div>
+      
+      <!-- Modal for Color Palette Generator -->
+      <div id="color-palette-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2><i class="fas fa-palette"></i> Color Palette Generator</h2>
+      
+          <!-- Color Picker Section -->
+          <div class="color-picker-section">
+            <label for="base-color">Base Color:</label>
+            <input type="color" id="base-color" value="#ff5733" />
+            <button id="generate-palette-btn"><i class="fas fa-sync-alt"></i> Generate Palette</button>
+          </div>
+      
+          <!-- Generated Palette -->
+          <div class="palette-container">
+            <div class="palette-row">
+              <div class="palette-item" id="dark-color">
+                <div class="color-box"></div>
+                <span class="color-code">#000000</span>
+                <button class="copy-btn" data-clipboard-target="#dark-color .color-code"><i class="fas fa-copy"></i></button>
+              </div>
+              <div class="palette-item" id="light-color">
+                <div class="color-box"></div>
+                <span class="color-code">#ffffff</span>
+                <button class="copy-btn" data-clipboard-target="#light-color .color-code"><i class="fas fa-copy"></i></button>
+              </div>
+              <div class="palette-item" id="complementary-color">
+                <div class="color-box"></div>
+                <span class="color-code">#0000ff</span>
+                <button class="copy-btn" data-clipboard-target="#complementary-color .color-code"><i class="fas fa-copy"></i></button>
+              </div>
+              <div class="palette-item" id="triadic-color-1">
+                <div class="color-box"></div>
+                <span class="color-code">#ffff00</span>
+                <button class="copy-btn" data-clipboard-target="#triadic-color-1 .color-code"><i class="fas fa-copy"></i></button>
+              </div>
+              <div class="palette-item" id="triadic-color-2">
+                <div class="color-box"></div>
+                <span class="color-code">#00ffff</span>
+                <button class="copy-btn" data-clipboard-target="#triadic-color-2 .color-code"><i class="fas fa-copy"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="tool-card" data-modal="color-blindness-modal">
+        <i class="fas fa-eye"></i>
+        <h2>Color Blindness Simulator</h2>
+      </div>
+      
+      <!-- Modal for Color Blindness Simulator -->
+      <div id="color-blindness-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2><i class="fas fa-eye"></i> Color Blindness Simulator</h2>
+      
+          <!-- Image Upload Section -->
+          <div class="image-upload-section">
+            <label for="image-upload" class="upload-btn">
+              <i class="fas fa-upload"></i> Upload Image
+            </label>
+            <input type="file" id="image-upload" accept="image/*" />
+            <p id="file-name">No file selected</p>
+          </div>
+      
+          <!-- Original Image Preview -->
+          <div class="image-preview-container">
+            <h3>Original Image:</h3>
+            <img id="uploaded-image" src="#" alt="Uploaded Image" />
+          </div>
+      
+          <!-- Simulation Options -->
+          <div class="simulation-options">
+            <h3>Select Color Blindness Type:</h3>
+            <select id="blindness-type">
+              <option value="normal">Normal Vision</option>
+              <option value="protanopia">Protanopia</option>
+              <option value="deuteranopia">Deuteranopia</option>
+              <option value="tritanopia">Tritanopia</option>
+              <option value="achromatopsia">Achromatopsia</option>
+            </select>
+          </div>
+      
+          <!-- Simulated Image -->
+          <div class="simulated-image-container">
+            <h3>Simulated Image:</h3>
+            <canvas id="simulated-canvas"></canvas>
+            <button id="download-simulated-btn" class="download-btn">
+              <i class="fas fa-download"></i> Download Simulated Image
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-card" data-modal="contrast-checker-modal">
+        <i class="fas fa-adjust"></i>
+        <h2>Contrast Checker</h2>
+      </div>
+      
+      <!-- Modal for Contrast Checker -->
+      <div id="contrast-checker-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2><i class="fas fa-adjust"></i> Contrast Checker</h2>
+      
+          <!-- Color Pickers -->
+          <div class="color-picker-section">
+            <div class="color-input">
+              <label for="foreground-color">Foreground Color:</label>
+              <div class="input-group">
+                <input type="color" id="foreground-color" value="#000000" />
+                <input type="text" id="foreground-hex" value="#000000" maxlength="7" />
+              </div>
+              <div class="color-preview" id="foreground-preview"></div>
+            </div>
+            <div class="color-input">
+              <label for="background-color">Background Color:</label>
+              <div class="input-group">
+                <input type="color" id="background-color" value="#ffffff" />
+                <input type="text" id="background-hex" value="#ffffff" maxlength="7" />
+              </div>
+              <div class="color-preview" id="background-preview"></div>
+            </div>
+          </div>
+      
+          <!-- Contrast Results -->
+          <div class="contrast-results">
+            <h3>Contrast Ratio:</h3>
+            <p id="contrast-ratio">21:1</p>
+            <p id="wcag-compliance">WCAG Compliance: AAA</p>
+          </div>
+      
+          <!-- Preview Section -->
+          <div class="preview-section">
+            <h3>Preview:</h3>
+            <div class="text-preview">
+              <p id="text-preview">Sample Text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+  </main>
+
+  <!-- Modals -->
+  <div id="color-picker-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-eyedropper"></i> Color Picker</h2>
+  
+      <!-- Color Picker Button -->
+      <div class="color-picker-container">
+        <button class="pick-color-btn"><i class="fas fa-fill-drip"></i> Pick a Color</button>
+        <input type="color" id="picker" value="#ff5733" class="hidden-input">
+        <div class="color-preview" id="color-preview"></div>
+      </div>
+  
+      <!-- Color Codes Display -->
+      <div class="color-codes">
+        <div class="code-row">
+          <span class="code-label">HEX:</span>
+          <span class="code-value" id="hex-code">#ff5733</span>
+          <button class="copy-btn" data-clipboard-target="#hex-code"><i class="fas fa-copy"></i></button>
+        </div>
+        <div class="code-row">
+          <span class="code-label">RGB:</span>
+          <span class="code-value" id="rgb-code">rgb(255, 87, 51)</span>
+          <button class="copy-btn" data-clipboard-target="#rgb-code"><i class="fas fa-copy"></i></button>
+        </div>
+        <div class="code-row">
+          <span class="code-label">RGBA:</span>
+          <span class="code-value" id="rgba-code">rgba(255, 87, 51, 1)</span>
+          <button class="copy-btn" data-clipboard-target="#rgba-code"><i class="fas fa-copy"></i></button>
+        </div>
+        <div class="code-row">
+          <span class="code-label">HSL:</span>
+          <span class="code-value" id="hsl-code">hsl(14, 100%, 60%)</span>
+          <button class="copy-btn" data-clipboard-target="#hsl-code"><i class="fas fa-copy"></i></button>
+        </div>
+        <div class="code-row">
+          <span class="code-label">CMYK:</span>
+          <span class="code-value" id="cmyk-code">cmyk(0%, 66%, 80%, 0%)</span>
+          <button class="copy-btn" data-clipboard-target="#cmyk-code"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+  
+      <!-- Success Message -->
+      <p id="success-message" class="success-message hidden">Copied Successfully!</p>
+    </div>
+  </div>
+
+  <div id="color-histogram-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-chart-bar"></i> Color Histogram</h2>
+      <input type="file" id="image-upload" accept="image/*">
+      <canvas id="histogram-canvas"></canvas>
+    </div>
+  </div>
+
+  <div id="color-palette-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-palette"></i> Color Palette Generator</h2>
+      <input type="color" id="palette-color" value="#ff5733">
+      <button id="generate-palette">Generate Palette</button>
+      <div id="palette-container"></div>
+    </div>
+  </div>
+
+  <div id="gradient-generator-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-fill-drip"></i> Gradient Color Generator</h2>
+      <input type="color" id="gradient-color-1" value="#ff5733">
+      <input type="color" id="gradient-color-2" value="#33ff57">
+      <div id="gradient-preview"></div>
+    </div>
+  </div>
+
+  <div id="color-blindness-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-eye"></i> Color Blindness Simulator</h2>
+      <input type="color" id="blindness-color" value="#ff5733">
+      <select id="blindness-type">
+        <option value="normal">Normal Vision</option>
+        <option value="protanopia">Protanopia</option>
+        <option value="deuteranopia">Deuteranopia</option>
+        <option value="tritanopia">Tritanopia</option>
+      </select>
+      <div id="blindness-preview"></div>
+    </div>
+  </div>
+
+  <div id="contrast-checker-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-adjust"></i> Contrast Checker</h2>
+      <input type="color" id="contrast-color-1" value="#000000">
+      <input type="color" id="contrast-color-2" value="#ffffff">
+      <p>Contrast Ratio: <span id="contrast-ratio">21:1</span></p>
+    </div>
+  </div>
+
+  <div id="color-harmony-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-sync-alt"></i> Color Harmony Guide</h2>
+      <input type="color" id="harmony-color" value="#ff5733">
+      <button id="generate-harmony">Generate Harmony</button>
+      <div id="harmony-container"></div>
+    </div>
+  </div>
+
+  <div id="color-emotion-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-heart"></i> Color to Emotion Mapping</h2>
+      <input type="color" id="emotion-color" value="#ff5733">
+      <p>Emotion: <span id="emotion-result">Passion</span></p>
+    </div>
+  </div>
+
+  <!-- Fixed Footer -->
+  <footer class="fixed-footer">
+    <a href="https://www.facebook.com/mdtafsirkabir" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.linkedin.com/in/tafsirkabir/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.youtube.com/@PyPlatoonsbd" target="_blank"><i class="fab fa-youtube"></i></a>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

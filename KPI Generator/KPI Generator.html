@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Generator</title>
+    <style>
+*{
+list-style: none;
+margin:0;
+padding:0;
+box-sizing: border-box;
+
+}
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            padding-top: 70px; /* Make space for fixed header */
+            padding-bottom: 80px; /* Make space for fixed footer */
+        }
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient color */
+            padding: 25px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            color: white;
+margin-left: -20px;
+box-sizing: border-box;
+        }
+
+h3{
+padding: 20px 0px;
+}
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 60px; /* Make space for fixed header */
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #1e3c72;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        #result {
+            margin-top: 20px;
+		padding-bottom: 20px;
+            font-size: 18px;
+	text-align: left;
+	padding: 5px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none;
+            text-align: left;
+
+        }
+
+	#result li:hover{
+	background-color: rgba(255, 255, 255, 0.3);
+}
+        #suggestions {
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none;
+            text-align: left;
+        }
+        #suggestions li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        #suggestions li:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        footer {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient color */
+            padding: 20px;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 110%;
+            text-align: center;
+	margin-left: -20px;
+        }
+        footer .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer .social-icons a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        footer .social-icons a:hover {
+            color: #ff6f61;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Tutorials Point BD - 📊 KPI Generator</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </header>
+
+    <div class="container">
+        <p>Enter a topic (e.g., Sales, Marketing, Finance) to get relevant KPIs:</p>
+        <input type="text" id="searchInput" placeholder="Enter topic..." oninput="showSuggestions()">
+        <button onclick="generateKPI()">Generate KPI</button>
+        <div id="result"></div>
+        <ul id="suggestions"></ul>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+<a href="https://www.facebook.com/mdtafsirkabir" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/tafsirkabir/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@PyPlatoonsbd" target="_blank"><i class="fab fa-youtube"></i></a>
+
+<a href="https://www.tutorialspointbd.com" target="_blank"><i class="fa-sharp fa-solid fa-globe"></i></a>
+
+        </div>
+    </footer>
+
+    <script>
+        const kpiData = {
+    "sales": [
+        "Revenue Growth", "Sales Conversion Rate", "Customer Retention Rate", 
+        "Average Order Value", "Lead-to-Customer Ratio", "Sales per Employee", 
+        "Sales Target Achievement", "Customer Acquisition Cost", "Market Share", 
+        "Sales Forecast Accuracy", "Monthly Sales Growth", "Product Penetration Rate"
+    ],
+    "marketing": [
+        "Website Traffic", "Social Media Engagement", "Conversion Rate", 
+        "Customer Acquisition Cost", "Email Open Rate", "Click-Through Rate", 
+        "Cost per Lead", "Lead Conversion Rate", "Brand Awareness", 
+        "Marketing Return on Investment (ROI)", "Influencer Marketing ROI", 
+        "Customer Retention Rate"
+    ],
+    "finance": [
+        "Profit Margin", "Return on Investment (ROI)", "Operating Expense Ratio", 
+        "Debt-to-Equity Ratio", "Cash Flow", "Gross Profit Margin", 
+        "Net Profit Margin", "Earnings Before Interest and Taxes (EBIT)", 
+        "Return on Assets (ROA)", "Return on Equity (ROE)", "Working Capital", 
+        "Accounts Receivable Turnover"
+    ],
+    "hr": [
+        "Employee Turnover Rate", "Training Effectiveness", "Employee Satisfaction Score", 
+        "Time to Hire", "Diversity Ratio", "Employee Engagement", 
+        "Absenteeism Rate", "Job Satisfaction", "Employee Retention Rate", 
+        "Internal Promotion Rate", "Recruitment Cost", "Headcount"
+    ],
+    "it": [
+        "System Uptime", "Incident Resolution Time", "Security Compliance", 
+        "Software Deployment Success Rate", "User Satisfaction", "IT Support Cost per User", 
+        "Response Time for Critical Systems", "Incident Response Time", 
+        "Number of Service Requests", "Network Downtime", "Data Backup Success Rate", 
+        "IT Helpdesk Response Time"
+    ],
+    "manufacturing": [
+        "Production Efficiency", "Defect Rate", "On-Time Delivery", 
+        "Inventory Turnover", "Machine Downtime", "Production Yield", 
+        "Cycle Time", "Scrap Rate", "Production Cost per Unit", 
+        "Equipment Utilization", "Capacity Utilization Rate", "Supply Chain Lead Time"
+    ],
+    "customer service": [
+        "First Response Time", "Customer Satisfaction Score", "Ticket Resolution Time", 
+        "Net Promoter Score (NPS)", "Customer Retention Rate", "Response Time", 
+        "Customer Effort Score", "Escalation Rate", "Customer Feedback Rate", 
+        "Service Level Agreement (SLA) Compliance", "Call Abandonment Rate", 
+        "Average Handling Time"
+    ],
+    "supply chain": [
+        "On-Time Delivery", "Inventory Accuracy", "Logistics Cost per Order", 
+        "Supply Chain Cycle Time", "Order Fulfillment Rate", "Order Lead Time", 
+        "Freight Cost per Unit", "Inventory Turnover", "Backorder Rate", 
+        "Supplier Lead Time", "Perfect Order Rate", "Inventory Holding Cost"
+    ],
+    "product development": [
+        "Product Launch Success Rate", "Time to Market", "Product Defect Rate", 
+        "Customer Feedback on Product", "Innovation Rate", "Cost per Product Development", 
+        "Development Time", "Market Penetration Rate", "Product Adoption Rate", 
+        "Product Life Cycle", "Product Feature Utilization", "Development Cost Variance"
+    ],
+    "operations": [
+        "Process Efficiency", "Cost per Unit", "Production Volume", 
+        "Cycle Time", "Defect Rate", "Workforce Productivity", 
+        "Machine Efficiency", "Material Utilization", "Cost of Goods Sold (COGS)", 
+        "Process Downtime", "Inventory Carrying Cost", "Supplier Performance"
+    ],
+    "research and development": [
+        "Research Investment", "Patent Output", "Time to Product Development", 
+        "Idea Conversion Rate", "Project Completion Rate", "R&D Spending Efficiency", 
+        "Innovation Index", "Number of New Products Launched", "Success Rate of Research Projects", 
+        "Product Improvement Rate", "Collaborations with External Partners", 
+        "R&D Staff Turnover Rate"
+    ],
+    "customer feedback": [
+        "Customer Satisfaction Rate", "Feedback Collection Rate", "Net Promoter Score (NPS)", 
+        "Customer Loyalty Index", "Customer Effort Score", "Issue Resolution Rate", 
+        "Customer Advocacy", "Churn Rate", "Feedback Response Time", 
+        "Product Feature Requests", "Support Satisfaction Rate", "Survey Completion Rate"
+    ],
+    "brand management": [
+        "Brand Awareness", "Brand Sentiment", "Brand Loyalty", "Brand Consistency", 
+        "Brand Value", "Brand Advocacy", "Brand Recognition", 
+        "Customer Perception of Brand", "Market Positioning", "Brand Equity", 
+        "Brand Engagement", "Brand Reputation Score"
+    ],
+    "quality control": [
+        "Defect Rate", "Product Quality Index", "Customer Returns", "First Pass Yield", 
+        "Inspection Pass Rate", "Rework Rate", "Product Reliability", 
+        "Quality Cost", "Audit Compliance Rate", "Non-Conformance Rate", 
+        "Supplier Quality", "Internal Quality Assurance"
+    ],
+    "strategic goals": [
+        "Goal Achievement Rate", "Strategic Initiative Completion Rate", 
+        "Long-Term Business Growth", "Market Share Growth", "Financial Performance vs Goals", 
+        "Innovation Rate", "Risk Management Effectiveness", "Employee Engagement", 
+        "Operational Efficiency", "Customer Retention vs Goals", "Sustainability Metrics", 
+        "Corporate Social Responsibility (CSR) Impact"
+    ],
+    "business analysis": [
+        "Market Analysis Accuracy", "Competitor Benchmarking", "Customer Segmentation", 
+        "Sales Forecast Accuracy", "Business Trend Analysis", "Customer Lifetime Value (CLV)", 
+        "Cost Analysis", "Revenue Diversification", "Return on Investment (ROI)", 
+        "Market Entry Success Rate", "Business Opportunity Identification", 
+        "Revenue per Customer"
+    ],
+    "legal": [
+        "Legal Compliance Rate", "Litigation Success Rate", "Contract Renewal Rate", 
+        "Patent Protection Rate", "Risk Mitigation Score", "Regulatory Change Response Time", 
+        "Dispute Resolution Time", "Legal Cost per Case", "Contract Negotiation Success Rate", 
+        "Intellectual Property Protection", "Legal Staff Efficiency", 
+        "Legal Document Accuracy"
+    ],
+ "customer acquisition": [
+        "Customer Acquisition Cost", "Lead Conversion Rate", "New Customers Acquired", 
+        "Lead Generation Rate", "Customer Referral Rate", "Customer Acquisition ROI", 
+        "Marketing Qualified Leads (MQL)", "Sales Qualified Leads (SQL)", "Customer Conversion Rate", 
+        "Customer Demographics", "Cost per Acquisition (CPA)", "Customer Lifetime Value (CLV)"
+    ],
+    "sales performance": [
+        "Revenue Growth", "Sales Volume", "Sales per Employee", "Sales Conversion Rate", 
+        "Average Order Value", "Lead-to-Customer Ratio", "Sales Target Achievement", 
+        "Customer Retention Rate", "Sales Growth Rate", "Sales Quota Achievement", 
+        "Customer Acquisition Cost", "Sales Cycle Length"
+    ],
+    "customer loyalty": [
+        "Customer Retention Rate", "Net Promoter Score (NPS)", "Customer Lifetime Value", 
+        "Repeat Purchase Rate", "Loyalty Program Participation Rate", "Customer Satisfaction Rate", 
+        "Churn Rate", "Customer Feedback Rate", "Referral Rate", "Brand Loyalty", 
+        "Average Repeat Purchase Frequency", "Customer Engagement Rate"
+    ],
+    "employee productivity": [
+        "Revenue per Employee", "Employee Output", "Task Completion Rate", 
+        "Employee Utilization Rate", "Time to Complete Tasks", "Efficiency Ratio", 
+        "Employee Performance Score", "Employee Contribution to Goals", "Work Quality", 
+        "Employee Goal Achievement Rate", "Employee Satisfaction Score", "Workforce Utilization"
+    ],
+    "inventory management": [
+        "Inventory Turnover", "Stockouts", "Inventory Accuracy", "Carrying Cost of Inventory", 
+        "Order Fulfillment Rate", "Inventory Replenishment Rate", "Backorder Rate", "Lead Time", 
+        "Order Processing Time", "Inventory Shrinkage", "Stock-to-Sales Ratio", "Inventory Obsolescence Rate"
+    ],
+    "customer experience": [
+        "First Response Time", "Customer Satisfaction Score", "Resolution Time", 
+        "Customer Effort Score", "Repeat Visit Rate", "On-Time Delivery Rate", 
+        "Resolution Success Rate", "Customer Feedback Rate", "Customer Wait Time", 
+        "Service Level Agreement (SLA) Compliance", "Support Ticket Volume", "Customer Service Availability"
+    ],
+    "brand engagement": [
+        "Social Media Engagement Rate", "Brand Awareness", "Influencer Engagement", 
+        "Brand Sentiment", "Customer Advocacy Rate", "Brand Recall", 
+        "User-Generated Content Volume", "Brand Mentions", "Content Engagement", 
+        "Brand Affinity", "Brand Recognition", "Campaign Reach"
+    ],
+    "financial health": [
+        "Net Profit Margin", "Gross Profit Margin", "Return on Investment (ROI)", 
+        "Return on Assets (ROA)", "Debt-to-Equity Ratio", "Current Ratio", 
+        "Quick Ratio", "Cash Flow", "Accounts Receivable Turnover", "Earnings Before Interest and Taxes (EBIT)", 
+        "Operating Profit Margin", "Working Capital"
+    ],
+    "sustainability": [
+        "Carbon Footprint Reduction", "Energy Usage Efficiency", "Waste Reduction", 
+        "Water Usage Efficiency", "Sustainable Sourcing", "Product Recycling Rate", 
+        "Environmental Compliance Rate", "Sustainability Score", "Green Product Sales", 
+        "Resource Efficiency", "Carbon Emissions Offset", "Supplier Sustainability Score"
+    ],
+    "market expansion": [
+        "New Market Penetration Rate", "Geographic Expansion Success Rate", 
+        "Market Share Growth", "Revenue from New Markets", "Market Research Success", 
+        "Customer Acquisition in New Markets", "Sales Growth in New Markets", 
+        "Brand Awareness in New Markets", "Competitor Analysis", "Market Entry Speed", 
+        "Partnership Opportunities", "Local Adaptation Rate"
+    ],
+"product quality": [
+        "Defect Rate", "Product Return Rate", "First Pass Yield", 
+        "Quality Control Pass Rate", "Customer Complaints", "Quality Audit Score", 
+        "Supplier Quality Performance", "Production Quality Score", "Product Reliability", 
+        "Inspection Rate", "Rework Rate", "Warranty Claims"
+    ],
+    "sales productivity": [
+        "Revenue per Salesperson", "Sales Target Achievement", "Lead Conversion Rate", 
+        "Sales Activity Level", "Average Deal Size", "Sales Call Success Rate", 
+        "Opportunity Win Rate", "Sales Cycle Duration", "Sales Lead Response Time", 
+        "Number of Deals Closed", "Sales Conversion Cost", "Customer Acquisition Cost"
+    ],
+    "social media performance": [
+        "Engagement Rate", "Follower Growth", "Click-Through Rate", 
+        "Social Media Impressions", "Social Media Mentions", "Social Media Sentiment", 
+        "Hashtag Performance", "Social Shares", "Brand Awareness", 
+        "Influencer Campaign Success", "Response Time", "Video Views"
+    ],
+    "customer satisfaction": [
+        "Customer Satisfaction Score (CSAT)", "Net Promoter Score (NPS)", "First Contact Resolution", 
+        "Customer Effort Score", "Customer Retention Rate", "Average Handling Time", 
+        "Customer Feedback Response Rate", "Repeat Purchase Rate", "Support Ticket Volume", 
+        "Satisfaction by Channel", "Resolution Rate", "Customer Advocacy Rate"
+    ],
+    "employee engagement": [
+        "Employee Engagement Score", "Employee Satisfaction", "Employee Retention Rate", 
+        "Workplace Happiness Index", "Employee Motivation Score", "Employee Loyalty Rate", 
+        "Internal Mobility Rate", "Employee Suggestion Participation", "Training Participation Rate", 
+        "Employee Productivity", "Employee Recognition Program Effectiveness", "Survey Response Rate"
+    ],
+    "e-commerce performance": [
+        "Online Revenue", "Cart Abandonment Rate", "Conversion Rate", 
+        "Average Order Value", "Customer Acquisition Cost", "Website Traffic", 
+        "Order Fulfillment Rate", "Product Return Rate", "Website Bounce Rate", 
+        "Customer Lifetime Value", "Cost per Acquisition (CPA)", "Sales Conversion Rate"
+    ],
+    "corporate governance": [
+        "Board Diversity", "Audit Compliance", "Regulatory Compliance Rate", 
+        "Risk Management Effectiveness", "Internal Control Effectiveness", 
+        "Corporate Transparency", "Shareholder Engagement", "Management Compensation Link to Performance", 
+        "Board Attendance Rate", "Stakeholder Satisfaction", "Ethical Business Practices", 
+        "Legal and Regulatory Violations"
+    ],
+    "IT infrastructure": [
+        "System Uptime", "Network Downtime", "Incident Response Time", "Security Incident Rate", 
+        "Mean Time to Repair (MTTR)", "IT Support Response Time", "Cost per IT User", 
+        "Incident Resolution Rate", "Service Level Agreement (SLA) Compliance", 
+        "Data Loss Prevention Rate", "System Upgrade Completion Time", "Cybersecurity Threat Detection"
+    ],
+    "sales lead generation": [
+        "Lead Conversion Rate", "Lead-to-Customer Ratio", "Lead Qualification Rate", 
+        "Cost per Lead", "Lead Generation ROI", "Marketing Qualified Leads (MQL)", 
+        "Sales Qualified Leads (SQL)", "Lead Velocity Rate", "Lead Nurturing Success Rate", 
+        "Lead Response Time", "Lead Rejection Rate", "Lead Volume"
+    ],
+    "customer retention": [
+        "Customer Retention Rate", "Customer Lifetime Value (CLV)", "Repeat Purchase Rate", 
+        "Churn Rate", "Net Promoter Score (NPS)", "Customer Satisfaction Score", 
+        "Renewal Rate", "Customer Feedback Rate", "Customer Support Resolution Rate", 
+        "Customer Engagement Rate", "Loyalty Program Participation", "Customer Advocacy Rate"
+    ],
+    "content marketing": [
+        "Content Engagement Rate", "Social Shares", "Content Reach", 
+        "Lead Generation from Content", "Bounce Rate", "Time on Page", 
+        "Content Conversion Rate", "SEO Ranking", "Organic Traffic Growth", 
+        "Blog Subscription Rate", "Download Rate", "Content ROI"
+    ],
+    "market research": [
+        "Market Share", "Customer Satisfaction", "Competitive Benchmarking", 
+        "Market Penetration", "Customer Segmentation", "Brand Awareness", 
+        "Survey Response Rate", "Consumer Behavior Analysis", "Market Trend Identification", 
+        "Product Demand Forecasting", "Industry Research Depth", "Customer Feedback"
+    ],
+    "IT support": [
+        "Ticket Resolution Time", "First Call Resolution Rate", "Support Ticket Volume", 
+        "Service Level Agreement (SLA) Compliance", "Customer Satisfaction Score", 
+        "Average Handling Time", "Cost per Support Ticket", "IT Support Team Productivity", 
+        "Incident Volume", "Mean Time to Resolution", "Support Quality Score", 
+        "Repeat Ticket Rate"
+    ],
+    "logistics": [
+        "On-Time Delivery Rate", "Freight Cost per Unit", "Delivery Time Variability", 
+        "Order Fulfillment Accuracy", "Inventory Accuracy", "Delivery Cost", 
+        "Supplier Lead Time", "Packaging Efficiency", "Inventory Turnover", 
+        "Logistics Cost per Order", "Shipping Error Rate", "Order Cycle Time"
+    ],
+    "procurement": [
+        "Supplier Lead Time", "Procurement Cost", "Supplier Performance", 
+        "Supplier Relationship Management", "Purchase Order Accuracy", "Inventory Turnover", 
+        "Procurement Savings", "Sourcing Efficiency", "Supplier Quality", 
+        "Contract Compliance", "Purchasing Cycle Time", "Supplier Diversity"
+    ],
+    "training and development": [
+        "Training Completion Rate", "Employee Skill Improvement", "Training ROI", 
+        "Training Cost per Employee", "Training Satisfaction", "Employee Development Hours", 
+        "Training Participation Rate", "Knowledge Transfer Rate", "Leadership Development Program Success", 
+        "Performance Improvement after Training", "Internal Promotion Rate", "Training Retention Rate"
+    ],
+    "public relations": [
+        "Press Coverage", "Media Mentions", "Brand Sentiment", 
+        "Event Attendance", "Influencer Outreach", "Public Perception", 
+        "Crisis Response Time", "Social Media Mentions", "Share of Voice", 
+        "Brand Advocacy", "Sentiment Analysis", "Media Relations Effectiveness"
+    ],
+    "product lifecycle": [
+        "Product Launch Success Rate", "Product Development Time", "Product Market Fit", 
+        "Sales Volume", "Customer Feedback", "Product Profitability", 
+        "Product Quality Index", "Customer Adoption Rate", "Product Return Rate", 
+        "Product Obsolescence Rate", "Product Feature Usage Rate", "Time to Market"
+    ],
+    "business development": [
+        "Revenue Growth from New Business", "Number of New Partnerships", 
+        "Market Expansion Success Rate", "New Product Launch Success", 
+        "Partnership Conversion Rate", "New Client Acquisition Rate", "Lead Generation Success", 
+        "Sales Pipeline Growth", "Business Development ROI", "Client Retention Rate", 
+        "New Market Penetration", "Lead Conversion Time"
+    ],
+"customer support": [
+        "First Response Time", "Customer Satisfaction Score", "Resolution Time", 
+        "Customer Retention Rate", "Net Promoter Score (NPS)", "Support Ticket Volume", 
+        "Support Ticket Resolution Rate", "Average Handling Time", "Customer Effort Score", 
+        "Repeat Contact Rate", "Escalation Rate", "Customer Service Level"
+    ],
+    "digital marketing": [
+        "Website Traffic", "Conversion Rate", "Cost per Click (CPC)", 
+        "Cost per Acquisition (CPA)", "Click-Through Rate (CTR)", "Bounce Rate", 
+        "Lead Generation Rate", "Email Open Rate", "Return on Ad Spend (ROAS)", 
+        "Social Media Engagement", "Organic Traffic", "Paid Traffic Growth"
+    ],
+    "retail performance": [
+        "Sales per Square Foot", "Foot Traffic", "Average Transaction Value", 
+        "Customer Conversion Rate", "Inventory Turnover", "Stock Availability", 
+        "Customer Retention Rate", "Sales Growth", "Employee Productivity", 
+        "Customer Feedback", "Sales per Employee", "Discount Percentage"
+    ],
+    "brand awareness": [
+        "Brand Recall", "Share of Voice", "Brand Recognition", 
+        "Social Media Mentions", "Brand Sentiment", "Brand Search Volume", 
+        "Ad Impressions", "Influencer Engagement", "Brand Reputation", 
+        "Marketing Reach", "Press Mentions", "Brand Advocacy"
+    ],
+    "research and development": [
+        "Product Development Cycle Time", "R&D Spending", "Innovation Index", 
+        "Patent Filings", "R&D Return on Investment (ROI)", "Product Prototype Success Rate", 
+        "Market Acceptance Rate", "Product Testing Success Rate", "Time to Market", 
+        "Research Findings Published", "Technology Adoption Rate", "Research Collaboration Rate"
+    ],
+    "supplier management": [
+        "Supplier Lead Time", "On-Time Delivery Rate", "Supplier Defect Rate", 
+        "Cost Savings from Suppliers", "Supplier Risk Management", "Supplier Compliance", 
+        "Supplier Performance Rating", "Supplier Diversity", "Purchase Order Accuracy", 
+        "Supplier Relationship Satisfaction", "Average Supplier Payment Time", "Supplier Cost Efficiency"
+    ],
+    "construction management": [
+        "Project Completion Time", "Cost per Square Foot", "On-Time Delivery", 
+        "Budget Adherence", "Safety Incident Rate", "Workforce Productivity", 
+        "Change Order Frequency", "Construction Defect Rate", "Resource Utilization Rate", 
+        "Client Satisfaction", "Contractor Performance", "Material Waste Reduction"
+    ],
+    "agriculture": [
+        "Crop Yield", "Water Usage Efficiency", "Soil Health Index", 
+        "Pesticide Use", "Fertilizer Use", "Harvest Success Rate", 
+        "Labor Efficiency", "Product Quality", "Market Price Volatility", 
+        "Land Utilization Rate", "Sustainability Practices", "Farm Profitability"
+    ],
+    "transportation": [
+        "Fleet Utilization Rate", "On-Time Delivery Rate", "Fuel Efficiency", 
+        "Vehicle Maintenance Cost", "Accident Rate", "Delivery Time", 
+        "Driver Productivity", "Transportation Cost per Unit", "Customer Satisfaction", 
+        "Load Optimization", "Route Efficiency", "Fleet Downtime"
+    ],
+    "insurance": [
+        "Claims Processing Time", "Policy Renewal Rate", "Loss Ratio", 
+        "Customer Satisfaction", "Claim Settlement Ratio", "Revenue per Policyholder", 
+        "Claims Frequency", "Cost per Claim", "Customer Retention Rate", 
+        "Average Premium Revenue", "Risk Assessment Accuracy", "Claims Fraud Detection Rate"
+    ],
+    "healthcare": [
+        "Patient Satisfaction Score", "Average Wait Time", "Patient Outcome Rate", 
+        "Bed Occupancy Rate", "Emergency Room Wait Time", "Readmission Rate", 
+        "Medical Error Rate", "Employee Satisfaction", "Treatment Success Rate", 
+        "Patient Retention Rate", "Healthcare Costs", "Staff Productivity"
+    ],
+    "event management": [
+        "Event Attendance", "Event Satisfaction Rate", "Cost per Event", 
+        "Ticket Sales", "Revenue per Attendee", "Sponsorship Revenue", 
+        "Event Engagement Rate", "Social Media Mentions", "Event Profitability", 
+        "Post-Event Feedback", "Brand Visibility", "Vendor Satisfaction"
+    ],
+    "telecommunications": [
+        "Average Revenue per User (ARPU)", "Churn Rate", "Call Drop Rate", 
+        "Network Downtime", "Customer Satisfaction", "Customer Acquisition Cost", 
+        "Network Coverage", "Data Usage per Subscriber", "Customer Retention Rate", 
+        "First Call Resolution", "Service Level Agreement (SLA) Compliance", "Subscriber Growth Rate"
+    ],
+    "real estate": [
+        "Property Occupancy Rate", "Average Rent per Unit", "Sales per Square Foot", 
+        "Net Operating Income (NOI)", "Capitalization Rate", "Property Appreciation Rate", 
+        "Customer Acquisition Cost", "Lease Renewal Rate", "Sales Volume", 
+        "Tenant Satisfaction", "Property Maintenance Cost", "Tenant Turnover Rate"
+    ],
+    "human resources": [
+        "Employee Turnover Rate", "Time to Hire", "Employee Satisfaction", 
+        "Training Effectiveness", "Employee Retention Rate", "Absenteeism Rate", 
+        "Cost per Hire", "Employee Engagement", "Internal Promotion Rate", 
+        "Diversity Hiring Rate", "Performance Review Completion Rate", "Compensation Benchmarking"
+    ],
+    "media and entertainment": [
+        "Audience Engagement Rate", "Viewership Growth", "Box Office Revenue", 
+        "Content Reach", "Content Consumption", "Subscriber Growth", 
+        "Revenue per Viewer", "Content Release Schedule Adherence", "Brand Partnerships", 
+        "Event Attendance", "Social Media Shares", "Audience Retention Rate"
+    ],
+    "cybersecurity": [
+        "Number of Security Incidents", "Incident Response Time", "Vulnerability Patch Time", 
+        "Threat Detection Rate", "Data Breach Rate", "Employee Cybersecurity Training Completion", 
+        "Firewall Effectiveness", "Phishing Attack Success Rate", "Security Compliance Rate", 
+        "Security Awareness Program Engagement", "System Downtime", "Risk Assessment Accuracy"
+    ],
+    "tourism and hospitality": [
+        "Occupancy Rate", "Average Daily Rate (ADR)", "Revenue per Available Room (RevPAR)", 
+        "Guest Satisfaction Score", "Booking Conversion Rate", "Customer Retention Rate", 
+        "Room Turnover Rate", "Food and Beverage Revenue", "Staff Productivity", 
+        "Event Hosting Revenue", "Market Share", "Employee Satisfaction"
+    ],
+    "technology and innovation": [
+        "Product Development Speed", "Innovation Index", "Time to Market", 
+        "R&D ROI", "Patent Filings", "Customer Adoption Rate", 
+        "Technology Usage Rate", "Digital Transformation Progress", "Product/Service Launch Success", 
+        "Research Publication Count", "Innovation Pipeline Growth", "Technology Deployment Rate"
+    ],
+    "nonprofit": [
+        "Donor Retention Rate", "Fundraising Revenue", "Grant Success Rate", 
+        "Volunteer Engagement", "Event Attendance", "Program Impact Score", 
+        "Community Engagement", "Charity Awareness", "Cost per Dollar Raised", 
+        "Employee Satisfaction", "Social Media Mentions", "Partnership Success Rate"
+    ],
+"sales forecasting": [
+        "Forecast Accuracy", "Sales Forecast Variance", "Revenue Prediction Accuracy", 
+        "Sales Quota Achievement", "Opportunity Win Rate", "Lead Conversion Rate", 
+        "Sales Pipeline Growth", "Sales Cycle Duration", "Market Demand Forecast", 
+        "Sales Target Achievement", "Revenue Growth Rate", "Average Deal Size"
+    ],
+    "manufacturing efficiency": [
+        "Overall Equipment Effectiveness (OEE)", "Production Yield", "Production Downtime", 
+        "Cycle Time", "Defect Rate", "Machine Utilization Rate", 
+        "Production Cost per Unit", "Inventory Turnover", "First Pass Yield", 
+        "Workforce Productivity", "Lead Time", "On-Time Delivery Rate"
+    ],
+    "fleet management": [
+        "Fleet Utilization Rate", "Fuel Efficiency", "Vehicle Maintenance Cost", 
+        "Fleet Downtime", "Driver Safety Score", "Average Fleet Age", 
+        "Cost per Mile", "Accident Rate", "On-Time Delivery Rate", 
+        "Fleet Maintenance Compliance", "Asset Utilization", "Cost per Vehicle"
+    ],
+    "customer feedback": [
+        "Customer Satisfaction Score", "Net Promoter Score (NPS)", "Customer Feedback Response Rate", 
+        "Customer Complaints Resolution Rate", "Customer Survey Participation Rate", 
+        "Sentiment Analysis Score", "Feedback Turnaround Time", "Customer Retention Rate", 
+        "Repeat Purchase Rate", "Feedback Implementation Rate", "Customer Effort Score", 
+        "Product Improvement Suggestions"
+    ],
+    "employee performance": [
+        "Employee Productivity", "Goal Achievement Rate", "Performance Review Completion Rate", 
+        "Employee Satisfaction", "Promotion Rate", "Training Completion Rate", 
+        "Absenteeism Rate", "Overtime Hours", "Employee Retention Rate", 
+        "Performance Bonus Distribution", "Employee Engagement Rate", "Internal Mobility Rate"
+    ],
+    "corporate social responsibility (CSR)": [
+        "CSR Project Completion Rate", "Social Impact Score", "Volunteer Hours", 
+        "Environmental Sustainability Initiatives", "CSR Budget Allocation", "Stakeholder Engagement", 
+        "Charity Donations", "Employee Participation in CSR Programs", "Greenhouse Gas Emissions Reduction", 
+        "Local Community Support", "CSR Reporting Compliance", "Public Relations Impact"
+    ],
+    "user experience (UX)": [
+        "Customer Satisfaction Score", "Website Usability Score", "User Retention Rate", 
+        "Customer Journey Completion Rate", "Average Session Duration", "User Engagement Rate", 
+        "Conversion Rate", "Bounce Rate", "Task Completion Time", "Error Rate", "Net Promoter Score (NPS)", 
+        "Page Load Speed"
+    ],
+    "financial management": [
+        "Profit Margin", "Return on Investment (ROI)", "Operating Expense Ratio", 
+        "Revenue Growth Rate", "Debt-to-Equity Ratio", "Working Capital", 
+        "Cash Flow", "Return on Assets (ROA)", "Revenue per Employee", "Gross Margin", 
+        "Net Profit", "Operating Income"
+    ],
+    "supply chain management": [
+        "On-Time Delivery Rate", "Inventory Accuracy", "Logistics Cost per Order", 
+        "Order Fulfillment Rate", "Supplier Lead Time", "Cost per Order", 
+        "Inventory Turnover", "Supply Chain Cycle Time", "Order Fill Rate", 
+        "Supplier Quality Compliance", "Shipping Cost", "Forecast Accuracy"
+    ],
+    "productivity software": [
+        "User Adoption Rate", "System Downtime", "Software Utilization Rate", 
+        "Feature Usage Rate", "Customer Satisfaction with Software", "Onboarding Completion Rate", 
+        "Error Rate", "Customer Support Ticket Volume", "User Retention Rate", 
+        "Training Completion Rate", "Software ROI", "Average Time to Resolve Issues"
+    ],
+    "digital transformation": [
+        "Cloud Adoption Rate", "Automation Rate", "Digital Tool Utilization", 
+        "IT Cost Reduction", "Employee Digital Literacy", "Process Improvement Rate", 
+        "Customer Engagement through Digital Channels", "Data Analytics Utilization", 
+        "Digital Service Uptake", "Tech Support Ticket Resolution", "System Integration Success Rate", 
+        "Digital Product Adoption"
+    ],
+    "advertising": [
+        "Return on Advertising Spend (ROAS)", "Cost per Acquisition (CPA)", "Click-Through Rate (CTR)", 
+        "Conversion Rate", "Impressions", "Ad Reach", "Customer Acquisition Cost", 
+        "Brand Awareness", "Ad Engagement Rate", "Lead Generation Rate", 
+        "Ad Performance Analytics", "Audience Demographics"
+    ],
+    "quality assurance": [
+        "Defect Rate", "Product Return Rate", "First Pass Yield", 
+        "Supplier Quality Compliance", "Quality Audit Score", "Customer Complaints", 
+        "Inspection Failure Rate", "Product Reliability", "Testing Coverage", 
+        "Rework Rate", "Quality Control Pass Rate", "Warranty Claims"
+    ],
+    "event planning": [
+        "Event Attendance", "Sponsorship Revenue", "Ticket Sales", 
+        "Event Satisfaction Score", "Marketing Reach", "Brand Visibility", 
+        "Post-Event Engagement", "Venue Utilization", "Budget Adherence", 
+        "Networking Success Rate", "Customer Retention Rate", "Social Media Mentions"
+    ],
+    "content creation": [
+        "Content Engagement Rate", "Social Shares", "Content Reach", 
+        "Lead Generation from Content", "SEO Ranking", "Bounce Rate", 
+        "Average Time on Page", "Blog Subscription Rate", "Content Conversion Rate", 
+        "Cost per Lead", "Content Quality Score", "Content Impact"
+    ],
+    "employee wellness": [
+        "Employee Satisfaction", "Employee Engagement", "Absenteeism Rate", 
+        "Wellness Program Participation", "Employee Productivity", "Health Screening Participation", 
+        "Mental Health Awareness Program Completion", "Employee Retention Rate", 
+        "Health-related Absenteeism", "Wellness Benefit Utilization", "Stress Management Program Effectiveness", 
+        "Employee Support Program Satisfaction"
+    ],
+    "product lifecycle management": [
+        "Time to Market", "Product Launch Success", "Product Obsolescence Rate", 
+        "Customer Adoption Rate", "Revenue per Product", "Product Profitability", 
+        "Customer Feedback on Product", "R&D Investment", "Innovation Rate", 
+        "Product Improvement Cycle", "Product Support Cost", "Market Penetration Rate"
+    ],
+    "employee training": [
+        "Training Completion Rate", "Employee Skill Improvement", "Training Satisfaction", 
+        "Training Cost per Employee", "Training Retention Rate", "Training Participation Rate", 
+        "Training Return on Investment (ROI)", "Onboarding Effectiveness", 
+        "Leadership Development", "Training Feedback Score", "Performance Improvement Post-Training", 
+        "Internal Promotion Rate"
+    ],
+    "revenue management": [
+        "Revenue per Available Seat (RevPAS)", "Revenue per Customer", "Average Transaction Value", 
+        "Yield Management Success", "Revenue Growth Rate", "Profit Margin", 
+        "Revenue per Employee", "Customer Segmentation", "Booking Conversion Rate", 
+        "Customer Lifetime Value (CLV)", "Price Optimization Rate", "Revenue per Available Room (RevPAR)"
+    ],
+    "vendor management": [
+        "Vendor Compliance Rate", "On-Time Delivery Rate", "Cost Savings from Vendors", 
+        "Vendor Risk Assessment", "Vendor Performance Score", "Supplier Relationship Quality", 
+        "Purchase Order Accuracy", "Vendor Payment Timeliness", "Supplier Lead Time", 
+        "Vendor Dispute Rate", "Supplier Cost Efficiency", "Vendor Innovation"
+    ],
+    "business analytics": [
+        "Data Quality Score", "Data Utilization Rate", "Reporting Accuracy", 
+        "Business Insights Generation", "Predictive Analytics Success Rate", 
+        "Business Decision-making Speed", "Customer Segmentation Accuracy", 
+        "Data-Driven Campaign Success", "Cost Savings from Analytics", "ROI from Data Analysis", 
+        "Market Trend Identification", "Operational Efficiency Improvement"
+    ],
+    "public relations (PR)": [
+        "Media Mentions", "Press Coverage", "Share of Voice", "Brand Sentiment", 
+        "Media Reach", "Influencer Engagement", "Crisis Management Response Time", 
+        "Public Relations Return on Investment (PR ROI)", "Event Media Coverage", 
+        "Public Sentiment", "Brand Awareness Growth", "Media Relations Effectiveness"
+    ],
+    "technology adoption": [
+        "Software Adoption Rate", "User Satisfaction with Technology", "Technology Utilization", 
+        "Cost of Technology Deployment", "ROI from Technology Implementation", 
+        "Training Completion Rate for New Tech", "Employee Feedback on Technology", 
+        "Technology Support Ticket Volume", "System Integration Rate", 
+        "Process Improvement with Technology", "System Downtime", "Technology-Driven Efficiency"
+    ],
+"customer acquisition": [
+        "Customer Acquisition Cost (CAC)", "Lead Conversion Rate", "Customer Lifetime Value (CLV)", 
+        "Sales Cycle Length", "Prospect Engagement Rate", "Customer Retention Rate", 
+        "Referral Rate", "Onboarding Success Rate", "Cost per Lead", 
+        "Marketing Qualified Leads (MQL)", "Sales Qualified Leads (SQL)", "Lead-to-Customer Ratio"
+    ],
+    "product development": [
+        "Time to Market", "Product Development Cost", "R&D Spending", "Product Adoption Rate", 
+        "Innovation Index", "Product Quality Score", "Prototype Success Rate", "Customer Feedback", 
+        "Product Launch Success", "Market Share Gain", "Product Life Cycle", "Revenue per Product"
+    ],
+    "project management": [
+        "Project Completion Time", "Project Budget Adherence", "Project Scope Change Rate", 
+        "Project Cost Variance", "Resource Utilization", "Risk Mitigation Effectiveness", 
+        "Project Success Rate", "Team Productivity", "Stakeholder Satisfaction", 
+        "Project Quality", "Milestone Achievement", "Task Completion Rate"
+    ],
+    "marketing automation": [
+        "Email Open Rate", "Click-Through Rate (CTR)", "Lead Nurturing Success Rate", 
+        "Customer Segmentation Accuracy", "Conversion Rate", "Marketing Qualified Leads", 
+        "Customer Retention Rate", "Cost per Email Sent", "Lead Conversion Time", 
+        "Lead Scoring Accuracy", "Abandoned Cart Recovery Rate", "Sales Funnel Conversion Rate"
+    ],
+    "financial planning": [
+        "Budget Variance", "Profitability Ratio", "Cash Flow", "Operating Margin", 
+        "Return on Investment (ROI)", "Cost per Unit Sold", "Revenue Forecast Accuracy", 
+        "Debt-to-Equity Ratio", "Working Capital", "Revenue per Employee", 
+        "Return on Assets (ROA)", "Capital Expenditure Efficiency"
+    ],
+    "customer retention": [
+        "Customer Churn Rate", "Customer Retention Rate", "Net Promoter Score (NPS)", 
+        "Repeat Purchase Rate", "Customer Satisfaction", "Engagement Rate", 
+        "Renewal Rate", "Customer Support Ticket Resolution Time", 
+        "Customer Loyalty Index", "Customer Life Cycle Value", "Referral Rate", "Retention Cost"
+    ],
+    "digital advertising": [
+        "Click-Through Rate (CTR)", "Cost per Click (CPC)", "Cost per Acquisition (CPA)", 
+        "Return on Ad Spend (ROAS)", "Ad Impressions", "Conversion Rate", 
+        "Lead Generation from Ads", "Ad Engagement", "Audience Reach", 
+        "Customer Acquisition Cost", "Social Media Engagement", "Paid Search ROI"
+    ],
+    "brand loyalty": [
+        "Brand Awareness", "Customer Retention Rate", "Net Promoter Score (NPS)", 
+        "Repeat Purchase Rate", "Brand Engagement", "Customer Advocacy", 
+        "Brand Recognition", "Customer Lifetime Value (CLV)", "Loyalty Program Enrollment", 
+        "Brand Sentiment", "Referral Rate", "Brand Advocacy Rate"
+    ],
+    "cost management": [
+        "Cost per Unit", "Cost Reduction Percentage", "Operational Cost Efficiency", 
+        "Cost per Acquisition", "Total Operating Cost", "Fixed vs Variable Costs", 
+        "Cost Savings from Process Improvement", "Cost per Lead", 
+        "Cost per Conversion", "Revenue per Employee", "Cost to Serve", "Expense Ratio"
+    ],
+    "customer support operations": [
+        "First Response Time", "Customer Satisfaction Score", "Resolution Time", 
+        "Support Ticket Volume", "Ticket Closure Rate", "Ticket Escalation Rate", 
+        "Average Handling Time", "Repeat Contact Rate", "Resolution Rate", 
+        "Cost per Ticket", "Support Ticket Backlog", "Service Level Agreement (SLA) Compliance"
+    ],
+    "cloud computing": [
+        "Cloud Service Uptime", "Service Availability", "Cloud Cost Optimization", 
+        "Data Security Compliance", "Cloud Storage Utilization", "Infrastructure Efficiency", 
+        "Scalability", "Cloud Adoption Rate", "System Downtime", "Service Response Time", 
+        "Cost per GB Stored", "Cloud Service ROI"
+    ],
+    "data privacy and protection": [
+        "Data Breach Incident Rate", "Compliance Rate with Privacy Regulations", 
+        "Security Vulnerabilities Detected", "Data Encryption Rate", "Incident Response Time", 
+        "Security Awareness Program Effectiveness", "Third-Party Vendor Security Compliance", 
+        "Access Control Success Rate", "Data Loss Prevention (DLP) Coverage", 
+        "Privacy Impact Assessments", "Data Integrity Rate", "Risk Mitigation Strategy Success"
+    ],
+    "mobile app performance": [
+        "App Downtime", "App Load Time", "App Usage Frequency", "User Retention Rate", 
+        "Crash Rate", "Active User Count", "Customer Feedback Rating", "App Store Rating", 
+        "User Engagement", "In-App Purchases", "App Conversion Rate", "Uninstall Rate"
+    ],
+    "e-commerce": [
+        "Conversion Rate", "Average Order Value (AOV)", "Shopping Cart Abandonment Rate", 
+        "Website Traffic", "Customer Acquisition Cost (CAC)", "Product Return Rate", 
+        "Revenue per Visitor", "Customer Retention Rate", "Order Fulfillment Time", 
+        "Customer Satisfaction Score", "Time on Site", "Customer Lifetime Value (CLV)"
+    ],
+    "security operations": [
+        "Incident Response Time", "Vulnerability Patch Time", "Threat Detection Rate", 
+        "Security Compliance", "Phishing Attack Success Rate", "System Downtime", 
+        "Firewall Effectiveness", "Employee Security Training Completion Rate", 
+        "Data Breach Rate", "Security Risk Reduction", "Number of Security Incidents", "Security Audit Compliance"
+    ],
+    "health and safety": [
+        "Accident Rate", "Employee Safety Training Completion", "Workplace Injury Rate", 
+        "Safety Incident Response Time", "Near Miss Incidents", "Safety Audit Score", 
+        "Lost Time Injury Frequency Rate", "Compliance with Safety Standards", 
+        "Emergency Preparedness Score", "Employee Health Program Participation", 
+        "OSHA Violation Rate", "Workplace Hazards Identified"
+    ],
+    "knowledge management": [
+        "Knowledge Base Utilization", "Employee Knowledge Sharing Rate", 
+        "Training Completion Rate", "Document Access Frequency", 
+        "Knowledge Base Accuracy", "Employee Engagement with Knowledge Systems", 
+        "Content Creation Rate", "Search Success Rate", "Collaboration Rate", 
+        "Knowledge Gap Identification", "Time to Retrieve Information", "Knowledge Resource Availability"
+    ],
+    "reputation management": [
+        "Brand Sentiment", "Media Coverage", "Customer Satisfaction Score", 
+        "Social Media Mentions", "Brand Advocacy", "Crisis Management Success Rate", 
+        "Public Perception", "Customer Loyalty Rate", "Net Promoter Score (NPS)", 
+        "Brand Trust Index", "Online Reputation Score", "Customer Retention Rate"
+    ],
+    "international expansion": [
+        "Market Penetration Rate", "Revenue Growth in New Markets", "Cultural Adaptation Success", 
+        "International Market Share", "Localization Success Rate", "Cross-Border Sales", 
+        "Partnership Growth", "Customer Acquisition Cost (CAC) in New Markets", 
+        "Brand Awareness in New Markets", "Regulatory Compliance", "Localization Cost", "Export Volume"
+    ],
+    "IT infrastructure": [
+        "System Uptime", "Incident Resolution Time", "Cost per IT Service", 
+        "Employee Productivity with IT Systems", "IT Support Ticket Volume", 
+        "IT System Downtime", "Network Performance", "User Satisfaction with IT Services", 
+        "IT Security Compliance", "Cost of IT Maintenance", "Service Level Agreement (SLA) Compliance", 
+        "Data Center Efficiency"
+    ],
+    "operational efficiency": [
+        "Operational Cost per Unit", "Process Efficiency", "Resource Utilization", 
+        "Cycle Time Reduction", "Production Yield", "Operational Downtime", 
+        "Cost Savings from Process Improvement", "Lean Initiative Success Rate", 
+        "Operational Quality", "Waste Reduction", "Lead Time", "On-Time Delivery Rate"
+    ],
+    "retention marketing": [
+        "Customer Retention Rate", "Churn Rate", "Repeat Purchase Rate", 
+        "Loyalty Program Participation", "Customer Satisfaction Score", "Customer Lifetime Value (CLV)", 
+        "Engagement Rate", "Email Open Rate", "Referral Rate", 
+        "Repeat Customer Revenue", "Discount Redemption Rate", "Customer Engagement Score"
+    ],
+    "corporate governance": [
+        "Board Meeting Attendance", "Compliance with Governance Policies", "Audit Completion Rate", 
+        "Shareholder Satisfaction", "Risk Management Effectiveness", "Regulatory Compliance", 
+        "Policy Adherence Rate", "Employee Ethics Training Completion", 
+        "Internal Audit Findings", "Financial Transparency", "Governance Transparency", 
+        "Sustainability Reporting"
+    ],
+    "sustainability": [
+        "Carbon Footprint Reduction", "Energy Consumption Efficiency", "Waste Reduction", 
+        "Sustainable Sourcing Percentage", "Water Usage Reduction", "Recycling Rate", 
+        "Green Certifications", "Environmental Impact Score", "Sustainability Reporting Compliance", 
+        "Carbon Emission Reduction", "Renewable Energy Usage", "Supply Chain Sustainability"
+    ],
+    "business continuity": [
+        "Disaster Recovery Time", "Business Continuity Plan (BCP) Testing", "Critical System Redundancy", 
+        "Risk Assessment Completion", "Business Disruption Frequency", "Recovery Time Objective (RTO)", 
+        "Recovery Point Objective (RPO)", "Employee Communication during Crisis", 
+        "Backup Systems Performance", "Crisis Management Success Rate", "Contingency Plan Activation", 
+        "Supply Chain Continuity"
+    ],
+    "customer experience": [
+        "Customer Satisfaction Score", "Net Promoter Score (NPS)", "Customer Effort Score", 
+        "Response Time", "First Contact Resolution Rate", "Service Level Agreement (SLA) Compliance", 
+        "Product/Service Availability", "Customer Feedback Score", "Brand Sentiment", 
+        "Repeat Purchase Rate", "Customer Support Resolution Time", "On-Time Delivery Rate"
+    ],
+    "IT support": [
+        "Resolution Time", "First Contact Resolution Rate", "Customer Satisfaction", 
+        "IT Support Ticket Volume", "Average Handling Time", "Service Level Agreement (SLA) Compliance", 
+        "Technical Skill Improvement", "Cost per Ticket", "Support Request Frequency", 
+        "System Downtime", "Employee Support Satisfaction", "Knowledge Base Utilization"
+    ]
+
+};
+
+
+
+        function showSuggestions() {
+            const input = document.getElementById("searchInput").value.toLowerCase().trim();
+            const suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = ""; // Clear previous suggestions
+
+            if (input.length === 0) {
+                return; // Don't show suggestions if the input is empty
+            }
+
+            const filteredKeys = Object.keys(kpiData).filter(key => key.startsWith(input));
+
+            filteredKeys.forEach(key => {
+                const li = document.createElement("li");
+                li.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+                li.onclick = function() {
+                    document.getElementById("searchInput").value = key; // Set clicked suggestion to input
+                    generateKPI(); // Generate KPI when a suggestion is clicked
+                };
+                suggestions.appendChild(li);
+            });
+        }
+
+        function generateKPI() {
+            const input = document.getElementById("searchInput").value.toLowerCase().trim();
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = ""; // Clear previous result
+
+            if (input in kpiData) {
+                const kpis = kpiData[input].map(kpi => `<li>${kpi}</li>`).join("");
+                resultDiv.innerHTML = `<h3>📌 KPIs for ${input.charAt(0).toUpperCase() + input.slice(1)}:</h3><ul>${kpis}</ul>`;
+            } else {
+                resultDiv.innerHTML = `<p>❌ No KPIs found for "${input}". Try another topic.</p>`;
+            }
+        }
+    </script>
+
+</body>
+</html>

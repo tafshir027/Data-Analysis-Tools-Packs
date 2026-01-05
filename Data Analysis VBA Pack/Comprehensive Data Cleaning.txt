@@ -1,0 +1,114 @@
+Sub ComprehensiveDataCleaning()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim findText As String
+    Dim replaceText As String
+    Dim r As Long
+
+    Set ws = ActiveSheet
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Autofit Row Heights" & vbCrLf & _
+                      "2. Autofit Column Widths" & vbCrLf & _
+                      "3. Clear Format" & vbCrLf & _
+                      "4. Remove Whitespace for All Text" & vbCrLf & _
+                      "5. Remove Leading Spaces" & vbCrLf & _
+                      "6. Remove Extra Spaces Between Words" & vbCrLf & _
+                      "7. Remove Non-Printable Characters" & vbCrLf & _
+                      "8. Find All Blank Rows and Delete Them" & vbCrLf & _
+                      "9. Find and Replace Specific Text" & vbCrLf & _
+                      "10. Execute All Commands" & vbCrLf & _
+                      "11. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ws.Rows.AutoFit
+            Case "2"
+                ws.Columns.AutoFit
+            Case "3"
+                ws.Cells.ClearFormats
+            Case "4"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, " ", "")
+                    End If
+                Next cell
+            Case "5"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = LTrim(cell.Value)
+                    End If
+                Next cell
+            Case "6"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Trim(cell.Value)
+                    End If
+                Next cell
+            Case "7"
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Clean(cell.Value)
+                    End If
+                Next cell
+            Case "8"
+                For r = ws.UsedRange.Rows.Count To 1 Step -1
+                    If Application.WorksheetFunction.CountA(ws.Rows(r)) = 0 Then
+                        ws.Rows(r).Delete
+                    End If
+                Next r
+            Case "9"
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "10"
+                ' Execute all commands (same as selecting all options)
+                ws.Rows.AutoFit
+                ws.Columns.AutoFit
+                ws.Cells.ClearFormats
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, " ", "")
+                        cell.Value = LTrim(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Trim(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Clean(cell.Value)
+                    End If
+                Next cell
+                For r = ws.UsedRange.Rows.Count To 1 Step -1
+                    If Application.WorksheetFunction.CountA(ws.Rows(r)) = 0 Then
+                        ws.Rows(r).Delete
+                    End If
+                Next r
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In ws.UsedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "11"
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+   
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub

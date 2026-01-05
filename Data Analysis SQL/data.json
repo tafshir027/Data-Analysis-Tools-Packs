@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Basics of Data Analysis",
+    "প্রশ্ন": [
+      {
+        "question": "What is Data Analysis?",
+        "answer": "Data analysis is the process of inspecting, cleaning, transforming, and modeling data to discover useful information, draw conclusions, and support decision-making."
+      },
+      {
+        "question": "Why is Data Analysis Important?",
+        "answer": "Data analysis helps businesses make informed decisions, identify trends, and solve problems by leveraging data-driven insights."
+      }
+    ]
+  },
+  {
+    "title": "Tools for Data Analysis",
+    "questions": [
+      {
+        "question": "What Tools are Used for Data Analysis?",
+        "answer": "Common tools include Excel, Python, R, SQL, Tableau, and Power BI."
+      },
+      {
+        "question": "Which Tool is Best for Beginners?",
+        "answer": "Excel is often recommended for beginners due to its simplicity and widespread use."
+      }
+    ]
+  },
+  {
+    "title": "Techniques in Data Analysis",
+    "questions": [
+      {
+        "question": "What are Some Common Data Analysis Techniques?",
+        "answer": "Common techniques include descriptive statistics, regression analysis, clustering, and time series analysis."
+      },
+      {
+        "question": "What is Regression Analysis?",
+        "answer": "Regression analysis is a statistical method used to examine the relationship between a dependent variable and one or more independent variables."
+      }
+    ]
+  }
+]

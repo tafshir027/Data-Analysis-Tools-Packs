@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Problem Solving</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+            min-height: 70px;
+            box-sizing: border-box;
+            padding-top: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        section {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        .category {
+            margin-bottom: 40px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .category h2 {
+            text-align: center;
+            font-size: 24px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .basic {
+            background-color: #1b1b1b;
+        }
+        .intermediate {
+            background-color: #242424;
+        }
+        .advanced {
+            background-color: #2b2b2b;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px; /* Increased gap for more spacing between cards */
+            justify-items: center;
+		margin: 10px;
+        }
+        .card {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 14px;
+            margin: 0;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            z-index: 1001;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .popup textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #222;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 16px;
+            resize: none;
+        }
+        .popup button {
+            background-color: #666;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #888;
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            text-align: center;
+            padding: 10px;
+        }
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 18px;
+            }
+            .category h2 {
+                font-size: 20px;
+            }
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tutorials Point Bangladesh | Python Problem Solving</h1>
+    </header>
+
+    <section id="basic" class="category basic">
+        <h2>Basic</h2>
+        <div class="card-container" id="basic-cards">
+            <!-- Basic Problems will be injected here -->
+        </div>
+    </section>
+
+    <section id="intermediate" class="category intermediate">
+        <h2>Intermediate</h2>
+        <div class="card-container" id="intermediate-cards">
+            <!-- Intermediate Problems will be injected here -->
+        </div>
+    </section>
+
+    <section id="advanced" class="category advanced">
+        <h2>Advanced</h2>
+        <div class="card-container" id="advanced-cards">
+            <!-- Advanced Problems will be injected here -->
+        </div>
+    </section>
+
+    <div id="popup" class="popup">
+        <textarea id="popupCode"></textarea>
+        <button onclick="copyCode()">Copy Code</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <footer>
+        <p>Follow us:</p>
+<a href="https://www.facebook.com/mdtafsirkabir" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/tafsirkabir/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@PyPlatoonsbd" target="_blank"><i class="fab fa-youtube"></i></a>
+
+<a href="https://www.tutorialspointbd.com" target="_blank"><i class="fa-sharp fa-solid fa-globe"></i></a>
+
+    </footer>
+
+    <script>
+        // Sample problems to be dynamically inserted
+        const problems = {
+            basic: [
+                { title: "01. Print Hello, World!", code: `print("Hello, World!")` },
+                { title: "02. Assign a value to a variable and print it.", code: `x = 10
+print(x)` },
+                { title: "03. Swap two numbers", code: `a, b = 5, 10
+a, b = b, a
+print(a, b)` },
+                { title: "04. Concatenate two strings", code: `first_name = "John"
+last_name = "Doe"
+full_name = first_name + " " + last_name
+print(full_name)` },
+                { title: "05. Check the type of a variable", code: `x = 42
+print(type(x))` },
+                { title: "06. Create a list and print its elements", code: `fruits = ["apple", "banana", "cherry"]
+print(fruits)` },
+                { title: "07. Access an element from a list", code: `fruits = ["apple", "banana", "cherry"]
+print(fruits[1])` },
+                { title: "08. Add an item to a list", code: `fruits = ["apple", "banana"]
+fruits.append("cherry")
+print(fruits)` },
+                { title: "09. Remove an item from a list", code: `fruits = ["apple", "banana", "cherry"]
+fruits.remove("banana")
+print(fruits)` },
+                { title: "10. Create a tuple and print its elements", code: `coordinates = (10, 20)
+print(coordinates)")` },
+                { title: "11. Create a dictionary and access a value", code: `person = {"name": "Alice", "age": 25}
+print(person["name"])")` },
+                { title: "12. Add a key-value pair to a dictionary", code: `person = {"name": "Alice", "age": 25}
+person["city"] = "New York"
+print(person)")` },
+                { title: "13. Delete a key from a dictionary", code: `person = {"name": "Alice", "age": 25}
+del person["age"]
+print(person)")` },
+                { title: "14. Create a set and add elements", code: `numbers = {1, 2, 3}
+numbers.add(4)
+print(numbers)")` },
+                { title: "15. Remove an element from a set", code: `numbers = {1, 2, 3, 4}
+numbers.remove(3)
+print(numbers)")` },
+                { title: "16. Check if a number is positive or negative", code: `num = 10
+if num > 0:
+    print("Positive")
+else:
+    print("Negative")")` },
+                { title: "17. Check if a number is even or odd", code: `num = 7
+if num % 2 == 0:
+    print("Even")
+else:
+    print("Odd")")` },
+                { title: "18. Find the largest of three numbers", code: `a, b, c = 10, 20, 15
+if a >= b and a >= c:
+    print(a)
+elif b >= a and b >= c:
+    print(b)
+else:
+    print(c)")` },
+                { title: "19. Check if a year is a leap year", code: `year = 2024
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print("Leap Year")
+else:
+    print("Not a Leap Year")")` },
+                { title: "20. Check if a character is a vowel", code: `char = 'e'
+if char in "aeiouAEIOU":
+    print("Vowel")
+else:
+    print("Consonant")` },
+                { title: "21. Print numbers from 1 to 10 using a for loop", code: `for i in range(1, 11):
+    print(i)` },
+                { title: "22. Print numbers from 1 to 10 using a while loop", code: `i = 1
+while i <= 10:
+    print(i)
+    i += 1` },
+                { title: "23. Print all even numbers from 1 to 20", code: `for i in range(1, 21):
+    if i % 2 == 0:
+        print(i)` },
+                { title: "24. Sum numbers from 1 to 100", code: `total = 0
+for i in range(1, 101):
+    total += i
+print(total)` },
+                { title: "25. Break out of a loop when a condition is met", code: `for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)` },
+                { title: "26. Skip a specific iteration in a loop", code: `for i in range(1, 6):
+    if i == 3:
+        continue
+    print(i)` },
+                { title: "27. Print a multiplication table for a number", code: `num = 5
+for i in range(1, 11):
+    print(f"{num} x {i} = {num * i}")` },
+                { title: "28. Iterate through a list and print each element", code: `fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)` },
+                { title: "29. Iterate through a dictionary and print keys and values", code: `person = {"name": "Alice", "age": 25}
+for key, value in person.items():
+    print(f"{key}: {value}")` },
+                { title: "30. Use enumerate to get both index and value in a loop", code: `fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"Index {index}: {fruit}")` },
+                { title: "31. Define a function that adds two numbers", code: `def add(a, b):
+    return a + b
+
+print(add(5, 3))` },
+                { title: "32. Define a function that checks if a number is prime", code: `def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+print(is_prime(17))` },
+                { title: "33. Define a function that calculates factoria", code: `def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))` },
+                { title: "34. Define a function that reverses a string", code: `def reverse_string(s):
+    return s[::-1]
+
+print(reverse_string("hello"))` },
+                { title: "35. Define a function that counts vowels in a string", code: `def count_vowels(s):
+    vowels = "aeiouAEIOU"
+    count = 0
+    for char in s:
+        if char in vowels:
+            count += 1
+    return count
+
+print(count_vowels("hello world"))` },
+                { title: "36. Write text to a file", code: `with open("example.txt", "w") as file:
+    file.write("Hello, World!")` },
+                { title: "37. Read text from a file", code: `with open("example.txt", "r") as file:
+    print(file.read())` },
+                { title: "38. Append text to a file", code: `with open("example.txt", "a") as file:
+    file.write("\nAppended text.")` },
+                { title: "39. Read lines from a file into a list", code: `with open("example.txt", "r") as file:
+    lines = file.readlines()
+    print(lines)` },
+            
+                { title: "40. Count the number of lines in a file", code: `with open("example.txt", "r") as file:
+    line_count = len(file.readlines())
+    print(line_count)` },
+                { title: "41. Handle a division by zero error", code: `try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")` },
+                { title: "42. Handle a file not found error", code: `try:
+    with open("nonexistent.txt", "r") as file:
+        print(file.read())
+except FileNotFoundError:
+    print("File not found.")` },
+                { title: "43. Handle multiple exceptions", code: `try:
+    result = 10 / 0
+    print(result)
+except ZeroDivisionError:
+    print("Division by zero.")
+except Exception as e:
+    print(f"An error occurred: {e}")` },
+                { title: "44. Use list comprehension to create a list of squares", code: `squares = [x**2 for x in range(1, 11)]
+print(squares)` },
+                { title: "45. ", code: `squares_dict = {x: x**2 for x in range(1, 6)}
+print(squares_dict)` },
+                { title: "46. Use a lambda function to double a number", code: `double = lambda x: x * 2
+print(double(5))` },
+                { title: "47. Use map to apply a function to a list", code: `numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)` },
+                { title: "48. Use filter to filter even numbers from a list", code: `numbers = [1, 2, 3, 4, 5, 6]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)` },
+                { title: "49. Use reduce to calculate the product of a list", code: `from functools import reduce
+numbers = [1, 2, 3, 4]
+product = reduce(lambda x, y: x * y, numbers)
+print(product)` },
+                { title: "50. Use zip to combine two lists", code: `names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+combined = list(zip(names, ages))
+print(combined)` },
+                { title: "51. Add two numbers", code: `a = 5
+b = 7
+print(a + b)` },
+                { title: "52. Subtract two numbers", code: `a = 10
+b = 3
+print(a - b)` },
+                { title: "53. Multiply two numbers", code: `a = 6
+b = 8
+print(a * b)` },
+                { title: "54. Divide two numbers", code: `a = 20
+b = 4
+print(a / b)` },
+                { title: "55. Find the remainder of a division", code: `a = 10
+b = 3
+print(a % b)` },
+                { title: "56. Raise a number to a power", code: `base = 2
+exponent = 3
+print(base ** exponent)` },
+                { title: "57. Convert Celsius to Fahrenheit", code: `celsius = 30
+fahrenheit = (celsius * 9/5) + 32
+print(fahrenheit)` },
+                { title: "58. Convert Fahrenheit to Celsius", code: `fahrenheit = 86
+celsius = (fahrenheit - 32) * 5/9
+print(celsius)` },
+                { title: "59. Calculate the area of a rectangle", code: `length = 5
+width = 3
+area = length * width
+print(area)` },
+                { title: "60. Calculate the perimeter of a rectangle", code: `length = 5
+width = 3
+perimeter = 2 * (length + width)
+print(perimeter)` },
+                { title: "61. Check if a number is greater than 10", code: `num = 15
+if num > 10:
+    print("Greater than 10")
+else:
+    print("Less than or equal to 10")` },
+                { title: "62. Check if a number is between 10 and 20", code: `num = 15
+if 10 < num < 20:
+    print("Between 10 and 20")
+else:
+    print("Not between 10 and 20")` },
+                { title: "63. Check if a string is empty", code: `text = ""
+if text:
+    print("Not empty")
+else:
+    print("Empty")` },
+                { title: "64. Check if a list is empty", code: `items = []
+if items:
+    print("Not empty")
+else:
+    print("Empty")` },
+                { title: "65. Check if a key exists in a dictionary", code: `person = {"name": "Alice", "age": 25}
+if "name" in person:
+    print("Key exists")
+else:
+    print("Key does not exist")` },
+                { title: "66. Print all numbers from 1 to 20 using a for loop", code: `for i in range(1, 21):
+    print(i)` },
+                { title: "67. Print all odd numbers from 1 to 20", code: `for i in range(1, 21):
+    if i % 2 != 0:
+        print(i)` },
+                { title: "68. Print the first 10 multiples of 3", code: `for i in range(1, 11):
+    print(3 * i)` },
+                { title: "69. Use a while loop to count down from 10 to 1", code: `i = 10
+while i > 0:
+    print(i)
+    i -= 1` },
+                { title: "70. Use a while loop to find the sum of numbers from 1 to 10", code: `total = 0
+i = 1
+while i <= 10:
+    total += i
+    i += 1
+print(total)` },
+                { title: "71. Create a list of numbers and print the first element", code: `numbers = [1, 2, 3, 4, 5]
+print(numbers[0])` },
+                { title: "72. Create a list of strings and print the last element", code: `fruits = ["apple", "banana", "cherry"]
+print(fruits[-1])` },
+                { title: "73. Reverse a list", code: `numbers = [1, 2, 3, 4, 5]
+numbers.reverse()
+print(numbers)` },
+                { title: "74. Sort a list of numbers", code: `numbers = [5, 2, 8, 1, 3]
+numbers.sort()
+print(numbers)` },
+                { title: "75. Sort a list of strings alphabetically", code: `fruits = ["banana", "apple", "cherry"]
+fruits.sort()
+print(fruits)` },
+                { title: "76. Convert a string to uppercase", code: `text = "hello"
+print(text.upper())` },
+                { title: "77. Convert a string to lowercase", code: `text = "HELLO"
+print(text.lower())` },
+                { title: "78. Count the number of characters in a string", code: `text = "Python"
+print(len(text))` },
+                { title: "79. Replace a word in a string", code: `text = "Hello World"
+new_text = text.replace("World", "Python")
+print(new_text)` },
+                { title: "80. Split a string into a list of words", code: `text = "Hello World"
+words = text.split()
+print(words)` },
+                { title: "81. Define a function that returns the square of a number", code: `def square(x):
+    return x ** 2
+
+print(square(5))` },
+                { title: "82. Define a function that checks if a number is positive", code: `def is_positive(num):
+    return num > 0
+
+print(is_positive(-5))` },
+                { title: "83. Define a function that calculates the average of two numbers", code: `def average(a, b):
+    return (a + b) / 2
+
+print(average(10, 20))` },
+                { title: "84. Define a function that prints a greeting", code: `def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")` },
+                { title: "85. Define a function that takes a list and returns its sum", code: `def sum_list(numbers):
+    return sum(numbers)
+
+print(sum_list([1, 2, 3, 4]))` },
+                { title: "86. Handle a ValueError when converting a string to an integer", code: `try:
+    num = int("abc")
+except ValueError:
+    print("Invalid input")` },
+                { title: "87. Handle an IndexError when accessing a list", code: `try:
+    numbers = [1, 2, 3]
+    print(numbers[5])
+except IndexError:
+    print("Index out of range")` },
+                { title: "88. Handle a TypeError when adding a string and an integer", code: `try:
+    result = "5" + 10
+except TypeError:
+    print("Cannot add string and integer")` },
+                { title: "89. Generate a random number between 1 and 10", code: `import random
+print(random.randint(1, 10))` },
+                { title: "90. Shuffle a list randomly", code: `import random
+numbers = [1, 2, 3, 4, 5]
+random.shuffle(numbers)
+print(numbers)` },
+                { title: "91. Find the maximum value in a list", code: `numbers = [3, 1, 4, 1, 5, 9]
+print(max(numbers))` },
+                { title: "92. Find the minimum value in a list", code: `numbers = [3, 1, 4, 1, 5, 9]
+print(min(numbers))` },
+                { title: "Basic Python Problem 10", code: `num = 3.14159
+print(round(num, 2))` },
+                { title: "94. Check if a number is divisible by another number", code: `a = 10
+b = 2
+if a % b == 0:
+    print(f"{a} is divisible by {b}")
+else:
+    print(f"{a} is not divisible by {b}")` },
+                { title: "95. Print a multiplication table for a number up to 10", code: `num = 5
+for i in range(1, 11):
+    print(f"{num} x {i} = {num * i}")` },
+                { title: "96. Print the ASCII value of a character", code: `char = 'A'
+print(ord(char))` },
+                { title: "97. Convert an ASCII value back to a character", code: `ascii_value = 65
+print(chr(ascii_value))` },
+                { title: "98. Check if a string starts with a specific prefix", code: `text = "Hello World"
+print(text.startswith("Hello"))` },
+                { title: "99. Check if a string ends with a specific suffix", code: `text = "Hello World"
+print(text.endswith("World"))` },
+                { title: "100. Remove leading and trailing spaces from a string", code: `text = "   Hello World   "
+print(text.strip())` },
+            ],
+            intermediate: [
+                { title: "01. Write multiple lines to a file", code: `lines = ["Line 1", "Line 2", "Line 3"]
+with open("example.txt", "w") as file:
+    file.writelines("\n".join(lines))` },
+                { title: "02. Read a file line by line", code: `with open("example.txt", "r") as file:
+    for line in file:
+        print(line.strip())` },
+                { title: "03. Count the number of words in a file", code: `word_count = 0
+with open("example.txt", "r") as file:
+    for line in file:
+        words = line.split()
+        word_count += len(words)
+print(f"Word count: {word_count}")` },
+                { title: "04. Replace a word in a file", code: `with open("example.txt", "r") as file:
+    content = file.read()
+content = content.replace("old", "new")
+with open("example.txt", "w") as file:
+    file.write(content)` },
+                { title: "05. Copy the contents of one file to another", code: `with open("source.txt", "r") as source, open("destination.txt", "w") as dest:
+    dest.write(source.read())` },
+                { title: "06. Create a list of squares from 1 to 10", code: `squares = [x**2 for x in range(1, 11)]
+print(squares)` },
+                { title: "07. Create a list of even numbers from 1 to 20", code: `evens = [x for x in range(1, 21) if x % 2 == 0]
+print(evens)` },
+                { title: "08. Create a list of uppercase letters from a string", code: `text = "hello world"
+uppercase_letters = [char.upper() for char in text if char.isalpha()]
+print(uppercase_letters)` },
+                { title: "09. Flatten a 2D list into a single list", code: `matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [num for row in matrix for num in row]
+print(flattened)` },
+                { title: "10. Create a dictionary from two lists using dictionary comprehension", code: `keys = ["a", "b", "c"]
+values = [1, 2, 3]
+dictionary = {k: v for k, v in zip(keys, values)}
+print(dictionary)` },
+                { title: "11. Use lambda to sort a list of tuples by the second element", code: `pairs = [(1, 3), (4, 1), (2, 2)]
+sorted_pairs = sorted(pairs, key=lambda x: x[1])
+print(sorted_pairs)` },
+                { title: "12. Use map with lambda to square all numbers in a list", code: `numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)` },
+                { title: "13. Use filter with lambda to filter out odd numbers", code: `numbers = [1, 2, 3, 4, 5]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)` },
+                { title: "14. Use reduce with lambda to find the product of a list", code: `from functools import reduce
+numbers = [1, 2, 3, 4]
+product = reduce(lambda x, y: x * y, numbers)
+print(product)` },
+                { title: "15. Use lambda to find the maximum of two numbers", code: `max_value = (lambda x, y: x if x > y else y)(10, 20)
+print(max_value)` },
+                { title: "16. Define a class with an initializer", code: `class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p = Person("Alice", 25)
+print(p.name, p.age)` },
+                { title: "17. Add a method to a class", code: `class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        return f"Hello, my name is {self.name}."
+
+p = Person("Alice", 25)
+print(p.greet())` },
+                { title: "18. Use inheritance to create a subclass", code: `class Animal:
+    def speak(self):
+        return "Animal sound"
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+dog = Dog()
+print(dog.speak())` },
+                { title: "19. Use polymorphism with a base class and subclasses", code: `class Shape:
+    def area(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14 * self.radius**2
+
+circle = Circle(5)
+print(circle.area())` },
+                { title: "20. Use class variables", code: `class Counter:
+    count = 0
+
+    def increment(self):
+        Counter.count += 1
+
+c1 = Counter()
+c1.increment()
+print(Counter.count)` },
+                { title: "21. Import the math module and calculate the square root of a number", code: `import math
+print(math.sqrt(16))` },
+                { title: "22. Use the random module to shuffle a list", code: `import random
+numbers = [1, 2, 3, 4, 5]
+random.shuffle(numbers)
+print(numbers)` },
+                { title: "23. Use the datetime module to get the current date and time", code: `from datetime import datetime
+now = datetime.now()
+print(now)` },
+                { title: "24. Use the os module to list files in a directory", code: `import os
+files = os.listdir(".")
+print(files)` },
+                { title: "25. Use the json module to convert a dictionary to JSON", code: `import json
+data = {"name": "Alice", "age": 25}
+json_data = json.dumps(data)
+print(json_data)` },
+                { title: "26. Handle multiple exceptions in a single block", code: `try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+except Exception as e:
+    print(f"An error occurred: {e}")` },
+                { title: "27. Raise a custom exception", code: `class CustomError(Exception):
+    pass
+
+try:
+    raise CustomError("This is a custom error.")
+except CustomError as e:
+    print(e)` },
+                { title: "28. Use finally to execute code regardless of exceptions", code: `try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")
+finally:
+    print("Execution complete.")` },
+                { title: "29. Handle KeyError when accessing a dictionary", code: `person = {"name": "Alice"}
+try:
+    print(person["age"])
+except KeyError:
+    print("Key not found.")` },
+                { title: "30. Handle IndexError when accessing a list", code: `numbers = [1, 2, 3]
+try:
+    print(numbers[5])
+except IndexError:
+    print("Index out of range.")` },
+                { title: "31. Use enumerate to loop through a list with indices", code: `fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")` },
+                { title: "32. Use zip to iterate over two lists simultaneously", code: `names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+for name, age in zip(names, ages):
+    print(f"{name} is {age} years old.")` },
+                { title: "33. Use break to exit a loop early", code: `for i in range(10):
+    if i == 5:
+        break
+    print(i)` },
+                { title: "34. Use continue to skip an iteration", code: `for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)` },
+                { title: "35. Use else with a for loop", code: `for i in range(5):
+    print(i)
+else:
+    print("Loop completed.")` },
+                { title: "36. Define a simple decorator to log function calls", code: `def logger(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@logger
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("Alice")` },
+                { title: "37. Use a decorator to measure execution time", code: `import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Execution time: {end - start}")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(2)
+
+slow_function()` },
+                { title: "38. Create a generator to yield numbers from 1 to 5", code: `def generate_numbers():
+    for i in range(1, 6):
+        yield i
+
+gen = generate_numbers()
+for num in gen:
+    print(num)` },
+                { title: "39. Use a generator expression to create a generator", code: `squares = (x**2 for x in range(1, 6))
+for square in squares:
+    print(square)` },
+                { title: "40. Use yield to implement a Fibonacci sequence generator", code: `def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+for num in fibonacci(10):
+    print(num)` },
+                { title: "41. Stack Implementation Using List", code: `stack = []
+stack.append(1)
+stack.append(2)
+stack.append(3)
+print(stack.pop())  # Output: 3` },
+                { title: "42. Queue Implementation Using collections.deque", code: `from collections import deque
+queue = deque()
+queue.append(1)
+queue.append(2)
+queue.append(3)
+print(queue.popleft())  # Output: 1` },
+                { title: "43. Priority Queue Using heapq", code: `import heapq
+pq = []
+heapq.heappush(pq, (2, "task1"))
+heapq.heappush(pq, (1, "task2"))
+heapq.heappush(pq, (3, "task3"))
+print(heapq.heappop(pq))  # Output: (1, 'task2')` },
+                { title: "44. Set Operations (Union, Intersection, Difference)", code: `set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+print(set1.union(set2))  # Output: {1, 2, 3, 4, 5}
+print(set1.intersection(set2))  # Output: {3}
+print(set1.difference(set2))  # Output: {1, 2}` },
+                { title: "45. Dictionary with Default Values (defaultdict)", code: `from collections import defaultdict
+d = defaultdict(int)
+d['key1'] += 1
+d['key2'] += 2
+print(d)  # Output: defaultdict(<class 'int'>, {'key1': 1, 'key2': 2})` },
+                { title: "46. Counter to Count Occurrences", code: `from collections import Counter
+words = ["apple", "banana", "apple", "cherry"]
+count = Counter(words)
+print(count)  # Output: Counter({'apple': 2, 'banana': 1, 'cherry': 1})` },
+                { title: "47. Named Tuple for Structured Data", code: `from collections import namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(10, 20)
+print(p.x, p.y)  # Output: 10 20` },
+                { title: "48. Deque for Efficient Insertion/Deletion", code: `from collections import deque
+dq = deque([1, 2, 3])
+dq.appendleft(0)
+dq.append(4)
+print(dq)  # Output: deque([0, 1, 2, 3, 4])` },
+                { title: "49. ChainMap to Combine Multiple Dictionaries", code: `from collections import ChainMap
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'c': 3, 'd': 4}
+combined = ChainMap(dict1, dict2)
+print(combined['a'])  # Output: 1
+print(combined['c'])  # Output: 3` },
+                { title: "50. OrderedDict to Maintain Insertion Order", code: `from collections import OrderedDict
+od = OrderedDict()
+od['a'] = 1
+od['b'] = 2
+od['c'] = 3
+print(od)  # Output: OrderedDict([('a', 1), ('b', 2), ('c', 3)])` },
+                { title: "51. Use map to Convert Strings to Integers", code: `str_numbers = ["1", "2", "3"]
+numbers = list(map(int, str_numbers))
+print(numbers)  # Output: [1, 2, 3]` },
+                { title: "52. Use filter to Remove Negative Numbers", code: `numbers = [-1, 2, -3, 4, -5]
+positives = list(filter(lambda x: x > 0, numbers))
+print(positives)  # Output: [2, 4]` },
+                { title: "53. Use reduce to Find the Maximum Number", code: `from functools import reduce
+numbers = [1, 5, 3, 9, 2]
+max_num = reduce(lambda x, y: x if x > y else y, numbers)
+print(max_num)  # Output: 9` },
+                { title: "54. Use partial to Fix Arguments in a Function", code: `from functools import partial
+def multiply(x, y):
+    return x * y
+
+double = partial(multiply, 2)
+print(double(5))  # Output: 10` },
+                { title: "55. Use lru_cache for Memoization", code: `from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(10))  # Output: 55` },
+                { title: "56. Bubble Sort", code: `def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))` },
+                { title: "57. Merge Sort", code: `def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    while left and right:
+        if left[0] < right[0]:
+            result.append(left.pop(0))
+        else:
+            result.append(right.pop(0))
+    result.extend(left or right)
+    return result
+
+print(merge_sort([38, 27, 43, 3, 9, 82, 10]))` },
+                { title: "58. Binary Search", code: `def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+print(binary_search([1, 2, 3, 4, 5], 3))  # Output: 2` },
+                { title: "59. Fibonacci Sequence Using Recursion", code: `def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))  # Output: 55` },
+                { title: "60. Factorial Using Recursion", code: `def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n-1)
+
+print(factorial(5))  # Output: 120` },
+                { title: "61. Match a Phone Number Pattern", code: `import re
+pattern = r"^\d{3}-\d{3}-\d{4}$"
+phone_number = "123-456-7890"
+if re.match(pattern, phone_number):
+    print("Valid phone number")
+else:
+    print("Invalid phone number")` },
+                { title: "62. Extract All Email Addresses from a String", code: `import re
+text = "Contact us at support@example.com or sales@example.org"
+emails = re.findall(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", text)
+print(emails)  # Output: ['support@example.com', 'sales@example.org']` },
+                { title: "63. Replace All Vowels with '*'", code: `import re
+text = "Hello World"
+result = re.sub(r'[aeiouAEIOU]', '*', text)
+print(result)  # Output: H*ll* W*rld` },
+                { title: "64. Check if a String Contains Only Digits", code: `import re
+text = "12345"
+if re.fullmatch(r"\d+", text):
+    print("Contains only digits")
+else:
+    print("Contains non-digit characters")` },
+                { title: "65. Split a String by Non-Alphanumeric Characters", code: `import re
+text = "Hello, World! How are you?"
+words = re.split(r'\W+', text)
+print(words)  # Output: ['Hello', 'World', 'How', 'are', 'you', '']` },
+                { title: "66. Use itertools.permutations to Generate Permutations", code: `from itertools import permutations
+perms = list(permutations([1, 2, 3]))
+print(perms)  # Output: [(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)]` },
+                { title: "67. Use itertools.combinations to Generate Combinations", code: `from itertools import combinations
+combs = list(combinations([1, 2, 3], 2))
+print(combs)  # Output: [(1, 2), (1, 3), (2, 3)]` },
+                { title: "68. Use itertools.groupby to Group Consecutive Elements", code: `from itertools import groupby
+data = [1, 1, 2, 3, 3, 3]
+for key, group in groupby(data):
+    print(key, list(group))
+# Output:
+# 1 [1, 1]
+# 2 [2]
+# 3 [3, 3, 3]` },
+                { title: "69. Use zip_longest to Zip Unequal Length Lists", code: `from itertools import zip_longest
+list1 = [1, 2, 3]
+list2 = ['a', 'b']
+zipped = list(zip_longest(list1, list2, fillvalue=None))
+print(zipped)  # Output: [(1, 'a'), (2, 'b'), (3, None)]` },
+                { title: "70. Use functools.partial to Create a Custom Function", code: `from functools import partial
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+print(square(5))  # Output: 25` },
+                { title: "71. Create a Singleton Class", code: `class Singleton:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+s1 = Singleton()
+s2 = Singleton()
+print(s1 is s2)  # Output: True` },
+                { title: "72. Use __slots__ to Save Memory", code: `class Point:
+    __slots__ = ['x', 'y']
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p = Point(10, 20)
+print(p.x, p.y)  # Output: 10 20` },
+                { title: "73. Use property for Getter and Setter Methods", code: `class Person:
+    def __init__(self, name):
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+p = Person("Alice")
+print(p.name)  # Output: Alice
+p.name = "Bob"
+print(p.name)  # Output: Bob` },
+                { title: "74. Use contextlib to Create a Context Manager", code: `from contextlib import contextmanager
+
+@contextmanager
+def open_file(name, mode):
+    f = open(name, mode)
+    try:
+        yield f
+    finally:
+        f.close()
+
+with open_file("example.txt", "w") as f:
+    f.write("Hello, World!")` },
+                { title: "75. Use asyncio for Asynchronous Programming", code: `import asyncio
+
+async def say_hello():
+    await asyncio.sleep(1)
+    print("Hello")
+
+async def main():
+    await asyncio.gather(say_hello(), say_hello())
+
+asyncio.run(main())` },
+                { title: "76. Flatten a Nested List Using Recursion", code: `def flatten(nested):
+    result = []
+    for item in nested:
+        if isinstance(item, list):
+            result.extend(flatten(item))
+        else:
+            result.append(item)
+    return result
+
+nested_list = [1, [2, [3, 4], 5], 6]
+print(flatten(nested_list))  # Output: [1, 2, 3, 4, 5, 6]` },
+                { title: "77. Transpose a Matrix", code: `matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+transposed = [[row[i] for row in matrix] for i in range(len(matrix[0]))]
+print(transposed)  # Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]` },
+                { title: "78. Find the Most Frequent Element in a List", code: `from collections import Counter
+
+numbers = [1, 2, 3, 2, 4, 2, 5]
+counter = Counter(numbers)
+most_common = counter.most_common(1)[0][0]
+print(most_common)  # Output: 2` },
+                { title: "79. Remove Duplicates from a List While Preserving Order", code: `def remove_duplicates(lst):
+    seen = set()
+    result = []
+    for item in lst:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
+
+numbers = [1, 2, 2, 3, 4, 4, 5]
+print(remove_duplicates(numbers))  # Output: [1, 2, 3, 4, 5]` },
+                { title: "80. Group a List of Dictionaries by a Key", code: `from itertools import groupby
+
+data = [{'name': 'Alice', 'age': 25}, {'name': 'Bob', 'age': 25}, {'name': 'Charlie', 'age': 30}]
+data.sort(key=lambda x: x['age'])
+grouped = {k: list(g) for k, g in groupby(data, key=lambda x: x['age'])}
+print(grouped)
+# Output: {25: [{'name': 'Alice', 'age': 25}, {'name': 'Bob', 'age': 25}], 30: [{'name': 'Charlie', 'age': 30}]}` },
+                { title: "81. Quick Sort", code: `def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+print(quick_sort([3, 6, 8, 10, 1, 2, 1]))  # Output: [1, 1, 2, 3, 6, 8, 10]` },
+                { title: "82. Insertion Sort", code: `def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+
+print(insertion_sort([12, 11, 13, 5, 6]))  # Output: [5, 6, 11, 12, 13]` },
+                { title: "83. Count Inversions in an Array", code: `def count_inversions(arr):
+    inv_count = 0
+    for i in range(len(arr)):
+        for j in range(i + 1, len(arr)):
+            if arr[i] > arr[j]:
+                inv_count += 1
+    return inv_count
+
+print(count_inversions([1, 20, 6, 4, 5]))  # Output: 5` },
+                { title: "84. Find All Pairs with a Given Sum", code: `def find_pairs_with_sum(arr, target):
+    pairs = []
+    seen = set()
+    for num in arr:
+        complement = target - num
+        if complement in seen:
+            pairs.append((complement, num))
+        seen.add(num)
+    return pairs
+
+print(find_pairs_with_sum([1, 5, 7, -1, 5], 6))  # Output: [(1, 5), (-1, 7)]` },
+                { title: "85. Check if Two Strings Are Anagrams", code: `def are_anagrams(s1, s2):
+    return sorted(s1) == sorted(s2)
+
+print(are_anagrams("listen", "silent"))  # Output: True` },
+                { title: "86. Use map to Convert a List of Strings to Uppercase", code: `words = ["hello", "world"]
+upper_words = list(map(str.upper, words))
+print(upper_words)  # Output: ['HELLO', 'WORLD']` },
+                { title: "87. Use filter to Remove None Values from a List", code: `# Intermediate Python Problem\nfor i in range(1, 6):\n    if i == 3:\n        continue\n    print(i)` },
+                { title: "Intermediate Python Problem 10", code: `values = [1, None, 2, None, 3]
+filtered_values = list(filter(None.__ne__, values))
+print(filtered_values)  # Output: [1, 2, 3]` },
+                { title: "88. Use reduce to Concatenate Strings", code: `from functools import reduce
+
+words = ["Hello", " ", "World", "!"]
+sentence = reduce(lambda x, y: x + y, words)
+print(sentence)  # Output: Hello World!` },
+                { title: "89. Use partial to Fix Arguments in a Function", code: `from functools import partial
+
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+print(square(5))  # Output: 25` },
+                { title: "90. Use lru_cache for Memoization", code: `from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(10))  # Output: 55` },
+                { title: "91. Match a URL Pattern", code: `import re
+
+url_pattern = r"(https?://[^\s]+)"
+text = "Visit https://example.com for more info."
+urls = re.findall(url_pattern, text)
+print(urls)  # Output: ['https://example.com']` },
+                { title: "92. Replace Multiple Spaces with a Single Space", code: `import re
+
+text = "This   is   a   test."
+cleaned_text = re.sub(r"\s+", " ", text)
+print(cleaned_text)  # Output: This is a test.` },
+                { title: "93. Extract All Numbers from a String", code: `import re
+
+text = "There are 123 apples and 45 oranges."
+numbers = list(map(int, re.findall(r'\d+', text)))
+print(numbers)  # Output: [123, 45]` },
+                { title: "94. Validate a Password (Minimum 8 Characters, At Least One Letter and One Number)", code: `import re
+
+password = "Password123"
+if re.match(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", password):
+    print("Valid password")
+else:
+    print("Invalid password")` },
+                { title: "95. Split a String into Words (Ignoring Punctuation)", code: `import re
+
+text = "Hello, world! How's it going?"
+words = re.findall(r'\b\w+\b', text)
+print(words)  # Output: ['Hello', 'world', 'How', 's', 'it', 'going']` },
+                { title: "96. Use itertools.product to Generate Cartesian Product", code: `from itertools import product
+
+a = [1, 2]
+b = ['x', 'y']
+cartesian_product = list(product(a, b))
+print(cartesian_product)  # Output: [(1, 'x'), (1, 'y'), (2, 'x'), (2, 'y')]` },
+                { title: "97. Use itertools.chain to Flatten a List of Lists", code: `from itertools import chain
+
+list_of_lists = [[1, 2], [3, 4], [5, 6]]
+flattened = list(chain.from_iterable(list_of_lists))
+print(flattened)  # Output: [1, 2, 3, 4, 5, 6]` },
+                { title: "98. Use contextlib.suppress to Suppress Exceptions", code: `from contextlib import suppress
+
+with suppress(FileNotFoundError):
+    with open("nonexistent.txt") as f:
+        print(f.read())` },
+                { title: "99. Use asyncio.gather to Run Multiple Coroutines Concurrently", code: `import asyncio
+
+async def say_hello(delay):
+    await asyncio.sleep(delay)
+    print("Hello")
+
+async def main():
+    await asyncio.gather(say_hello(1), say_hello(2))
+
+asyncio.run(main())` },
+                { title: "100. Use functools.cmp_to_key to Sort with a Custom Comparator", code: `from functools import cmp_to_key
+
+def compare(x, y):
+    return (x > y) - (x < y)
+
+numbers = [5, 2, 9, 1]
+sorted_numbers = sorted(numbers, key=cmp_to_key(compare))
+print(sorted_numbers)  # Output: [1, 2, 5, 9]` },
+            ],
+            advanced: [
+                { title: "01. Run Multiple Threads Concurrently", code: `import threading
+
+def task(name):
+    print(f"Task {name} is running")
+
+threads = []
+for i in range(5):
+    t = threading.Thread(target=task, args=(i,))
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()` },
+                { title: "02. Use threading.Lock to Avoid Race Conditions", code: `import threading
+
+counter = 0
+lock = threading.Lock()
+
+def increment():
+    global counter
+    for _ in range(100000):
+        with lock:
+            counter += 1
+
+threads = [threading.Thread(target=increment) for _ in range(10)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+print(f"Final counter: {counter}")` },
+                { title: "03. Run Multiple Processes Concurrently", code: `from multiprocessing import Process
+
+def task(name):
+    print(f"Process {name} is running")
+
+processes = []
+for i in range(5):
+    p = Process(target=task, args=(i,))
+    processes.append(p)
+    p.start()
+
+for p in processes:
+    p.join()` },
+                { title: "04. Use multiprocessing.Pool for Parallel Execution", code: `from multiprocessing import Pool
+
+def square(x):
+    return x * x
+
+if __name__ == "__main__":
+    with Pool(5) as pool:
+        results = pool.map(square, range(10))
+    print(results)` },
+                { title: "05. Basic Async/Await Example", code: `import asyncio
+
+async def say_hello(delay):
+    await asyncio.sleep(delay)
+    print("Hello")
+
+async def main():
+    await asyncio.gather(say_hello(1), say_hello(2))
+
+asyncio.run(main())` },
+                { title: "06. Use asyncio.Queue for Producer-Consumer Pattern", code: `import asyncio
+
+async def producer(queue):
+    for i in range(5):
+        await asyncio.sleep(1)
+        print(f"Producing {i}")
+        await queue.put(i)
+
+async def consumer(queue):
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        print(f"Consuming {item}")
+        queue.task_done()
+
+async def main():
+    queue = asyncio.Queue()
+    producer_task = asyncio.create_task(producer(queue))
+    consumer_task = asyncio.create_task(consumer(queue))
+    await producer_task
+    await queue.put(None)
+    await consumer_task
+
+asyncio.run(main())` },
+                { title: "07. Decorator with Arguments", code: `def repeat(n):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(n):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(3)
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("Alice")` },
+                { title: "08. Class-Based Decorator", code: `class CountCalls:
+    def __init__(self, func):
+        self.func = func
+        self.num_calls = 0
+
+    def __call__(self, *args, **kwargs):
+        self.num_calls += 1
+        print(f"Call {self.num_calls} of {self.func.__name__}")
+        return self.func(*args, **kwargs)
+
+@CountCalls
+def say_hello():
+    print("Hello!")
+
+say_hello()
+say_hello()` },
+                { title: "09. Infinite Generator", code: `def infinite_sequence():
+    num = 0
+    while True:
+        yield num
+        num += 1
+
+gen = infinite_sequence()
+for _ in range(5):
+    print(next(gen))` },
+                { title: "10. Generator for Prime Numbers", code: `def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def prime_generator():
+    num = 2
+    while True:
+        if is_prime(num):
+            yield num
+        num += 1
+
+gen = prime_generator()
+for _ in range(5):
+    print(next(gen))` },
+                { title: "11. Custom Context Manager Using a Class", code: `class FileHandler:
+    def __init__(self, filename, mode):
+        self.filename = filename
+        self.mode = mode
+
+    def __enter__(self):
+        self.file = open(self.filename, self.mode)
+        return self.file
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()
+
+with FileHandler("example.txt", "w") as f:
+    f.write("Hello, World!")` },
+                { title: "12. Custom Context Manager Using contextlib", code: `from contextlib import contextmanager
+
+@contextmanager
+def file_handler(filename, mode):
+    try:
+        f = open(filename, mode)
+        yield f
+    finally:
+        f.close()
+
+with file_handler("example.txt", "w") as f:
+    f.write("Hello, World!")` },
+                { title: "13. Dynamic Attribute Access Using getattr", code: `class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+p = Person("Alice", 25)
+print(getattr(p, "name"))  # Output: Alice
+print(getattr(p, "age"))   # Output: 25` },
+                { title: "14. Dynamic Method Creation Using type", code: `def greet(self):
+    return f"Hello, {self.name}"
+
+Person = type('Person', (object,), {'name': 'Alice', 'greet': greet})
+p = Person()
+print(p.greet())  # Output: Hello, Alice` },
+                { title: "15. Use concurrent.futures.ThreadPoolExecutor", code: `from concurrent.futures import ThreadPoolExecutor
+
+def task(n):
+    return n * n
+
+with ThreadPoolExecutor(max_workers=5) as executor:
+    results = list(executor.map(task, range(10)))
+print(results)` },
+                { title: "16. Use concurrent.futures.ProcessPoolExecutor", code: `from concurrent.futures import ProcessPoolExecutor
+
+def task(n):
+    return n * n
+
+with ProcessPoolExecutor() as executor:
+    results = list(executor.map(task, range(10)))
+print(results)` },
+                { title: "17. Use heapq for Priority Queue", code: `import heapq
+
+pq = []
+heapq.heappush(pq, (2, "task1"))
+heapq.heappush(pq, (1, "task2"))
+heapq.heappush(pq, (3, "task3"))
+
+while pq:
+    print(heapq.heappop(pq))  # Output: (1, 'task2'), (2, 'task1'), (3, 'task3')` },
+                { title: "18. Use collections.OrderedDict for LRU Cache", code: `from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+print(cache.get(1))  # Output: 1
+cache.put(3, 3)
+print(cache.get(2))  # Output: -1` },
+                { title: "19. Custom Exception with Traceback", code: `class CustomError(Exception):
+    pass
+
+def risky_operation():
+    raise CustomError("Something went wrong")
+
+try:
+    risky_operation()
+except CustomError as e:
+    import traceback
+    traceback.print_exc()` },
+                { title: "20. Suppress Exceptions with contextlib.suppress", code: `from contextlib import suppress
+
+with suppress(FileNotFoundError):
+    with open("nonexistent.txt") as f:
+        print(f.read())` },
+                { title: "21. Dynamic Method Injection into Classes", code: `class MyClass:
+    pass
+
+def dynamic_method(self):
+    return f"Dynamic method called on {self.__class__.__name__}"
+
+MyClass.new_method = dynamic_method
+
+obj = MyClass()
+print(obj.new_method())  # Output: Dynamic method called on MyClass` },
+                { title: "22. Use __prepare__ to Customize Class Creation", code: `class MyMeta(type):
+    @classmethod
+    def __prepare__(cls, name, bases):
+        return {"custom_attribute": 42}
+
+class MyClass(metaclass=MyMeta):
+    pass
+
+print(MyClass.custom_attribute)  # Output: 42` },
+                { title: "23. Override __new__ for Custom Object Creation", code: `class Singleton:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+s1 = Singleton()
+s2 = Singleton()
+print(s1 is s2)  # Output: True` },
+                { title: "24. Use asyncio.Queue for Producer-Consumer with Multiple Workers", code: `import asyncio
+
+async def producer(queue):
+    for i in range(5):
+        await asyncio.sleep(1)
+        print(f"Producing {i}")
+        await queue.put(i)
+
+async def consumer(queue, worker_id):
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        print(f"Worker {worker_id} consuming {item}")
+        queue.task_done()
+
+async def main():
+    queue = asyncio.Queue()
+    producers = [asyncio.create_task(producer(queue)) for _ in range(2)]
+    consumers = [asyncio.create_task(consumer(queue, i)) for i in range(3)]
+
+    await asyncio.gather(*producers)
+    await queue.join()
+
+    for _ in range(3):
+        await queue.put(None)
+
+    await asyncio.gather(*consumers)
+
+asyncio.run(main())` },
+                { title: "25. Use concurrent.futures.ThreadPoolExecutor with Callbacks", code: `from concurrent.futures import ThreadPoolExecutor
+
+def task(n):
+    return n * n
+
+def callback(future):
+    print(f"Result: {future.result()}")
+
+with ThreadPoolExecutor() as executor:
+    future = executor.submit(task, 10)
+    future.add_done_callback(callback)` },
+                { title: "26. Currying with functools.partial", code: `from functools import partial
+
+def multiply(x, y):
+    return x * y
+
+double = partial(multiply, 2)
+triple = partial(multiply, 3)
+
+print(double(5))  # Output: 10
+print(triple(5))  # Output: 15` },
+                { title: "27. Compose Functions Using functools.reduce", code: `from functools import reduce
+
+def compose(*functions):
+    return reduce(lambda f, g: lambda x: f(g(x)), functions, lambda x: x)
+
+def add_one(x):
+    return x + 1
+
+def square(x):
+    return x * x
+
+composed = compose(square, add_one)
+print(composed(2))  # Output: 9` },
+                { title: "28. Use itertools.dropwhile to Skip Elements Until a Condition", code: `from itertools import dropwhile
+
+numbers = [1, 2, 3, 4, 5]
+filtered = list(dropwhile(lambda x: x < 3, numbers))
+print(filtered)  # Output: [3, 4, 5]` },
+                { title: "29. Use itertools.takewhile to Take Elements Until a Condition", code: `from itertools import takewhile
+
+numbers = [1, 2, 3, 4, 5]
+filtered = list(takewhile(lambda x: x < 4, numbers))
+print(filtered)  # Output: [1, 2, 3]` },
+                { title: "30. Custom Exception with Context Manager", code: `class CustomError(Exception):
+    pass
+
+@contextmanager
+def risky_operation():
+    try:
+        yield
+    except Exception as e:
+        raise CustomError("An error occurred") from e
+
+try:
+    with risky_operation():
+        raise ValueError("Original error")
+except CustomError as e:
+    print(e)  # Output: An error occurred` },
+                { title: "31. Use traceback to Format Exceptions", code: `import traceback
+
+try:
+    1 / 0
+except ZeroDivisionError:
+    tb = traceback.format_exc()
+    print(tb)  # Prints the full traceback` },
+                { title: "32. Use inspect to Get Function Arguments", code: `import inspect
+
+def my_function(a, b=2, *args, **kwargs):
+    pass
+
+sig = inspect.signature(my_function)
+for name, param in sig.parameters.items():
+    print(f"{name}: {param.kind}")
+# Output:
+# a: POSITIONAL_OR_KEYWORD
+# b: POSITIONAL_OR_KEYWORD
+# args: VAR_POSITIONAL
+# kwargs: VAR_KEYWORD` },
+                { title: "33. Use gc to Track Object References", code: `import gc
+
+class Node:
+    pass
+
+a = Node()
+b = Node()
+a.ref = b
+b.ref = a
+
+refs = gc.get_referrers(a)
+print(refs)  # Shows objects referencing a` },
+                { title: "34. Use ast to Modify Python Code Dynamically", code: `import ast
+
+code = """
+def greet(name):
+    print(f"Hello, {name}")
+"""
+
+tree = ast.parse(code)
+for node in ast.walk(tree):
+    if isinstance(node, ast.Call):
+        node.func.id = "print"
+        node.args[0].value = "Modified"
+
+compiled = compile(tree, "<string>", "exec")
+exec(compiled)
+greet("Alice")  # Output: Modified` },
+                { title: "35. Use collections.ChainMap for Merging Dictionaries", code: `from collections import ChainMap
+
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+combined = ChainMap(dict1, dict2)
+
+print(combined['a'])  # Output: 1
+print(combined['b'])  # Output: 2 (from dict1)
+print(combined['c'])  # Output: 4` },
+                { title: "36. Use heapq.nlargest and heapq.nsmallest", code: `import heapq
+
+numbers = [1, 3, 5, 7, 9, 2, 4, 6, 8, 0]
+largest = heapq.nlargest(3, numbers)
+smallest = heapq.nsmallest(3, numbers)
+
+print(largest)   # Output: [9, 8, 7]
+print(smallest)  # Output: [0, 1, 2]` },
+                { title: "37. Read a Large File in Chunks", code: `def read_in_chunks(file, chunk_size=1024):
+    while True:
+        data = file.read(chunk_size)
+        if not data:
+            break
+        yield data
+
+with open("large_file.txt", "r") as f:
+    for chunk in read_in_chunks(f):
+        print(chunk)` },
+                { title: "38. Use tempfile for Temporary Files", code: `import tempfile
+
+with tempfile.NamedTemporaryFile(delete=False) as temp:
+    temp.write(b"Hello, World!")
+    print(temp.name)
+
+# The file remains after the context ends` },
+                { title: "39. Use yield from to Delegate to Subgenerators", code: `def subgenerator():
+    yield "A"
+    yield "B"
+
+def generator():
+    yield from subgenerator()
+    yield "C"
+
+for item in generator():
+    print(item)
+# Output:
+# A
+# B
+# C` },
+                { title: "40. Generator-Based Coroutine", code: `def coroutine():
+    while True:
+        received = yield
+        print(f"Received: {received}")
+
+c = coroutine()
+next(c)  # Prime the coroutine
+c.send("Hello")
+c.send("World")
+# Output:
+# Received: Hello
+# Received: World` },
+                { title: "41. Use asyncio.Lock for Synchronization", code: `import asyncio
+
+lock = asyncio.Lock()
+
+async def worker(name):
+    async with lock:
+        print(f"{name} has acquired the lock")
+        await asyncio.sleep(1)
+    print(f"{name} has released the lock")
+
+async def main():
+    await asyncio.gather(worker("Task 1"), worker("Task 2"))
+
+asyncio.run(main())` },
+                { title: "42. futures.ProcessPoolExecutor", code: `from concurrent.futures import ProcessPoolExecutor
+import math
+
+def compute_factorial(n):
+    return math.factorial(n)
+
+with ProcessPoolExecutor() as executor:
+    results = list(executor.map(compute_factorial, range(10)))
+print(results)` },
+                { title: "43. Use asyncio.Event for Task Coordination", code: `import asyncio
+
+event = asyncio.Event()
+
+async def waiter():
+    print("Waiting for the event to be set...")
+    await event.wait()
+    print("Event has been set!")
+
+async def setter():
+    await asyncio.sleep(2)
+    print("Setting the event")
+    event.set()
+
+async def main():
+    await asyncio.gather(waiter(), setter())
+
+asyncio.run(main())` },
+                { title: "44. Use asyncio.Condition for Complex Synchronization", code: `import asyncio
+
+condition = asyncio.Condition()
+shared_resource = 0
+
+async def consumer():
+    global shared_resource
+    async with condition:
+        while shared_resource < 5:
+            await condition.wait()
+        print(f"Consumed: {shared_resource}")
+
+async def producer():
+    global shared_resource
+    for i in range(6):
+        async with condition:
+            shared_resource += 1
+            print(f"Produced: {shared_resource}")
+            condition.notify_all()
+        await asyncio.sleep(1)
+
+async def main():
+    await asyncio.gather(consumer(), producer())
+
+asyncio.run(main())` },
+                { title: "45. Dynamic Class Attributes Using __dict__", code: `class DynamicAttributes:
+    pass
+
+obj = DynamicAttributes()
+obj.__dict__["dynamic_attr"] = "Hello, World!"
+print(obj.dynamic_attr)  # Output: Hello, World!` },
+                { title: "46. Override __init_subclass__ for Custom Subclass Behavior", code: `class Base:
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.custom_attribute = kwargs.get("custom_attribute", None)
+
+class Derived(Base, custom_attribute="Hello"):
+    pass
+
+print(Derived.custom_attribute)  # Output: Hello` },
+                { title: "47. Use exec to Dynamically Execute Code", code: `code = """
+def dynamic_function(x):
+    return x * 2
+"""
+
+namespace = {}
+exec(code, namespace)
+dynamic_function = namespace['dynamic_function']
+print(dynamic_function(5))  # Output: 10` },
+                { title: "48. Use inspect to Get Source Code of a Function", code: `import inspect
+
+def my_function():
+    """This is a sample function."""
+    return 42
+
+print(inspect.getsource(my_function))
+# Output:
+# def my_function():
+#     """This is a sample function."""
+#     return 42` },
+                { title: "49. Use functools.lru_cache with a Custom Max Size", code: `from functools import lru_cache
+
+@lru_cache(maxsize=3)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(10))  # Output: 55
+print(fib.cache_info())  # Shows cache statistics` },
+                { title: "50. Use itertools.tee to Clone Iterators", code: `from itertools import tee
+
+data = [1, 2, 3]
+iter1, iter2 = tee(data, 2)
+
+print(list(iter1))  # Output: [1, 2, 3]
+print(list(iter2))  # Output: [1, 2, 3]` },
+                { title: "51. Use functools.reduce with operator Functions", code: `from functools import reduce
+import operator
+
+numbers = [1, 2, 3, 4]
+product = reduce(operator.mul, numbers)
+print(product)  # Output: 24` },
+                { title: "52. Use functools.partial with Default Arguments", code: `from functools import partial
+
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+cube = partial(power, exponent=3)
+
+print(square(5))  # Output: 25
+print(cube(5))    # Output: 125` },
+                { title: "53. Use collections.deque for Efficient Queue Operations", code: `from collections import deque
+
+queue = deque([1, 2, 3])
+queue.appendleft(0)
+queue.append(4)
+print(queue)  # Output: deque([0, 1, 2, 3, 4])` },
+                { title: "54. Use collections.Counter for Advanced Counting", code: `from collections import Counter
+
+words = ["apple", "banana", "apple", "cherry"]
+counter = Counter(words)
+print(counter.most_common(1))  # Output: [('apple', 2)]` },
+                { title: "55. Use heapq.merge to Merge Sorted Iterables", code: `import heapq
+
+list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+merged = list(heapq.merge(list1, list2))
+print(merged)  # Output: [1, 2, 3, 4, 5, 6]` },
+                { title: "56. Custom Exception with Traceback Chaining", code: `class CustomError(Exception):
+    pass
+
+try:
+    raise ValueError("Original error")
+except ValueError as e:
+    raise CustomError("Custom error") from e` },
+                { title: "57. Use traceback.print_stack to Print Stack Trace", code: `import traceback
+
+def func():
+    traceback.print_stack()
+
+func()
+# Prints the stack trace leading to this point` },
+                { title: "58. Use weakref.WeakKeyDictionary for Weak References", code: `import weakref
+
+class Node:
+    pass
+
+a = Node()
+b = Node()
+
+weak_dict = weakref.WeakKeyDictionary()
+weak_dict[a] = "Node A"
+weak_dict[b] = "Node B"
+
+del a
+print(list(weak_dict.keys()))  # Output: [<__main__.Node object at ...>]` },
+                { title: "59. Use gc.collect() to Force Garbage Collection", code: `import gc
+
+class Node:
+    def __del__(self):
+        print("Node deleted")
+
+a = Node()
+b = Node()
+a.ref = b
+b.ref = a
+del a, b
+
+gc.collect()  # Force garbage collection` },
+                { title: "60. Use ast.parse to Analyze Python Code Structure", code: `import ast
+
+code = """
+def greet(name):
+    print(f"Hello, {name}")
+"""
+
+tree = ast.parse(code)
+for node in ast.walk(tree):
+    if isinstance(node, ast.FunctionDef):
+        print(f"Function name: {node.name}")
+# Output: Function name: greet` },
+                { title: "61. Use asyncio.Queue for Task Scheduling", code: `import asyncio
+
+async def producer(queue):
+    for i in range(5):
+        await asyncio.sleep(1)
+        print(f"Producing {i}")
+        await queue.put(i)
+
+async def consumer(queue):
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        print(f"Consuming {item}")
+        queue.task_done()
+
+async def main():
+    queue = asyncio.Queue()
+    producers = [asyncio.create_task(producer(queue)) for _ in range(2)]
+    consumers = [asyncio.create_task(consumer(queue)) for _ in range(3)]
+
+    await asyncio.gather(*producers)
+    await queue.join()
+
+    for _ in range(3):
+        await queue.put(None)
+
+    await asyncio.gather(*consumers)
+
+asyncio.run(main())` },
+                { title: "62. Use concurrent.futures.ThreadPoolExecutor with Callbacks", code: `from concurrent.futures import ThreadPoolExecutor
+
+def task(n):
+    return n * n
+
+def callback(future):
+    print(f"Result: {future.result()}")
+
+with ThreadPoolExecutor() as executor:
+    future = executor.submit(task, 10)
+    future.add_done_callback(callback)` },
+                { title: "63. Use asyncio.Semaphore to Limit Concurrent Access", code: `import asyncio
+
+sem = asyncio.Semaphore(3)
+
+async def task(name):
+    async with sem:
+        print(f"{name} is running")
+        await asyncio.sleep(1)
+        print(f"{name} is done")
+
+async def main():
+    tasks = [task(f"Task {i}") for i in range(10)]
+    await asyncio.gather(*tasks)
+
+asyncio.run(main())` },
+                { title: "64. Use asyncio.Event for Task Coordination", code: `import asyncio
+
+event = asyncio.Event()
+
+async def waiter():
+    print("Waiting for the event to be set...")
+    await event.wait()
+    print("Event has been set!")
+
+async def setter():
+    await asyncio.sleep(2)
+    print("Setting the event")
+    event.set()
+
+async def main():
+    await asyncio.gather(waiter(), setter())
+
+asyncio.run(main())` },
+                { title: "65. Dynamic Class Creation Using type", code: `def dynamic_class_creation(class_name, bases, attributes):
+    return type(class_name, bases, attributes)
+
+MyClass = dynamic_class_creation('MyClass', (object,), {'attr': 42})
+obj = MyClass()
+print(obj.attr)  # Output: 42` },
+                { title: "66. Override __new__ for Custom Object Creation", code: `class Singleton:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+s1 = Singleton()
+s2 = Singleton()
+print(s1 is s2)  # Output: True` },
+                { title: "67. Use inspect to Get Function Arguments", code: `import inspect
+
+def my_function(a, b=2, *args, **kwargs):
+    pass
+
+sig = inspect.signature(my_function)
+for name, param in sig.parameters.items():
+    print(f"{name}: {param.kind}")
+# Output:
+# a: POSITIONAL_OR_KEYWORD
+# b: POSITIONAL_OR_KEYWORD
+# args: VAR_POSITIONAL
+# kwargs: VAR_KEYWORD` },
+                { title: "68. Use exec to Dynamically Execute Code", code: `code = """
+def dynamic_function(x):
+    return x * 2
+"""
+
+namespace = {}
+exec(code, namespace)
+dynamic_function = namespace['dynamic_function']
+print(dynamic_function(5))  # Output: 10` },
+                { title: "69. Use functools.lru_cache with a Custom Max Size", code: `from functools import lru_cache
+
+@lru_cache(maxsize=3)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(10))  # Output: 55
+print(fib.cache_info())  # Shows cache statistics` },
+                { title: "70. Use itertools.tee to Clone Iterators", code: `from itertools import tee
+
+data = [1, 2, 3]
+iter1, iter2 = tee(data, 2)
+
+print(list(iter1))  # Output: [1, 2, 3]
+print(list(iter2))  # Output: [1, 2, 3]` },
+                { title: "71. Use functools.reduce with operator Functions", code: `from functools import reduce
+import operator
+
+numbers = [1, 2, 3, 4]
+product = reduce(operator.mul, numbers)
+print(product)  # Output: 24` },
+                { title: "72. Use functools.partial with Default Arguments", code: `from functools import partial
+
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+cube = partial(power, exponent=3)
+
+print(square(5))  # Output: 25
+print(cube(5))    # Output: 125` },
+                { title: "73. Use collections.deque for Efficient Queue Operations", code: `from collections import deque
+
+queue = deque([1, 2, 3])
+queue.appendleft(0)
+queue.append(4)
+print(queue)  # Output: deque([0, 1, 2, 3, 4])` },
+                { title: "74. Use collections.Counter for Advanced Counting", code: `from collections import Counter
+
+words = ["apple", "banana", "apple", "cherry"]
+counter = Counter(words)
+print(counter.most_common(1))  # Output: [('apple', 2)]` },
+                { title: "75. Use heapq.merge to Merge Sorted Iterables", code: `import heapq
+
+list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+merged = list(heapq.merge(list1, list2))
+print(merged)  # Output: [1, 2, 3, 4, 5, 6]` },
+                { title: "76. Custom Exception with Traceback Chaining", code: `class CustomError(Exception):
+    pass
+
+try:
+    raise ValueError("Original error")
+except ValueError as e:
+    raise CustomError("Custom error") from e` },
+                { title: "77. Use traceback.print_stack to Print Stack Trace", code: `import traceback
+
+def func():
+    traceback.print_stack()
+
+func()
+# Prints the stack trace leading to this point` },
+                { title: "78. Use weakref.WeakKeyDictionary for Weak References", code: `import weakref
+
+class Node:
+    pass
+
+a = Node()
+b = Node()
+
+weak_dict = weakref.WeakKeyDictionary()
+weak_dict[a] = "Node A"
+weak_dict[b] = "Node B"
+
+del a
+print(list(weak_dict.keys()))  # Output: [<__main__.Node object at ...>]` },
+                { title: "79. Use gc.collect() to Force Garbage Collection", code: `import gc
+
+class Node:
+    def __del__(self):
+        print("Node deleted")
+
+a = Node()
+b = Node()
+a.ref = b
+b.ref = a
+del a, b
+
+gc.collect()  # Force garbage collection` },
+                { title: "80. Use ast.parse to Analyze Python Code Structure", code: `import ast
+
+code = """
+def greet(name):
+    print(f"Hello, {name}")
+"""
+
+tree = ast.parse(code)
+for node in ast.walk(tree):
+    if isinstance(node, ast.FunctionDef):
+        print(f"Function name: {node.name}")
+# Output: Function name: greet` },
+                { title: "81. Use asyncio.Lock for Synchronization", code: `import asyncio
+
+lock = asyncio.Lock()
+
+async def worker(name):
+    async with lock:
+        print(f"{name} has acquired the lock")
+        await asyncio.sleep(1)
+    print(f"{name} has released the lock")
+
+async def main():
+    await asyncio.gather(worker("Task 1"), worker("Task 2"))
+
+asyncio.run(main())` },
+                { title: "82. Use concurrent.futures.ProcessPoolExecutor for CPU-Bound Tasks", code: `from concurrent.futures import ProcessPoolExecutor
+import math
+
+def compute_factorial(n):
+    return math.factorial(n)
+
+with ProcessPoolExecutor() as executor:
+    results = list(executor.map(compute_factorial, range(10)))
+print(results)` },
+                { title: "83. Use asyncio.Event for Task Coordination", code: `import asyncio
+
+event = asyncio.Event()
+
+async def waiter():
+    print("Waiting for the event to be set...")
+    await event.wait()
+    print("Event has been set!")
+
+async def setter():
+    await asyncio.sleep(2)
+    print("Setting the event")
+    event.set()
+
+async def main():
+    await asyncio.gather(waiter(), setter())
+
+asyncio.run(main())` },
+                { title: "84. Use asyncio.Condition for Complex Synchronization", code: `import asyncio
+
+condition = asyncio.Condition()
+shared_resource = 0
+
+async def consumer():
+    global shared_resource
+    async with condition:
+        while shared_resource < 5:
+            await condition.wait()
+        print(f"Consumed: {shared_resource}")
+
+async def producer():
+    global shared_resource
+    for i in range(6):
+        async with condition:
+            shared_resource += 1
+            print(f"Produced: {shared_resource}")
+            condition.notify_all()
+        await asyncio.sleep(1)
+
+async def main():
+    await asyncio.gather(consumer(), producer())
+
+asyncio.run(main())` },
+                { title: "85. Dynamic Class Attributes Using __dict__", code: `class DynamicAttributes:
+    pass
+
+obj = DynamicAttributes()
+obj.__dict__["dynamic_attr"] = "Hello, World!"
+print(obj.dynamic_attr)  # Output: Hello, World!` },
+                { title: "86. Override __init_subclass__ for Custom Subclass Behavior", code: `class Base:
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.custom_attribute = kwargs.get("custom_attribute", None)
+
+class Derived(Base, custom_attribute="Hello"):
+    pass
+
+print(Derived.custom_attribute)  # Output: Hello` },
+                { title: "87. Use exec to Dynamically Execute Code", code: `code = """
+def dynamic_function(x):
+    return x * 2
+"""
+
+namespace = {}
+exec(code, namespace)
+dynamic_function = namespace['dynamic_function']
+print(dynamic_function(5))  # Output: 10` },
+                { title: "88. Use inspect to Get Source Code of a Function", code: `import inspect
+
+def my_function():
+    """This is a sample function."""
+    return 42
+
+print(inspect.getsource(my_function))
+# Output:
+# def my_function():
+#     """This is a sample function."""
+#     return 42` },
+                { title: "89. Use functools.lru_cache with a Custom Max Size", code: `from functools import lru_cache
+
+@lru_cache(maxsize=3)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(10))  # Output: 55
+print(fib.cache_info())  # Shows cache statistics` },
+                { title: "90. Use itertools.tee to Clone Iterators", code: `from itertools import tee
+
+data = [1, 2, 3]
+iter1, iter2 = tee(data, 2)
+
+print(list(iter1))  # Output: [1, 2, 3]
+print(list(iter2))  # Output: [1, 2, 3]` },
+                { title: "91. Use functools.reduce with operator Functions", code: `from functools import reduce
+import operator
+
+numbers = [1, 2, 3, 4]
+product = reduce(operator.mul, numbers)
+print(product)  # Output: 24` },
+                { title: "92. Use functools.partial with Default Arguments", code: `from functools import partial
+
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+cube = partial(power, exponent=3)
+
+print(square(5))  # Output: 25
+print(cube(5))    # Output: 125` },
+                { title: "93. Use collections.deque for Efficient Queue Operations ", code: `from collections import deque
+
+queue = deque([1, 2, 3])
+queue.appendleft(0)
+queue.append(4)
+print(queue)  # Output: deque([0, 1, 2, 3, 4])` },
+                { title: "94. Use collections.Counter for Advanced Counting", code: `from collections import Counter
+
+words = ["apple", "banana", "apple", "cherry"]
+counter = Counter(words)
+print(counter.most_common(1))  # Output: [('apple', 2)]` },
+                { title: "95. Use heapq.merge to Merge Sorted Iterables", code: `import heapq
+
+list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+merged = list(heapq.merge(list1, list2))
+print(merged)  # Output: [1, 2, 3, 4, 5, 6]` },
+                { title: "96. Custom Exception with Traceback Chaining", code: `class CustomError(Exception):
+    pass
+
+try:
+    raise ValueError("Original error")
+except ValueError as e:
+    raise CustomError("Custom error") from e` },
+                { title: "97. Use traceback.print_stack to Print Stack Trace", code: `import traceback
+
+def func():
+    traceback.print_stack()
+
+func()
+# Prints the stack trace leading to this point` },
+                { title: "98. Use weakref.WeakKeyDictionary for Weak References", code: `import weakref
+
+class Node:
+    pass
+
+a = Node()
+b = Node()
+
+weak_dict = weakref.WeakKeyDictionary()
+weak_dict[a] = "Node A"
+weak_dict[b] = "Node B"
+
+del a
+print(list(weak_dict.keys()))  # Output: [<__main__.Node object at ...>]` },
+                { title: "99. Use gc.collect() to Force Garbage Collection", code: `import gc
+
+class Node:
+    def __del__(self):
+        print("Node deleted")
+
+a = Node()
+b = Node()
+a.ref = b
+b.ref = a
+del a, b
+
+gc.collect()  # Force garbage collection` },
+                { title: "100. Use ast.parse to Analyze Python Code Structure", code: `import ast
+
+code = """
+def greet(name):
+    print(f"Hello, {name}")
+"""
+
+tree = ast.parse(code)
+for node in ast.walk(tree):
+    if isinstance(node, ast.FunctionDef):
+        print(f"Function name: {node.name}")
+# Output: Function name: greet` },
+                
+            ]
+        };
+
+        // Function to render problems into respective categories
+        function renderProblems() {
+            Object.keys(problems).forEach(category => {
+                const categorySection = document.getElementById(category + '-cards');
+                problems[category].forEach(problem => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = () => openPopup(problem.code);
+                    card.innerHTML = `<h3>${problem.title}</h3><p>${problem.code.split('\n')[0]}</p>`;
+                    categorySection.appendChild(card);
+                });
+            });
+        }
+
+        // Open the popup and display code
+        function openPopup(code) {
+            document.getElementById("popupCode").value = code;
+            document.getElementById("popup").style.display = "block";
+        }
+
+        // Close the popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Copy code to clipboard
+        function copyCode() {
+            const code = document.getElementById("popupCode");
+            code.select();
+            document.execCommand("copy");
+            alert("Code copied to clipboard!");
+        }
+
+        // Initial render
+        renderProblems();
+    </script>
+</body>
+</html>

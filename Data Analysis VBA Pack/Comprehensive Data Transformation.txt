@@ -1,0 +1,154 @@
+Sub ComprehensiveDataTransformation()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim selectedRange As Range
+    Dim actions As String
+    Dim selectedActions As Variant
+    Dim action As Variant
+    Dim findText As String
+    Dim replaceText As String
+    Dim r As Long
+
+    Set ws = ActiveSheet
+    On Error Resume Next
+    ' Get the selected range
+    Set selectedRange = Application.InputBox("Select the range of cells to apply transformations:", Type:=8)
+    On Error GoTo 0
+
+    ' Check if the user canceled the selection
+    If selectedRange Is Nothing Then
+        MsgBox "No range selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Step 1: Action Selection
+    actions = InputBox("Step 1: Select actions by typing the numbers corresponding to your choices, separated by commas:" & vbCrLf & _
+                      "1. Convert Text to Uppercase" & vbCrLf & _
+                      "2. Convert Text to Lowercase" & vbCrLf & _
+                      "3. Capitalize First Letter of Each Word" & vbCrLf & _
+                      "4. Standardize Date Format" & vbCrLf & _
+                      "5. Change Numbers to Currency Format" & vbCrLf & _
+                      "6. Round Numbers to Nearest Integer" & vbCrLf & _
+                      "7. Remove Leading Zeros from Numbers" & vbCrLf & _
+                      "8. Add Suffix to Numeric Values" & vbCrLf & _
+                      "9. Replace Specific Text" & vbCrLf & _
+                      "10. Execute All Commands" & vbCrLf & _
+                      "11. Exit", "Select Actions")
+
+    If actions = "" Then
+        MsgBox "No actions selected. Exiting.", vbExclamation
+        Exit Sub
+    End If
+
+    selectedActions = Split(actions, ",")
+
+    For Each action In selectedActions
+        Select Case Trim(action)
+            Case "1"
+                ' Convert Text to Uppercase
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = UCase(cell.Value)
+                    End If
+                Next cell
+            Case "2"
+                ' Convert Text to Lowercase
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = LCase(cell.Value)
+                    End If
+                Next cell
+            Case "3"
+                ' Capitalize First Letter of Each Word
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Application.WorksheetFunction.Proper(cell.Value)
+                    End If
+                Next cell
+            Case "4"
+                ' Standardize Date Format (mm/dd/yyyy)
+                For Each cell In selectedRange
+                    If IsDate(cell.Value) Then
+                        cell.Value = Format(cell.Value, "mm/dd/yyyy")
+                    End If
+                Next cell
+            Case "5"
+                ' Change Numbers to Currency Format
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Application.WorksheetFunction.Currency(cell.Value)
+                    End If
+                Next cell
+            Case "6"
+                ' Round Numbers to Nearest Integer
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Round(cell.Value, 0)
+                    End If
+                Next cell
+            Case "7"
+                ' Remove Leading Zeros from Numbers
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Val(cell.Value)
+                    End If
+                Next cell
+            Case "8"
+                ' Add Suffix to Numeric Values
+                Dim suffix As String
+                suffix = InputBox("Enter the suffix to add to numbers:")
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = cell.Value & suffix
+                    End If
+                Next cell
+            Case "9"
+                ' Replace Specific Text
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "10"
+                ' Execute all commands (same as selecting all options)
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = UCase(cell.Value)
+                        cell.Value = LCase(cell.Value)
+                        cell.Value = Application.WorksheetFunction.Proper(cell.Value)
+                    End If
+                Next cell
+                For Each cell In selectedRange
+                    If IsDate(cell.Value) Then
+                        cell.Value = Format(cell.Value, "mm/dd/yyyy")
+                    End If
+                Next cell
+                For Each cell In selectedRange
+                    If IsNumeric(cell.Value) Then
+                        cell.Value = Application.WorksheetFunction.Currency(cell.Value)
+                        cell.Value = Round(cell.Value, 0)
+                        cell.Value = Val(cell.Value)
+                        cell.Value = cell.Value & suffix
+                    End If
+                Next cell
+                findText = InputBox("Enter text to find:")
+                replaceText = InputBox("Enter text to replace with:")
+                For Each cell In selectedRange
+                    If Not IsEmpty(cell.Value) And VarType(cell.Value) = vbString Then
+                        cell.Value = Replace(cell.Value, findText, replaceText)
+                    End If
+                Next cell
+            Case "11"
+                ' Exit
+                MsgBox "Exiting.", vbInformation
+                Exit Sub
+            Case Else
+                ' Invalid action
+                MsgBox "Invalid selection: " & action, vbExclamation
+        End Select
+    Next action
+
+    MsgBox "All selected actions have been applied.", vbInformation
+End Sub

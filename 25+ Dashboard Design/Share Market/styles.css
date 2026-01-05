@@ -1,0 +1,175 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #F5F7FA; /* Light Gray Background */
+    color: #333; /* Dark Text */
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background: #FFFFFF; /* White Background */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 40px;
+}
+.sidebar .menu-item {
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding-top: 10px;
+}
+.sidebar .menu-item:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Glow Effect on Hover */
+}
+.sidebar .menu-item i {
+    font-size: 24px;
+    color: #4B6CB7; /* Professional Blue */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* First Row - KPI Cards */
+.kpi-cards {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.kpi-card {
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.kpi-card i {
+    font-size: 30px;
+    color: #4B6CB7; /* Professional Blue */
+    margin-bottom: 10px;
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4B6CB7; /* Professional Blue */
+}
+
+/* Second Row - Real-Time Stock Trend */
+.real-time-chart {
+    grid-column: span 4;
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.real-time-chart:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.real-time-chart h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.real-time-chart canvas {
+    max-height: 300px; /* Larger Chart Size */
+}
+
+/* Third Row - Three Cards */
+.third-row-cards {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.third-row-card {
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.third-row-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.third-row-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.third-row-card canvas {
+    max-height: 200px; /* Medium Chart Size */
+}
+
+/* Fourth Row - Three Charts */
+.fourth-row-charts {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.fourth-row-chart {
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.fourth-row-chart:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.fourth-row-chart h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.fourth-row-chart canvas {
+    max-height: 200px; /* Medium Chart Size */
+}
+
+/* Footer */
+.footer {
+    background: #FFFFFF; /* White Background */
+    padding: 10px;
+    text-align: center;
+    color: #333; /* Dark Text */
+    border-top: 1px solid #E0E0E0; /* Subtle Border */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+}

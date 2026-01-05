@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Mobile App Performance Dashboard</title>
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="left">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <h1>Mobile App Performance Dashboard</h1>
+        </div>
+        <div class="right">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-cog"></i>
+        </div>
+    </div>
+
+    <!-- Sliders -->
+    <div class="sliders">
+        <select id="timeframe">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+        </select>
+        <select id="appVersion">
+            <option value="v1">Version 1.0</option>
+            <option value="v2">Version 2.0</option>
+            <option value="v3">Version 3.0</option>
+        </select>
+        <select id="deviceType">
+            <option value="android">Android</option>
+            <option value="ios">iOS</option>
+            <option value="web">Web</option>
+        </select>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- First Row - KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-stopwatch"></i>
+                <h3>App Downtime</h3>
+                <p>2.5%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-clock"></i>
+                <h3>App Load Time</h3>
+                <p>1.8s</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>User Retention Rate</h3>
+                <p>75%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Crash Rate</h3>
+                <p>0.5%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Active Users</h3>
+                <p>12,500</p>
+            </div>
+        </div>
+
+        <!-- Second Row - Visualizations -->
+        <div class="visualizations">
+            <div class="visualization">
+                <h3>App Usage Frequency</h3>
+                <canvas id="appUsageFrequency"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Customer Feedback Rating</h3>
+                <canvas id="customerFeedbackRating"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>App Store Rating</h3>
+                <canvas id="appStoreRating"></canvas>
+            </div>
+        </div>
+
+        <!-- Third Row - Visualizations -->
+        <div class="third-row-visualizations">
+            <div class="visualization">
+                <h3>User Engagement</h3>
+                <canvas id="userEngagement"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>In-App Purchases</h3>
+                <canvas id="inAppPurchases"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Uninstall Rate</h3>
+                <canvas id="uninstallRate"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Tutorials Point Bangladesh
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js Library -->
+    <script src="../js/chart.js"></script>
+
+</body>
+<script src="app.js"></script>
+</html>

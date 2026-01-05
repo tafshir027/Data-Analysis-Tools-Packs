@@ -1,0 +1,56 @@
+{
+  "name": "Dark Glassmorphic Theme",
+  "dataColors": [
+    "#FF6F61", // Sweet Pink Accent
+    "#FFFFFF", // White
+    "#CCCCCC", // Light Gray
+    "#2A2A2A", // Dark Gray
+    "#1E1E1E"  // Darkest Gray
+  ],
+  "background": "#121212", // Dark Background
+  "foreground": "#FFFFFF", // White Text
+  "tableAccent": "#FF6F61", // Sweet Pink for Table Highlights
+  "visualStyles": {
+    "*": {
+      "*": {
+        "*": [
+          {
+            "color": { "solid": { "color": "#FFFFFF" } }, // Default Text Color
+            "fontSize": 14,
+            "fontFamily": "Poppins"
+          }
+        ]
+      },
+      "card": {
+        "*": [
+          {
+            "color": { "solid": { "color": "#FFFFFF" } }, // Card Text Color
+            "backColor": { "solid": { "color": "#515151" } }, // Card Background
+            "borderColor": { "solid": { "color": "#FFFFFF" } }, // White Border
+            "borderWidth": 1
+          }
+        ]
+      },
+      "slicer": {
+        "*": [
+          {
+            "color": { "solid": { "color": "#FFFFFF" } }, // Slicer Text Color
+            "backColor": { "solid": { "color": "#515151" } }, // Slicer Background
+            "borderColor": { "solid": { "color": "#FFFFFF" } }, // White Border
+            "borderWidth": 1
+          }
+        ]
+      },
+      "chart": {
+        "*": [
+          {
+            "color": { "solid": { "color": "#FFFFFF" } }, // Chart Text Color
+            "backColor": { "solid": { "color": "#515151" } }, // Chart Background
+            "borderColor": { "solid": { "color": "#FFFFFF" } }, // White Border
+            "borderWidth": 1
+          }
+        ]
+      }
+    }
+  }
+}

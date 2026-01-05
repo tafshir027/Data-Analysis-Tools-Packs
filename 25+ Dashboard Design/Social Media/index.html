@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Social Media Performance Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="#"><i class="fas fa-chart-line"></i></a>
+            <a href="#"><i class="fas fa-users"></i></a>
+            <a href="#"><i class="fas fa-video"></i></a>
+            <a href="#"><i class="fas fa-hashtag"></i></a>
+            <a href="#"><i class="fas fa-eye"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card" style="background-color: #578FCA;">
+                <i class="fas fa-handshake"></i>
+                <h3>Engagement Rate</h3>
+                <p id="engagementRate">4.5%</p>
+            </div>
+            <div class="kpi-card" style="background-color: #3674B5;">
+                <i class="fas fa-user-plus"></i>
+                <h3>Follower Growth</h3>
+                <p id="followerGrowth">+1,200</p>
+            </div>
+            <div class="kpi-card" style="background-color: #578FCA;">
+                <i class="fas fa-mouse-pointer"></i>
+                <h3>Click-Through Rate</h3>
+                <p id="clickThroughRate">2.8%</p>
+            </div>
+            <div class="kpi-card" style="background-color: #3674B5;">
+                <i class="fas fa-eye"></i>
+                <h3>Impressions</h3>
+                <p id="impressions">500K</p>
+            </div>
+            <div class="kpi-card" style="background-color: #578FCA;">
+                <i class="fas fa-play"></i>
+                <h3>Video Views</h3>
+                <p id="videoViews">150K</p>
+            </div>
+            <div class="kpi-card" style="background-color: #3674B5;">
+                <i class="fas fa-clock"></i>
+                <h3>Response Time</h3>
+                <p id="responseTime">2.5 Hours</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-container">
+            <h3>Engagement Rate Trend (Line Chart)</h3>
+            <canvas id="engagementChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Follower Growth by Platform (Bar Chart)</h3>
+            <canvas id="followerGrowthChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Click-Through Rate (Donut Chart)</h3>
+            <canvas id="ctrChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Social Media Mentions (Pie Chart)</h3>
+            <canvas id="mentionsChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Hashtag Performance (Bar Chart)</h3>
+            <canvas id="hashtagChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Brand Awareness (Line Chart)</h3>
+            <canvas id="brandAwarenessChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Influencer Campaign Success (Bar Chart)</h3>
+            <canvas id="influencerChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Response Time (Line Chart)</h3>
+            <canvas id="responseTimeChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Video Views (Bar Chart)</h3>
+            <canvas id="videoViewsChart"></canvas>
+        </div>
+
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

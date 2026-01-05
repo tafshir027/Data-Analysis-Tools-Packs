@@ -1,0 +1,177 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #121212, #1E1E1E); /* Dark Gradient Background */
+    color: #FFFFFF; /* White Text */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #1A1A1A, #2A2A2A); /* Dark Gradient for Header */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.header h1 {
+    font-size: 24px;
+    color: #FFFFFF;
+    margin: 0;
+}
+.header p {
+    font-size: 14px;
+    color: #CCCCCC;
+    margin: 0;
+}
+.header .menu-icons {
+    display: flex;
+    gap: 20px;
+}
+.header .menu-icons a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+.header .menu-icons a:hover {
+    color: #8a2be2; /* Gold Accent on Hover */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.kpi-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05); /* Subtle Transparency for Dark Mode */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+.kpi-card i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    color: #9c53e0; /* Gold Accent */
+}
+.kpi-card h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #FFFFFF;
+}
+.kpi-card p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8a2be2; /* Gold Accent */
+}
+
+/* Slicers */
+.slicer-container {
+    grid-column: span 3;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05); /* Subtle Transparency for Dark Mode */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 50px; /* Reduced height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.slicer-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+.slicer-container select {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.05); /* Subtle Transparency for Dark Mode */
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+}
+.slicer-container select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.05); /* Subtle Transparency for Dark Mode */
+}
+
+/* Charts */
+.charts {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 charts per row */
+    gap: 20px;
+}
+.chart-container {
+    background: rgba(255, 255, 255, 0.05); /* Subtle Transparency for Dark Mode */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.chart-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+canvas {
+    max-height: 250px;
+}
+
+/* Additional Row for New Visualizations */
+.additional-charts {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 charts per row */
+    gap: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .kpi-cards {
+        flex-direction: column;
+    }
+    .slicer-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .charts, .additional-charts {
+        grid-template-columns: 1fr; /* Single column for smaller screens */
+    }
+}

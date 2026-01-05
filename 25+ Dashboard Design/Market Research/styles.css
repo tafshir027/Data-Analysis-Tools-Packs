@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #E0E5EC; /* Light Gray Background for Neumorphism */
+    color: #512B81; /* Dark Brown Text */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: #E0E5EC; /* Light Gray Background */
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: inset 5px 5px 10px #BEC3C9, inset -5px -5px 10px #FFFFFF; /* Neumorphic Shadow */
+}
+.header h1 {
+    font-size: 28px;
+    color: #512B81; /* Dark Brown Text */
+    margin: 0;
+}
+.header .home-icon {
+    color: #512B81; /* Dark Brown Icon */
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.header .home-icon:hover {
+    transform: scale(1.2); /* Slightly Enlarge on Hover */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+.kpi-card {
+    background: #E0E5EC; /* Light Gray Background */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px #BEC3C9, -5px -5px 10px #FFFFFF; /* Neumorphic Shadow */
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 7px 7px 15px #BEC3C9, -7px -7px 15px #FFFFFF; /* Enhanced Shadow on Hover */
+}
+.kpi-card i {
+    font-size: 30px;
+    color: #512B81; /* Medium Brown Icon */
+    margin-bottom: 10px;
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #000; /* Dark Brown Text */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #512B81; /* Light Brown Value */
+}
+
+/* Filter Sliders */
+.filters {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #E0E5EC; /* Light Gray Background */
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #BEC3C9, -5px -5px 10px #FFFFFF; /* Neumorphic Shadow */
+}
+.filters label {
+    font-size: 14px;
+    color: #3B3030; /* Dark Brown Text */
+    margin-right: 10px;
+}
+.filters select {
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    background: #E0E5EC; /* Light Gray Background */
+    color: #3B3030; /* Dark Brown Text */
+    box-shadow: 5px 5px 10px #BEC3C9, -5px -5px 10px #FFFFFF; /* Neumorphic Shadow */
+    transition: all 0.3s ease;
+}
+.filters select:focus {
+    outline: none;
+    box-shadow: 7px 7px 15px #BEC3C9, -7px -7px 15px #FFFFFF; /* Enhanced Shadow on Focus */
+}
+
+/* Visualizations */
+.visualizations {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.visualization {
+    background: #E0E5EC; /* Light Gray Background */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px #BEC3C9, -5px -5px 10px #FFFFFF; /* Neumorphic Shadow */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.visualization:hover {
+    transform: translateY(-5px);
+    box-shadow: 7px 7px 15px #BEC3C9, -7px -7px 15px #FFFFFF; /* Enhanced Shadow on Hover */
+}
+.visualization h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #512B81; /* Dark Brown Text */
+}
+.visualization canvas {
+    max-height: 200px;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, #512B81, rgb(53, 21, 93)); /* Gradient Background */
+    padding: 10px;
+    text-align: center;
+    color: #FFF; /* White Text */
+    border-top: 1px solid #3B3030; /* Dark Border */
+}

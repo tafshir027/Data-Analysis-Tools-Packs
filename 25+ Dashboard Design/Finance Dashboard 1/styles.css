@@ -1,0 +1,154 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Light Gradient Background */
+    color: #333; /* Dark Text */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #FFFFFF, #EAEAEA); /* Subtle Light Gradient */
+    padding: 15px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.header h1 {
+    font-size: 24px;
+    color: #333; /* Dark Text */
+    margin: 0;
+}
+.header p {
+    font-size: 14px;
+    color: #666; /* Medium Gray Text */
+    margin: 0;
+}
+.header .menu-icons {
+    display: flex;
+    gap: 20px;
+}
+.header .menu-icons a {
+    text-decoration: none;
+    color: #333; /* Dark Text */
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+.header .menu-icons a:hover {
+    color: #666; /* Coral Accent */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+.kpi-card {
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Subtle Light Gradient */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.kpi-card i {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #666; /* Coral Accent */
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(68, 10, 102); /* Coral Accent */
+}
+
+/* Charts */
+.chart-container {
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Subtle Light Gradient */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+canvas {
+    max-height: 300px;
+}
+
+/* Slicer */
+.slicer-container {
+    grid-column: span 3;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Subtle Light Gradient */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.slicer-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.slicer-container select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Subtle Light Gradient */
+    color: #333; /* Dark Text */
+    transition: all 0.3s ease;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+}
+.slicer-container select:focus {
+    outline: none;
+    background: linear-gradient(135deg, #FFFFFF, #F5F5F5); /* Subtle Light Gradient */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    .kpi-cards {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Shop Management Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Mobile Shop Management Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Slicers -->
+    <div class="slicer-container">
+        <label for="regionFilter">Region:</label>
+        <select id="regionFilter">
+            <option value="all">All Regions</option>
+            <option value="north">North America</option>
+            <option value="south">South America</option>
+            <option value="europe">Europe</option>
+            <option value="asia">Asia</option>
+        </select>
+
+        <label for="monthFilter">Month:</label>
+        <select id="monthFilter">
+            <option value="all">All Months</option>
+            <option value="jan">January</option>
+            <option value="feb">February</option>
+            <option value="mar">March</option>
+            <option value="apr">April</option>
+        </select>
+
+        <label for="categoryFilter">Product Category:</label>
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="smartphones">Smartphones</option>
+            <option value="tablets">Tablets</option>
+            <option value="accessories">Accessories</option>
+            <option value="repair">Repair Services</option>
+        </select>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Total Devices Sold</h3>
+                <p>1,200 Units</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Revenue Generated</h3>
+                <p>$150K</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Average Revenue per Customer</h3>
+                <p>$150</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Customer Satisfaction Rate</h3>
+                <p>90%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-boxes"></i>
+                <h3>Inventory Stock</h3>
+                <p>500 Units</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>New Customers Acquired</h3>
+                <p>300</p>
+            </div>
+        </div>
+
+        
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Sales Growth (Line Chart)</h3>
+                <canvas id="salesGrowthChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Devices Sold by Month (Clustered Column Chart)</h3>
+                <canvas id="devicesSoldChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Customer Satisfaction Rate (Donut Chart)</h3>
+                <canvas id="satisfactionRateChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Additional Row for New Visualizations -->
+        <div class="additional-charts">
+            <div class="chart-container">
+                <h3>Revenue by Product Category (Pie Chart)</h3>
+                <canvas id="revenueByCategoryChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>New vs Returning Customers (Bar Chart)</h3>
+                <canvas id="customerTypeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Average Order Value by Region (Bubble Chart)</h3>
+                <canvas id="avgOrderValueChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

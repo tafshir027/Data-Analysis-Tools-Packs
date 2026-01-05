@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Market Research Dashboard</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Market Research Dashboard</h1>
+        <a href="../index.html"><i class="fas fa-home home-icon"></i></a> <!-- Home Icon -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Market Share</h3>
+                <p>25%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-smile"></i>
+                <h3>Customer Satisfaction</h3>
+                <p>85%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-trophy"></i>
+                <h3>Competitive Benchmarking</h3>
+                <p>Top 3</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Market Penetration</h3>
+                <p>45%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-bullseye"></i>
+                <h3>Brand Awareness</h3>
+                <p>70%</p>
+            </div>
+        </div>
+
+        <!-- Filter Sliders -->
+        <div class="filters">
+            <div>
+                <label for="timeframe">Timeframe:</label>
+                <select id="timeframe">
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                </select>
+            </div>
+            <div>
+                <label for="region">Region:</label>
+                <select id="region">
+                    <option value="north">North</option>
+                    <option value="south">South</option>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                </select>
+            </div>
+            <div>
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="grocery">Grocery</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Visualizations -->
+        <div class="visualizations">
+            <div class="visualization">
+                <h3>Survey Response Rate</h3>
+                <canvas id="surveyResponseChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Consumer Behavior</h3>
+                <canvas id="consumerBehaviorChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Market Trend</h3>
+                <canvas id="marketTrendChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Product Demand</h3>
+                <canvas id="productDemandChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Industry Research Depth</h3>
+                <canvas id="industryResearchChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Customer Feedback</h3>
+                <canvas id="customerFeedbackChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Tutorials Point Bangladesh 
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js Library -->
+    <script src="../js/chart.js"></script>
+</body>
+<script src="app.js"></script>
+</html>

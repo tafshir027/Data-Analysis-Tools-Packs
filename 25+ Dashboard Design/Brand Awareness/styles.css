@@ -1,0 +1,120 @@
+ /* General Styles */
+ body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #FFF, #F5F5F5); /* Subtle White Gradient */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #3E001F, #982176); /* Deep Maroon to Violet Gradient */
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #F11A7B; /* Pink Border */
+}
+.header h1 {
+    font-size: 28px;
+    color: #FFF; /* White Text */
+    margin: 0;
+}
+.header .home-icon {
+    color: #FFF; /* White Icon */
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.header .home-icon:hover {
+    transform: scale(1.2); /* Slightly Enlarge on Hover */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+.kpi-card {
+    background: linear-gradient(135deg, #FFF, #F5F5F5); /* Subtle White Gradient */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.kpi-card i {
+    font-size: 30px;
+    color: #F11A7B; /* Pink Icon */
+    margin-bottom: 10px;
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #3E001F; /* Deep Maroon */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #F11A7B; /* Pink Value */
+}
+
+/* Visualizations */
+.visualizations {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.visualization {
+    background: linear-gradient(135deg, #FFF, #F5F5F5); /* Subtle White Gradient */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.visualization:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.visualization h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #3E001F; /* Deep Maroon */
+}
+.visualization canvas {
+    max-height: 200px;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, #982176, #3E001F); /* Violet to Deep Maroon Gradient */
+    padding: 10px;
+    text-align: center;
+    color: #FFF; /* White Text */
+    border-top: 1px solid #F11A7B; /* Pink Border */
+}

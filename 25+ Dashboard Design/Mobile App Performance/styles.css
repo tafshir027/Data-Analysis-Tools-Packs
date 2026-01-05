@@ -1,0 +1,159 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #F5F7FA; /* Light Gray Background */
+    color: #333; /* Dark Text */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+a{
+    color: #fff;
+}
+
+/* Header */
+.header {
+    background: #4B6CB7; /* Professional Blue */
+    color: #FFF; /* White Text */
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+}
+.header .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header .left i {
+    font-size: 24px;
+    cursor: pointer;
+}
+.header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+.header .right {
+    display: flex;
+    gap: 10px;
+}
+.header .right i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Sliders */
+.sliders {
+    background: #FFFFFF; /* White Background */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E0E0E0; /* Subtle Border */
+}
+.sliders select {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background: #F5F7FA; /* Light Gray Background */
+    cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* First Row - KPI Cards */
+.kpi-cards {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+.kpi-card {
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.kpi-card i {
+    font-size: 30px;
+    color: #4B6CB7; /* Professional Blue */
+    margin-bottom: 10px;
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4B6CB7; /* Professional Blue */
+}
+
+/* Second Row - Visualizations */
+.visualizations {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.visualization {
+    background: #FFFFFF; /* White Background */
+    border: 1px solid #E0E0E0; /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.visualization:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced Shadow on Hover */
+}
+.visualization h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333; /* Dark Text */
+}
+.visualization canvas {
+    max-height: 250px; /* Medium Chart Size */
+}
+
+/* Third Row - Visualizations */
+.third-row-visualizations {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Footer */
+.footer {
+    background: #FFFFFF; /* White Background */
+    padding: 10px;
+    text-align: center;
+    color: #333; /* Dark Text */
+    border-top: 1px solid #E0E0E0; /* Subtle Border */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Subtle Shadow */
+}

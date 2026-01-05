@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Trackers Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Habit Trackers Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Total Habits Tracked</h3>
+                <p>25 Habits</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Streak Days</h3>
+                <p>10 Days</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-clock"></i>
+                <h3>Average Time Spent</h3>
+                <p>30 Minutes</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-trophy"></i>
+                <h3>Completed Goals</h3>
+                <p>5 Goals</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Progress Rate</h3>
+                <p>80%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>New Habits Added</h3>
+                <p>3 Habits</p>
+            </div>
+        </div>
+
+        <!-- Three Cards: Calendar, Clock, User Details -->
+        <div class="three-cards">
+            <!-- Calendar Card -->
+            <div class="card">
+                <h3>Calendar</h3>
+                <div class="calendar" id="calendar"></div>
+            </div>
+
+            <!-- Clock Card -->
+            <div class="card">
+                <h3>Clock</h3>
+                <div class="clock">
+                    <div class="center-nut"></div>
+                    <div class="center-nut2"></div>
+                    <div class="indicators">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="sec-hand">
+                        <div class="sec"></div>
+                    </div>
+                    <div class="min-hand">
+                        <div class="min"></div>
+                    </div>
+                    <div class="hr-hand">
+                        <div class="hr"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Details Card -->
+            <div class="card">
+                
+                <div class="user-card">
+                    <!-- Logo -->
+                    <div class="logo">TK</div>
+            
+                    <!-- User Details Table -->
+                    <table class="user-table">
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>MD Tafsir Kabir Khan</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Age</strong></td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BMI</strong></td>
+                            <td>23.1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td>tafsir@gmail.com</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day-wise Checklist -->
+        <div class="checklist-container">
+            <h3>30-Day Habit Checklist</h3>
+            <table class="checklist-table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Day 1</th>
+                        <th>Day 2</th>
+                        <th>Day 3</th>
+                        <th>Day 4</th>
+                        <th>Day 5</th>
+                        <th>...</th>
+                        <th>Day 30</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Morning Workout</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>...</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Meditation</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>...</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Read 20 Pages</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>...</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Drink 2 Liters of Water</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>...</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Write Journal</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td>...</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Habit Progress (Line Chart)</h3>
+                <canvas id="progressChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Time Spent on Habits (Bar Chart)</h3>
+                <canvas id="timeSpentChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Habit Completion Rate (Donut Chart)</h3>
+                <canvas id="completionRateChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

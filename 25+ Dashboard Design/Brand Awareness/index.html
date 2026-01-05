@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Brand Awareness Dashboard</title>
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Brand Awareness Dashboard</h1>
+        <a href="../index.html"><i class="fas fa-home home-icon"></i></i></a> <!-- Home Icon -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-brain"></i>
+                <h3>Brand Recall</h3>
+                <p>75%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Share of Voice</h3>
+                <p>45%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Brand Recognition</h3>
+                <p>85%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fab fa-twitter"></i>
+                <h3>Social Media Mentions</h3>
+                <p>12,000</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-heart"></i>
+                <h3>Brand Sentiment</h3>
+                <p>Positive</p>
+            </div>
+        </div>
+
+        <!-- Visualizations -->
+        <div class="visualizations">
+            <div class="visualization">
+                <h3>Brand Search Volume</h3>
+                <canvas id="searchVolumeChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Ad Impressions</h3>
+                <canvas id="adImpressionsChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Influencer Engagement</h3>
+                <canvas id="influencerEngagementChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Brand Reputation</h3>
+                <canvas id="brandReputationChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Marketing Reach</h3>
+                <canvas id="marketingReachChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Press Mentions</h3>
+                <canvas id="pressMentionsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2023 Tutorials Point Bangladesh
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js Library -->
+    <script src="../js/chart.js"></script>
+
+</body>
+<script src="app.js"></script>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracking and Fitness Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Health Tracking and Fitness Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Heart Rate</h3>
+                <p>72 bpm</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-running"></i>
+                <h3>Steps Taken</h3>
+                <p>8,500 Steps</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Workout Duration</h3>
+                <p>45 Minutes</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-burn"></i>
+                <h3>Calories Burned</h3>
+                <p>300 kcal</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-bed"></i>
+                <h3>Sleep Duration</h3>
+                <p>7 Hours</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-water"></i>
+                <h3>Water Intake</h3>
+                <p>2 Liters</p>
+            </div>
+        </div>
+
+        <!-- Slicers -->
+        <div class="slicer-container">
+            <label for="regionFilter">Region:</label>
+            <select id="regionFilter">
+                <option value="all">All Regions</option>
+                <option value="north">North America</option>
+                <option value="south">South America</option>
+                <option value="europe">Europe</option>
+                <option value="asia">Asia</option>
+            </select>
+
+            <label for="monthFilter">Month:</label>
+            <select id="monthFilter">
+                <option value="all">All Months</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+            </select>
+
+            <label for="categoryFilter">Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="fitness">Fitness</option>
+                <option value="nutrition">Nutrition</option>
+                <option value="sleep">Sleep</option>
+                <option value="hydration">Hydration</option>
+            </select>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Heart Rate (Line Chart)</h3>
+                <canvas id="heartRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Steps Taken by Month (Bar Chart)</h3>
+                <canvas id="stepsTakenChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Workout Duration (Donut Chart)</h3>
+                <canvas id="workoutDurationChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Additional Row for New Visualizations -->
+        <div class="additional-charts">
+            <div class="chart-container">
+                <h3>Calories Burned (Pie Chart)</h3>
+                <canvas id="caloriesBurnedChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Sleep Duration (Bar Chart)</h3>
+                <canvas id="sleepDurationChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Water Intake (Line Chart)</h3>
+                <canvas id="waterIntakeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Fitness Goals Progress (Bar Chart)</h3>
+                <canvas id="fitnessGoalsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Nutrition Intake (Pie Chart)</h3>
+                <canvas id="nutritionIntakeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Activity Level (Line Chart)</h3>
+                <canvas id="activityLevelChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

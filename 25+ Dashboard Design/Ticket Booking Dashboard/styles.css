@@ -1,0 +1,156 @@
+ /* General Styles */
+ body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #4B6CB7, #182848); /* Gradient Blue Background */
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    backdrop-filter: blur(10px); /* Frosted Glass Effect */
+    padding: 20px 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle Border */
+}
+.header h1 {
+    font-size: 28px;
+    color: #FFF; /* White Text */
+    margin: 0;
+}
+.header .home-icon {
+    color: #FFF; /* White Icon */
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.header .home-icon:hover {
+    transform: scale(1.2); /* Slightly Enlarge on Hover */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+.kpi-card {
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    backdrop-filter: blur(10px); /* Frosted Glass Effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.kpi-card i {
+    font-size: 30px;
+    color: #b0c8ff; /* Blue Icon */
+    margin-bottom: 10px;
+}
+.kpi-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #FFF; /* White Text */
+}
+.kpi-card p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #b0c8ff; /* Blue Value */
+}
+
+/* Filter Sliders */
+.filters {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    backdrop-filter: blur(10px); /* Frosted Glass Effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle Border */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.filters label {
+    font-size: 14px;
+    color: #FFF; /* White Text */
+    margin-right: 10px;
+}
+.filters select {
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle Border */
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    color: #FFF; /* White Text */
+    transition: all 0.3s ease;
+}
+.filters select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgb(75, 108, 183); /* Blue Glow */
+}
+
+/* Visualizations */
+.visualizations {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.visualization {
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    backdrop-filter: blur(10px); /* Frosted Glass Effect */
+    border: 1px solid rgba(236, 236, 236, 0.2); /* Subtle Border */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #000;
+}
+.visualization:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.visualization h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #FFF; /* White Text */
+}
+.visualization canvas {
+    max-height: 200px;
+}
+
+/* Footer */
+.footer {
+    background: rgba(255, 255, 255, 0.1); /* Transparent Background */
+    backdrop-filter: blur(10px); /* Frosted Glass Effect */
+    padding: 10px;
+    text-align: center;
+    color: #FFF; /* White Text */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Subtle Border */
+}

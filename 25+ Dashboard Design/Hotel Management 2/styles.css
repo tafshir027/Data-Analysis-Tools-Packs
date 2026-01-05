@@ -1,0 +1,178 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #121212, #1E1E1E); /* Dark Background */
+    color: #FFFFFF; /* White Text */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Enhanced Glassmorphism Effect for Dark Mode */
+.glass {
+    background: rgba(255, 255, 255, 0.05); /* Very Subtle Transparency */
+    backdrop-filter: blur(20px); /* Strong Blur for Glass Effect */
+    border-radius: 15px; /* Rounded Corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle Shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Thin Border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Stronger Shadow on Hover */
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #1A1A1A, #2A2A2A); /* Dark Gradient */
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.header h1 {
+    font-size: 28px;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Text Shadow for Depth */
+}
+.header p {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin: 0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.header .menu-icons {
+    display: flex;
+    gap: 25px;
+}
+.header .menu-icons a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 22px;
+    transition: all 0.3s ease;
+}
+.header .menu-icons a:hover {
+    color: #00ffbf; /* Gold Accent */
+    transform: scale(1.1); /* Slight Scale Effect on Hover */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 25px;
+    overflow-y: auto;
+}
+
+/* KPI Cards */
+.kpi-cards {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+}
+.kpi-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+.kpi-card i {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
+    color: #00ffbf; /* Gold Accent */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.kpi-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.kpi-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00ffbf; /* Gold Accent */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Charts */
+.chart-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.chart-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+canvas {
+    max-height: 300px;
+}
+
+/* Slicer */
+.slicer-container {
+    grid-column: span 3;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.slicer-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+.slicer-container select {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+    transition: all 0.3s ease;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+}
+.slicer-container select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    .kpi-cards {
+        grid-template-columns: 1fr;
+    }
+}

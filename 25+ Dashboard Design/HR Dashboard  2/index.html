@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard</title>
+    <script src="../js/chart.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>HR Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Employee Growth</h3>
+                <p>+10%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Total Employees</h3>
+                <p>500</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Average Tenure</h3>
+                <p>3 Years</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Attrition Rate</h3>
+                <p>5%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Average Salary</h3>
+                <p>$50K</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Retention Rate</h3>
+                <p>85%</p>
+            </div>
+        </div>
+
+        <!-- Slicers -->
+        <div class="slicer-container">
+            <label for="regionFilter">Region:</label>
+            <select id="regionFilter">
+                <option value="all">All Regions</option>
+                <option value="north">North</option>
+                <option value="south">South</option>
+                <option value="east">East</option>
+                <option value="west">West</option>
+            </select>
+
+            <label for="monthFilter">Month:</label>
+            <select id="monthFilter">
+                <option value="all">All Months</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+            </select>
+
+            <label for="categoryFilter">Department:</label>
+            <select id="categoryFilter">
+                <option value="all">All Departments</option>
+                <option value="hr">HR</option>
+                <option value="sales">Sales</option>
+                <option value="it">IT</option>
+                <option value="finance">Finance</option>
+            </select>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Employee Growth (Line Chart)</h3>
+                <canvas id="employeeGrowthChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Attrition Rate by Month (Bar Chart)</h3>
+                <canvas id="attritionRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Retention Rate (Donut Chart)</h3>
+                <canvas id="retentionRateChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Additional Row for New Visualizations -->
+        <div class="additional-charts">
+            <div class="chart-container">
+                <h3>Recruitment Funnel (Funnel Chart)</h3>
+                <canvas id="funnelChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Salary Breakdown (Waterfall Chart)</h3>
+                <canvas id="waterfallChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Performance vs Tenure (Line and Stacked Column Chart)</h3>
+                <canvas id="lineStackedColumnChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

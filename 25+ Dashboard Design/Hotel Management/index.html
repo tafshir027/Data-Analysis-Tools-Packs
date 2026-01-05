@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Hotel Management Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="#"><i class="fas fa-bed"></i></a>
+            <a href="#"><i class="fas fa-concierge-bell"></i></a>
+            <a href="#"><i class="fas fa-chart-line"></i></a>
+            <a href="#"><i class="fas fa-eye"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-bed"></i>
+                <h3>Occupancy Rate</h3>
+                <p>75%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Total Revenue</h3>
+                <p>$50,000</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Guests Checked-In</h3>
+                <p>250</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-utensils"></i>
+                <h3>Restaurant Orders</h3>
+                <p>120</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-star"></i>
+                <h3>Average Rating</h3>
+                <p>4.7/5</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-exclamation-circle"></i>
+                <h3>Issues Reported</h3>
+                <p>5</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-container">
+            <h3>Occupancy Rate (Line Chart)</h3>
+            <canvas id="occupancyChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Revenue Breakdown (Pie Chart)</h3>
+            <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Guest Satisfaction (Bar Chart)</h3>
+            <canvas id="satisfactionChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Room Types (Donut Chart)</h3>
+            <canvas id="roomTypeChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Restaurant Orders (Line Chart)</h3>
+            <canvas id="restaurantChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Issue Resolution Time (Bar Chart)</h3>
+            <canvas id="issueChart"></canvas>
+        </div>
+
+
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

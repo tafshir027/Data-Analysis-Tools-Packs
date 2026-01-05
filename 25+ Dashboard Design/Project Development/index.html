@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Development Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="../js/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+            <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Product Development Dashboard</h1>
+                <div class="subtitle">Tutorials Point Bangladesh</div>
+            </div>
+            <div class="filter">
+                <span>Filter:</span>
+                <select>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Last Year</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Product Development Cost</h3>
+                <p>$1.2M</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-flask"></i>
+                <h3>R&D Spending</h3>
+                <p>$750K</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Product Adoption Rate</h3>
+                <p>85%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Innovation Index</h3>
+                <p>92</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart">
+                <h3>Product Quality Score</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Prototype Success Rate</h3>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Customer Feedback</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Market Share Gain</h3>
+                <canvas id="donutChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            &copy; 2023 Tutorials Point Bangladesh. All rights reserved.
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

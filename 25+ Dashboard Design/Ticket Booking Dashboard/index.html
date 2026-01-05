@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket Booking Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="styles.css">
+   <style>
+       
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Bus Ticket Booking Dashboard</h1>
+        <a href="../index.html"><i class="fas fa-home home-icon"></i> </a><!-- Home Icon -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-ticket"></i>
+                <h3>Total Tickets Sold</h3>
+                <p>1,250</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Total Revenue</h3>
+                <p>$12,500</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Active Users</h3>
+                <p>500</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-bus"></i>
+                <h3>Buses in Operation</h3>
+                <p>25</p>
+            </div>
+        </div>
+
+        <!-- Filter Sliders -->
+        <div class="filters">
+            <div>
+                <label for="timeframe">Timeframe:</label>
+                <select id="timeframe">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <div>
+                <label for="route">Route:</label>
+                <select id="route">
+                    <option value="route1">Route 1</option>
+                    <option value="route2">Route 2</option>
+                    <option value="route3">Route 3</option>
+                </select>
+            </div>
+            <div>
+                <label for="bus-type">Bus Type:</label>
+                <select id="bus-type">
+                    <option value="ac">AC</option>
+                    <option value="non-ac">Non-AC</option>
+                </select>
+            </div>
+            <div>
+                <label for="payment-method">Payment Method:</label>
+                <select id="payment-method">
+                    <option value="cash">Cash</option>
+                    <option value="card">Card</option>
+                    <option value="online">Online</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Visualizations -->
+        <div class="visualizations">
+            <div class="visualization">
+                <h3>Ticket Sales Trend</h3>
+                <canvas id="ticketSalesChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Revenue Breakdown</h3>
+                <canvas id="revenueBreakdownChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>User Activity</h3>
+                <canvas id="userActivityChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Bus Utilization</h3>
+                <canvas id="busUtilizationChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Route Performance</h3>
+                <canvas id="routePerformanceChart"></canvas>
+            </div>
+            <div class="visualization">
+                <h3>Payment Methods</h3>
+                <canvas id="paymentMethodsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Tutorials Point Bangladesh
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+
+    <!-- Chart.js Library -->
+    <script src="../js/chart.js"></script>
+    <script>
+       
+    </script>
+</body>
+<script src="app.js"></script>
+</html>

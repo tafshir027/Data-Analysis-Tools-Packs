@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Performance Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Sales Performance Dashboard</h1>
+        <p>Tutorials Point Bangladesh</p>
+        <div class="menu-icons">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Revenue Growth</h3>
+                <p>+15%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-boxes"></i>
+                <h3>Sales Volume</h3>
+                <p>500 Units</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Sales per Employee</h3>
+                <p>$50K</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Sales Conversion Rate</h3>
+                <p>25%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Average Order Value</h3>
+                <p>$200</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <h3>Lead-to-Customer Ratio</h3>
+                <p>10%</p>
+            </div>
+        </div>
+
+        <!-- Slicers -->
+        <div class="slicer-container">
+            <label for="regionFilter">Region:</label>
+            <select id="regionFilter">
+                <option value="all">All Regions</option>
+                <option value="north">North</option>
+                <option value="south">South</option>
+                <option value="east">East</option>
+                <option value="west">West</option>
+            </select>
+
+            <label for="monthFilter">Month:</label>
+            <select id="monthFilter">
+                <option value="all">All Months</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+            </select>
+
+            <label for="categoryFilter">Product Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="grocery">Grocery</option>
+                <option value="home">Home</option>
+            </select>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <!-- First Row of Charts -->
+            <div class="chart-container">
+                <h3>Revenue Growth (Line Chart)</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Sales Volume by Month (Bar Chart)</h3>
+                <canvas id="salesVolumeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Sales Conversion Rate (Donut Chart)</h3>
+                <canvas id="conversionRateChart"></canvas>
+            </div>
+
+            <!-- Second Row of Charts -->
+            <div class="chart-container">
+                <h3>Customer Retention Rate (Pie Chart)</h3>
+                <canvas id="retentionRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Lead-to-Customer Ratio (Bar Chart)</h3>
+                <canvas id="leadToCustomerChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Average Order Value (Line Chart)</h3>
+                <canvas id="avgOrderValueChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      
+    </script>
+</body>
+<script src="app.js"></script>
+</html>

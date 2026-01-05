@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Digital Marketing Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Digital Marketing</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-chart-pie"></i>Analytics</a></li>
+            <li><a href="#"><i class="fas fa-users"></i>Audience</a></li>
+            <li><a href="#"><i class="fas fa-dollar-sign"></i>Ad Spend</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i>Traffic</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>© 2024 Digital Marketing</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Digital Marketing Dashboard</h1>
+            <button ><a href="../index.html">Home</a></button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-globe"></i>
+                <h3>Website Traffic</h3>
+                <p id="websiteTraffic">50,000</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Conversion Rate</h3>
+                <p id="conversionRate">5%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Cost per Click (CPC)</h3>
+                <p id="cpc">$1.25</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Cost per Acquisition (CPA)</h3>
+                <p id="cpa">$25</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-mouse-pointer"></i>
+                <h3>Click-Through Rate (CTR)</h3>
+                <p id="ctr">2.5%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-door-open"></i>
+                <h3>Bounce Rate</h3>
+                <p id="bounceRate">40%</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Website Traffic (Line Chart)</h3>
+                <canvas id="trafficChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Conversion Rate (Pie Chart)</h3>
+                <canvas id="conversionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Ad Spend vs Revenue (Bar Chart)</h3>
+                <canvas id="adSpendChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Social Media Engagement (Donut Chart)</h3>
+                <canvas id="engagementChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="slider-container">
+            <label for="dataSlider">Adjust Data:</label>
+            <input type="range" id="dataSlider" min="0" max="100" value="50">
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>

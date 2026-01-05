@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Performance Dashboard</title>
+    <script src="../js/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i></a></li>
+            <li><a href="#"><i class="fas fa-chart-pie"></i></a></li>
+            <li><a href="#"><i class="fas fa-users"></i></a></li>
+            <li><a href="#"><i class="fas fa-dollar-sign"></i></a></li>
+            <li><a href="#"><i class="fas fa-cogs"></i></a></li>
+        </ul>
+        <div class="sidebar-footer">Sales Dashboard</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Sales Performance Dashboard</h1>
+            <p>Tutorials Point Bangladesh</p>
+           
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-cards">
+            <div class="kpi-card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Revenue Growth</h3>
+                <p id="revenueGrowth">+15%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Sales Volume</h3>
+                <p id="salesVolume">500 Units</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Sales per Employee</h3>
+                <p id="salesPerEmployee">$50K</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-percentage"></i>
+                <h3>Sales Conversion Rate</h3>
+                <p id="conversionRate">25%</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Average Order Value</h3>
+                <p id="avgOrderValue">$200</p>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Lead-to-Customer Ratio</h3>
+                <p id="leadToCustomerRatio">10%</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Revenue Growth (Line Chart)</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Sales Volume by Month (Bar Chart)</h3>
+                <canvas id="salesVolumeChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Sales Funnel (Funnel Chart)</h3>
+                <canvas id="funnelChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Scatter Plot (Sales vs Marketing Spend)</h3>
+                <canvas id="scatterChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Slicer -->
+        <div class="slicer-container">
+            <label for="filter">Filter by Region:</label>
+            <select id="filter">
+                <option value="all">All Regions</option>
+                <option value="north">North</option>
+                <option value="south">South</option>
+                <option value="east">East</option>
+                <option value="west">West</option>
+            </select>
+        </div>
+    </div>
+
+
+</body>
+<script src="app.js"></script>
+</html>
